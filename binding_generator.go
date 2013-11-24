@@ -3,9 +3,9 @@ package main
 import (
 	"bufio"
 	"bytes"
-	"dlib/gi"
 	"fmt"
 	"os"
+	"github.com/snyh/gir-generator/gi"
 	"strings"
 )
 

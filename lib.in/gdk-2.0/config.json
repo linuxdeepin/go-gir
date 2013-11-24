@@ -1,0 +1,91 @@
+{
+	"namespace": "Gdk",
+	"version": "2.0",
+	"blacklist": {
+		"objects": [
+			"AppLaunchContext"
+		],
+		"functions": [
+			"add_option_entries_libgtk_only",
+			"color_alloc",
+			"color_black",
+			"color_change",
+			"color_parse",
+			"color_white",
+			"event_get",
+			"event_get_graphics_expose",
+			"event_handler_set",
+			"event_peek",
+			"event_request_motions",
+			"event_send_client_message_for_display",
+			"font_from_description",
+			"font_from_description_for_display",
+			"font_load",
+			"font_load_for_display",
+			"keyboard_grab_info_libgtk_only",
+			"input_add_full",
+			"threads_add_idle_full",
+			"threads_add_timeout_full",
+			"threads_add_timeout_seconds_full",
+			"colors_alloc",
+			"colors_free",
+			"drag_get_protocol",
+			"drag_get_protocol_for_display",
+			"draw_gray_image",
+			"draw_indexed_image",
+			"draw_rgb_32_image",
+			"draw_rgb_32_image_dithalign",
+			"draw_rgb_image",
+			"draw_rgb_image_dithalign",
+			"draw_text_wc",
+			"free_compound_text",
+			"mbstowcs",
+			"pointer_grab_info_libgtk_only",
+			"property_change",
+			"property_get",
+			"query_visual_types",
+			"selection_property_get",
+			"string_extents",
+			"string_to_compound_text",
+			"string_to_compound_text_for_display",
+			"text_extents",
+			"text_extents_wc",
+			"text_property_to_text_list",
+			"text_property_to_text_list_for_display",
+			"text_property_to_utf8_list",
+			"text_property_to_utf8_list_for_display",
+			"text_width_wc",
+			"utf8_to_compound_text",
+			"utf8_to_compound_text_for_display",
+			"wcstombs"
+		]
+	},
+	"method-blacklist": {
+		"Colormap": [
+			"alloc_colors"
+		],
+		"Device": [
+			"get_axis",
+			"get_key",
+			"get_state"
+		],
+		"Drawable": [
+			"set_data"
+		],
+		"KeyboardGrabInfo": [
+			"libgtk_only"
+		],
+		"Keymap": [
+			"add_virtual_modifiers",
+			"get_entries_for_keycode",
+			"map_virtual_modifiers"
+		],
+		"Region": [
+			"get_rectangles"
+		],
+		"Window": [
+			"get_decorations",
+			"get_deskrelative_origin"
+		]
+	}
+}

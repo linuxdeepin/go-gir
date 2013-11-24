@@ -1,0 +1,40 @@
+{
+	"namespace": "GLib",
+	"version": "2.0",
+	"whitelist": {
+		"objects": [],
+		"structs": [
+			// printer stuff in gtk uses that
+			"KeyFile",
+
+			// gio.ActionGroup interface uses that
+			"Variant",
+			"VariantType",
+
+			"PollFD"
+		],
+		"functions": [],
+		"callbacks": [
+			// callbacks depend on gobject-2.0, glib shouldn't depened on gobject-2.0
+			// "DestroyNotify"
+		]
+	},
+	"blacklist": {
+		"constants": [
+			// two constants, automatic renaming facility fails to deal with them
+			// (produces redeclaration)
+			"CSET_A_2_Z",
+			"CSET_a_2_z"
+		]
+	},
+	"method-blacklist": {
+		"Variant": [
+			"new_bytestring",
+			"new_from_bytes",
+			"get_data_as_bytes",
+
+			// cannot use notify1 (type unsafe.Pointer) as type _Ctype_GDestroyNotify in function argument
+			"new_from_data"
+		]
+	}
+}

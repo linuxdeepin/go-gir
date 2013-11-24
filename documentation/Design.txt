@@ -1,0 +1,159 @@
+       --==* GObject-introspection based bindings generator for Go *==--
+
+What's implemented and how.
+
+
+1. OBJECTS
+
+
+In Go GObject is represented as a pointer to a pointer which points to the real
+GObject owned by C. See the code:
+
+	type Object struct { ptr *C.GObject }
+	var obj *Object
+
+Or a picture:
+
+ +-----------------+   \ +----------------+   \ +------------------+
+ |   Go pointer   -|-----|   C pointer   -|-----|    C GObject     |
+ | (stack memory)  |   / | (GCed memory)  |   / | (gobject memory) |
+ +-----------------+	 +----------------+     +------------------+
+
+It's done that way, because that struct, which basically holds a chunk of
+garbage collected memory represents a reference owner of the particular
+GObject. When it is allocated, the reference count of GObject is incremented and
+when GC is about to collect that memory, reference count is decremented. That
+concludes the idea of memory management behind Go GObject representation.
+
+
+Also there is a need to mimic GObject type hierarchy and support things such as
+downcasting (casting from derived class to base class) and upcasting (casting
+from base class to derived class). It is implemented using combined approach:
+generated functions for explicit casting (up and down), interfaces and type
+embedding for implicit downcasting.
+
+1.1. Implicit downcasting.
+
+In order to achieve that, only base GObject struct has a pointer to the C
+GObject. Every derived struct embeds that base GObject struct.
+
+Every GObject struct X has a method of that form:
+
+	InheritedFromX() *C.X
+
+And when derived structs embed that struct, they also receive that method.
+Therefore it is possible to specify an interface for each of the base structs:
+
+	type ObjectLike interface {
+		InheritedFromGObject() *C.GObject
+	}
+
+Each base struct itself implements that interface and every derived struct
+implements that interface as well (because it embeds the whole chain of base
+structs). And that system is used to do implicit downcasting, every generated
+function or a method instead of taking a pointer to a GObject struct, uses a
+corresponding Like interface. See the code:
+
+	func (x *Container) Add(w WidgetLike)
+	// ...
+	var x *gtk.Container
+	var a *gtk.Button
+	var b *gtk.Entry
+	x.Add(a)
+	x.Add(b)
+
+1.2. Explicit casting.
+
+Explicit casting in both directions is implemented as a generated ToX (where X
+is the name of a concrete type) function for each of the GObject structs. See
+the code:
+
+	func ToWindow(o gobject.ObjectLike) *Window
+
+1.3. Status
+
+Implemented:
+ - GObject memory management (not optimal)
+ - Object hierarchy, upcasting, downcasting
+ - Methods
+ - Signals/Slots (gobject.Object.Connect and closure marshaling)
+ - Properties
+
+TODO:
+ - Overriding virtual methods by defining a derived type (for custom widgets)
+ - ...
+
+
+2. INTERFACES
+
+
+The major problem with interfaces, that it's not possible to use Go interfaces
+to implement GObject interfaces, because GObject interfaces may have non-virtual
+methods and in Go interfaces you can only mimic that with functions that take
+interface as a parameter, which is not very helpful. Therefore I use a hack:
+empty struct which implements all the non-virtual interface methods. Any GObject
+derived struct may embed that interface implementation without increasing the
+size of the GCed struct placeholder, but still adding necessary methods to
+it. The hacky part here is that I use a pointer to an empty struct and assuming
+that it points to some meaningful location. That kind of behaviour is not
+specified by the Go specification. But so far it works.
+
+Here is the description of a mess generated for interfaces (let's assume our
+interface is called Foo):
+
+ FooLike - Analogous to object interface for generated functions and methods.
+ Foo     - Object derived struct which represents an object which implements
+           that interface, at this point the real type of the object is unknown.
+ FooImpl - Empty struct that implements all non-virtual methods of our
+           interface.
+ ToFoo   - Function for upcasting/downcasting.
+
+Also FooImpl has a special method of that form:
+
+	ImplementsFoo() *C.Foo
+
+it serves the same purpose as similar object method - implicit downcasting.
+
+2.1. Status
+
+Implemented:
+ - Objects implementing interfaces
+ - Non-virtual methods
+
+TODO:
+ - Providing custom interfaces implementations from Go
+
+
+3. STRUCTURES
+
+
+Structures are implemented simply as byte blobs. The size should match the real
+C struct size, but gobject-introspection at the moment provides wrong size in
+some cases (no support for C bit fields). Also it is possible to override C
+structures definitions if it's necessary.
+
+Fields for struct are generated as well. If it's required to wrap the field
+before using it, the wrapper method is generated instead. Name matches. For
+example gdk.EventMotion has method `Window() *Window` for accessing its `window`
+fields. But for simple things like float64 it has fields: `X` and `Y` as an
+example.
+
+Structs memory management problem is complicated. At the moment no memory
+management is being done and in most cases structs are allocated on the stack as
+values (Go supports that, it makes sense). For many structs like TreeIter or
+TextIter it's a perfect variant, but it is possible that there are other structs
+which are dynamically allocated by gobject-based library and are in a form of
+boxed value. It is uncertain how it is possible to make a line here, between
+structs which require dynamic memory management and structs which are ok with
+stack storage.
+
+3.1. Status
+
+Implemented:
+ - Structs as byte blobs
+ - Struct methods
+ - Struct fields
+ - Struct fields accessors
+
+TODO:
+ - Make a final decision about structs memory management

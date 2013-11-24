@@ -1,0 +1,19 @@
+package atk
+
+/*
+#include "atk.gen.h"
+
+[<.g_object_ref_unref>]
+[<.g_error_free>]
+[<.g_free>]
+*/
+import "C"
+import "unsafe"
+
+import (
+	"gobject/gobject-2.0"
+)
+
+[<.go_utils>]
+
+[<.go_bindings>]

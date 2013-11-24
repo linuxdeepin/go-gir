@@ -1,0 +1,32 @@
+{
+	"namespace": "Gdk",
+	"version": "3.0",
+	"blacklist": {
+		"objects": [
+			"AppLaunchContext"
+		],
+		"functions": [
+			"add_option_entries_libgtk_only",
+			"threads_add_idle",
+			"threads_add_timeout",
+			"threads_add_timeout_seconds",
+			"pango_context_get",
+			"pango_context_get_for_screen",
+			"event_handler_set",
+			"atom_intern",
+			"atom_intern_static_string",
+			"color_parse",
+			"event_get",
+			"event_peek",
+			"event_request_motions"
+		]
+	},
+	"method-blacklist": {
+		"Keymap": [
+			"get_entries_for_keycode"
+		],
+		"Display": [
+			"get_app_launch_context"
+		]
+	}
+}

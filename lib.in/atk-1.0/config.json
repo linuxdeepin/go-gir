@@ -1,0 +1,36 @@
+{
+	"namespace": "Atk",
+	"version": "1.0",
+	"blacklist": {
+		"functions": [
+			"attribute_set_free",
+			"text_free_ranges"
+		],
+		"structs": [
+			"_RegistryClass",
+			"_Registry"
+		]
+	},
+	"method-blacklist": {
+		"Document": [
+			"get_attributes"
+		],
+		"Object": [
+			"get_attributes"
+		],
+		"StateSet": [
+			"add_states",
+			"contains_states"
+		],
+		"StreamableContent": [
+			"get_stream"
+		],
+		"Text": [
+			"get_default_attributes",
+			"get_run_attributes"
+		],
+		"Relation": [
+			"get_target"
+		]
+	}
+}

@@ -5,7 +5,7 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"dlib/gi"
+	"github.com/snyh/gir-generator/gi"
 	"strings"
 	"unsafe"
 )

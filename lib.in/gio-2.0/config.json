@@ -1,0 +1,55 @@
+{
+	"namespace": "Gio",
+	"version": "2.0",
+	"whitelist": {
+		"callbacks": [
+			"AsyncReadyCallback"
+		],
+		"functions": [],
+		"objects": [
+			"Application",
+			"Cancellable",
+			"Icon",
+			"Permission",
+			"MountOperation",
+			"MenuModel",
+			"MenuAttributeIter",
+			"MenuLinkIter",
+			"EmblemedIcon",
+			"AppLaunchContext",
+			"Emblem",
+			"Settings"
+		],
+		"structs": [
+			"ActionEntry"
+		],
+		"unions": [],
+		"interfaces": [
+			"Icon",
+			"File",
+			"AppInfo",
+			"Action",
+			"ActionGroup",
+			"AsyncResult",
+			"ActionMap"
+		]
+	},
+	"method-whitelist": {
+		"Icon": [],
+		"File": []
+	},
+	"method-blacklist": {
+		"Settings": [
+			"get_mapped",
+			"new_full",
+			"new_with_backend",
+			"new_with_backend_and_path"
+		],
+		"Cancellable": [
+			"connect"
+		],
+		"Application": [
+			"get_dbus_connection"
+		]
+	}
+}

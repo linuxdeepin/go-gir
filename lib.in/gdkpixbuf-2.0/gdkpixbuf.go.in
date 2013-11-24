@@ -1,0 +1,64 @@
+package gdkpixbuf
+
+/*
+#include "gdkpixbuf.gen.h"
+
+[<.g_object_ref_unref>]
+[<.g_error_free>]
+[<.g_free>]
+
+#cgo pkg-config: gdk-pixbuf-2.0
+*/
+import "C"
+import "unsafe"
+import "errors"
+
+// package dependencies
+import (
+	"gobject/gobject-2.0"
+	"gobject/gio-2.0"
+)
+
+[<.go_utils>]
+
+[<.go_bindings>]
+
+func (this *Pixbuf) Save(filename0, type0 string, args ...string) error {
+	if len(args) & 1 != 0 {
+		panic("the number of arguments should be even (key/value pairs)")
+	}
+
+	nkeyvalues := len(args) / 2 + 1
+
+	keys := make([]*C.char, 0, nkeyvalues)
+	values := make([]*C.char, 0, nkeyvalues)
+	for i := range args {
+		cstr := C.CString(args[i])
+		defer C.free(unsafe.Pointer(cstr))
+		if i & 1 == 0 {
+			keys = append(keys, cstr)
+		} else {
+			values = append(values, cstr)
+		}
+	}
+
+	keys = append(keys, nil)
+	values = append(values, nil)
+
+	filename1 := C.CString(filename0)
+	defer C.free(unsafe.Pointer(filename1))
+	type1 := C.CString(type0)
+	defer C.free(unsafe.Pointer(type1))
+
+	var err1 *C.GError
+
+	C.gdk_pixbuf_savev(this.InheritedFromGdkPixbuf(), filename1, type1,
+		&keys[0], &values[0], &err1)
+	var err2 error
+	if err1 != nil {
+		err2 = errors.New(C.GoString(((*_GError)(unsafe.Pointer(err1))).message))
+		C.g_error_free(err1)
+	}
+
+	return err2
+}

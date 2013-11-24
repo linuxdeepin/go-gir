@@ -139,7 +139,13 @@ const c_header = `#pragma once
 
 typedef size_t GType;
 typedef void *GVaClosureMarshal;
-unsigned int _array_length(void* _array);
+static unsigned int _array_length(void* _array)
+{
+	void** array = (void**)_array;
+	unsigned int i=0;
+	while (array && array[i] != 0) i++;
+	return i;
+}
 
 `
 
@@ -151,11 +157,4 @@ static void _c_callback_cleanup(void *userdata)
 	_[<.namespace>]_go_callback_cleanup(userdata);
 }
 
-unsigned int _array_length(void* _array)
-{
-	void** array = (void**)_array;
-	unsigned int i=0;
-	while (array && array[i] != 0) i++;
-	return i;
-}
 `)

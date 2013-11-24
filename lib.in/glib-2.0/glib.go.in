@@ -1,0 +1,12 @@
+package glib
+
+/*
+#include "glib.gen.h"
+#cgo pkg-config: glib-2.0
+*/
+import "C"
+import "unsafe"
+import "errors"
+
+[<.go_utils_no_cb>]
+[<.go_bindings>]

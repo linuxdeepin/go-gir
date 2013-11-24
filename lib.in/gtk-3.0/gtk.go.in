@@ -1,0 +1,593 @@
+package gtk
+
+/*
+#include "gtk.gen.h"
+
+[<.g_object_ref_unref>]
+[<.g_free>]
+[<.g_error_free>]
+
+#include "gtk.h"
+
+extern GtkWidget *gtk_message_dialog_new(GtkWindow*, GtkDialogFlags, GtkMessageType, GtkButtonsType, const char *msg);
+*/
+import "C"
+import "unsafe"
+import "errors"
+import "reflect"
+import "fmt"
+
+// package dependencies
+import (
+	"gobject/gdk-3.0"
+	"gobject/gdkpixbuf-2.0"
+	"gobject/gobject-2.0"
+	"gobject/gio-2.0"
+	"gobject/cairo-1.0"
+	"gobject/pango-1.0"
+	"gobject/atk-1.0"
+	"gobject/glib-2.0"
+)
+
+[<.go_utils>]
+
+[<.go_bindings>]
+
+//----------------------------------------------------------------------------
+// Custom utils
+//----------------------------------------------------------------------------
+
+func for_pairs(slice []interface{}, closure func(key, value interface{})) {
+	if len(slice) & 1 != 0 {
+		panic("the number of arguments must be even (key/value pairs)")
+	}
+
+	var key interface{}
+	for i, value := range slice {
+		if i & 1 == 0 {
+			key = value
+		} else {
+			closure(key, value)
+		}
+	}
+}
+
+func panic_if_not_type(ok bool, expected_type string, value interface{}) {
+	if !ok {
+		msg := fmt.Sprintf("expected type for argument: %s, got: %T",
+			expected_type, value)
+		panic(msg)
+	}
+}
+
+//----------------------------------------------------------------------------
+// Main
+//----------------------------------------------------------------------------
+
+func Main() {
+	gobject.FQueue.Start(100)
+	_Main()
+	gobject.FQueue.Stop()
+}
+
+//----------------------------------------------------------------------------
+// TreePath
+//----------------------------------------------------------------------------
+
+func NewTreePathFromIndices(indices ...int) *TreePath {
+	this := NewTreePath()
+	for _, i := range indices {
+		this.AppendIndex(i)
+	}
+
+	return this
+}
+
+//----------------------------------------------------------------------------
+// TreeViewColumn
+//----------------------------------------------------------------------------
+
+func NewTreeViewColumnWithAttributes(title string, renderer CellRendererLike, attrs ...interface{}) *TreeViewColumn {
+	c := NewTreeViewColumn()
+	c.SetTitle(title)
+	c.PackStart(renderer, true)
+	for_pairs(attrs, func(key, value interface{}) {
+		attr_name, ok := key.(string)
+		panic_if_not_type(ok, "string", key)
+		attr_col, ok := value.(int)
+		panic_if_not_type(ok, "int", value)
+
+		c.AddAttribute(renderer, attr_name, attr_col)
+	})
+	return c
+}
+
+//----------------------------------------------------------------------------
+// CellLayout
+//----------------------------------------------------------------------------
+
+func (this *CellLayoutImpl) SetAttributes(renderer CellRendererLike, attrs ...interface{}) {
+	this.ClearAttributes(renderer)
+	for_pairs(attrs, func(key, value interface{}) {
+		attr_name, ok := key.(string)
+		panic_if_not_type(ok, "string", key)
+		attr_col, ok := value.(int)
+		panic_if_not_type(ok, "int", value)
+
+		this.AddAttribute(renderer, attr_name, attr_col)
+	})
+}
+
+//----------------------------------------------------------------------------
+// InfoBar
+//----------------------------------------------------------------------------
+
+func NewInfoBarWithButtons(buttons ...interface{}) *InfoBar {
+	bar := NewInfoBar()
+	for_pairs(buttons, func(key, value interface{}) {
+		text, ok := key.(string)
+		panic_if_not_type(ok, "string", key)
+		response, ok := value.(ResponseType)
+		panic_if_not_type(ok, "ResponseType", value)
+		bar.AddButton(text, response)
+	})
+
+	return bar
+}
+
+func (this *InfoBar) AddButton(text string, response ResponseType) *Widget {
+	return this._AddButton(text, int(response))
+}
+
+//----------------------------------------------------------------------------
+// Dialog
+//----------------------------------------------------------------------------
+
+func NewDialogWithButtons(title string, parent *Window, flags DialogFlags, buttons ...interface{}) *Dialog {
+	dialog := NewDialog()
+
+	if title != "" {
+		dialog.SetTitle(title)
+	}
+
+	if parent != nil {
+		dialog.SetTransientFor(parent)
+	}
+
+	if flags & DialogFlagsModal != 0 {
+		dialog.SetModal(true)
+	}
+
+	if flags & DialogFlagsDestroyWithParent != 0 {
+		dialog.SetDestroyWithParent(true)
+	}
+
+	for_pairs(buttons, func(key, value interface{}) {
+		text, ok := key.(string)
+		panic_if_not_type(ok, "string", key)
+		response, ok := value.(ResponseType)
+		panic_if_not_type(ok, "ResponseType", value)
+		dialog.AddButton(text, response)
+	})
+
+	return dialog
+}
+
+func (this *Dialog) AddButton(text string, response ResponseType) *Widget {
+	return this._AddButton(text, int(response))
+}
+
+func (this *Dialog) Run() ResponseType {
+	return ResponseType(this._Run())
+}
+
+//----------------------------------------------------------------------------
+// MessageDialog
+//----------------------------------------------------------------------------
+
+func NewMessageDialog(parent0 WindowLike, flags0 DialogFlags, type0 MessageType,
+		buttons0 ButtonsType, format string, args ...interface{}) *MessageDialog {
+	var parent1 *C.GtkWindow
+	var flags1 C.GtkDialogFlags
+	var type1 C.GtkMessageType
+	var buttons1 C.GtkButtonsType
+	if parent0 != nil {
+		parent1 = parent0.InheritedFromGtkWindow()
+	}
+	flags1 = C.GtkDialogFlags(flags0)
+	type1 = C.GtkMessageType(type0)
+	buttons1 = C.GtkButtonsType(buttons0)
+	ret1 := C.gtk_message_dialog_new(parent1, flags1, type1, buttons1, nil)
+	var ret2 *MessageDialog
+	ret2 = (*MessageDialog)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
+	ret2.SetProperty("text", fmt.Sprintf(format, args...))
+	return ret2
+}
+
+func NewMessageDialogWithMarkup(parent0 WindowLike, flags0 DialogFlags, type0 MessageType,
+		buttons0 ButtonsType, format string, args ...interface{}) *MessageDialog {
+	var parent1 *C.GtkWindow
+	var flags1 C.GtkDialogFlags
+	var type1 C.GtkMessageType
+	var buttons1 C.GtkButtonsType
+	if parent0 != nil {
+		parent1 = parent0.InheritedFromGtkWindow()
+	}
+	flags1 = C.GtkDialogFlags(flags0)
+	type1 = C.GtkMessageType(type0)
+	buttons1 = C.GtkButtonsType(buttons0)
+	ret1 := C.gtk_message_dialog_new(parent1, flags1, type1, buttons1, nil)
+	var ret2 *MessageDialog
+	ret2 = (*MessageDialog)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
+	ret2.SetMarkup(fmt.Sprintf(format, args...))
+	return ret2
+}
+
+func (this *Dialog) FormatSecondaryText(format string, args ...interface{}) {
+	this.SetProperty("secondary-use-markup", false)
+	this.SetProperty("secondary-text", fmt.Sprintf(format, args...))
+}
+
+func (this *Dialog) FormatSecondaryMarkup(format string, args ...interface{}) {
+	this.SetProperty("secondary-use-markup", true)
+	this.SetProperty("secondary-text", fmt.Sprintf(format, args...))
+}
+
+//----------------------------------------------------------------------------
+// TextBuffer
+//----------------------------------------------------------------------------
+
+func (this *TextBuffer) CreateTag(tag_name string, properties ...interface{}) *TextTag {
+	tag := NewTextTag(tag_name)
+	for_pairs(properties, func(key, value interface{}) {
+		name, ok := key.(string)
+		panic_if_not_type(ok, "string", key)
+		tag.SetProperty(name, value)
+	})
+	this.GetTagTable().Add(tag)
+	return tag
+}
+
+func (this *TextBuffer) InsertWithTags(iter *TextIter, text string, length int, tags ...*TextTag) {
+	start_offset := iter.GetOffset()
+	this.Insert(iter, text, length)
+	if len(tags) == 0 {
+		return
+	}
+
+	start := this.GetIterAtOffset(start_offset)
+
+	for _, tag := range tags {
+		this.ApplyTag(tag, &start, iter)
+	}
+}
+
+func (this *TextBuffer) InsertWithTagsByName(iter *TextIter, text string, length int, tags ...string) {
+	start_offset := iter.GetOffset()
+	this.Insert(iter, text, length)
+	if len(tags) == 0 {
+		return
+	}
+
+	start := this.GetIterAtOffset(start_offset)
+
+	for _, tag := range tags {
+		this.ApplyTagByName(tag, &start, iter)
+	}
+}
+
+//----------------------------------------------------------------------------
+// TreeStore
+//----------------------------------------------------------------------------
+
+func NewTreeStore(types ...gobject.Type) *TreeStore {
+	return _NewTreeStore(types)
+}
+
+func (this *TreeStore) Append(parent *TreeIter, values ...interface{}) TreeIter {
+	iter := this._Append(parent)
+	for i, v := range values {
+		var gvalue gobject.Value
+		gvalue.Init(this.GetColumnType(i))
+		gvalue.SetGoInterface(v)
+		this.SetValue(&iter, i, &gvalue)
+		gvalue.Unset()
+	}
+	return iter
+}
+
+func (this *TreeStore) Set(iter *TreeIter, columnspecs ...interface{}) {
+	for_pairs(columnspecs, func(key, value interface{}) {
+		column, ok := key.(int)
+		panic_if_not_type(ok, "int", key)
+
+		var gvalue gobject.Value
+		gvalue.Init(this.GetColumnType(column))
+		gvalue.SetGoInterface(value)
+		this.SetValue(iter, column, &gvalue)
+		gvalue.Unset()
+	})
+}
+
+//----------------------------------------------------------------------------
+// ListStore
+//----------------------------------------------------------------------------
+
+func NewListStore(types ...gobject.Type) *ListStore {
+	return _NewListStore(types)
+}
+
+func (this *ListStore) Append(values ...interface{}) TreeIter {
+	iter := this._Append()
+	for i, v := range values {
+		var gvalue gobject.Value
+		gvalue.Init(this.GetColumnType(i))
+		gvalue.SetGoInterface(v)
+		this.SetValue(&iter, i, &gvalue)
+		gvalue.Unset()
+	}
+	return iter
+}
+
+func (this *ListStore) Set(iter *TreeIter, columnspecs ...interface{}) {
+	for_pairs(columnspecs, func(key, value interface{}) {
+		column, ok := key.(int)
+		panic_if_not_type(ok, "int", key)
+
+		var gvalue gobject.Value
+		gvalue.Init(this.GetColumnType(column))
+		gvalue.SetGoInterface(value)
+		this.SetValue(iter, column, &gvalue)
+		gvalue.Unset()
+	})
+}
+
+//----------------------------------------------------------------------------
+// TreeModelImpl
+//----------------------------------------------------------------------------
+
+func (this *TreeModelImpl) Get(iter *TreeIter, columnspecs ...interface{}) {
+	for_pairs(columnspecs, func(key, value interface{}) {
+		column, ok := key.(int)
+		panic_if_not_type(ok, "int", key)
+		gvalue := this.GetValue(iter, column)
+		gvalue.GetGoInterface(value)
+		gvalue.Unset()
+	})
+}
+
+//----------------------------------------------------------------------------
+// ActionGroup and related structs
+//----------------------------------------------------------------------------
+
+type ActionEntry struct {
+	Name string
+	StockID string
+	Label string
+	Accelerator string
+	Tooltip string
+	Callback interface{}
+}
+
+type ToggleActionEntry struct {
+	Name string
+	StockID string
+	Label string
+	Accelerator string
+	Tooltip string
+	Callback interface{}
+	IsActive bool
+}
+
+type RadioActionEntry struct {
+	Name string
+	StockID string
+	Label string
+	Accelerator string
+	Tooltip string
+	Value int
+}
+
+func (this *ActionGroup) AddActions(actions []ActionEntry) {
+	for i := range actions {
+		a := &actions[i]
+		action := NewAction(a.Name, a.Label, a.Tooltip, a.StockID)
+		if a.Callback != nil {
+			action.Connect("activate", a.Callback)
+		}
+		this.AddActionWithAccel(action, a.Accelerator)
+	}
+}
+
+func (this *ActionGroup) AddToggleActions(actions []ToggleActionEntry) {
+	for i := range actions {
+		a := &actions[i]
+		action := NewToggleAction(a.Name, a.Label, a.Tooltip, a.StockID)
+		action.SetActive(a.IsActive)
+		if a.Callback != nil {
+			action.Connect("activate", a.Callback)
+		}
+		this.AddActionWithAccel(action, a.Accelerator)
+	}
+}
+
+func (this *ActionGroup) AddRadioActions(actions []RadioActionEntry, value int, on_change interface{}) {
+	if len(actions) == 0 {
+		return
+	}
+
+	var group *C.GSList
+	var first_action *RadioAction
+
+	for i := range actions {
+		a := &actions[i]
+		action := NewRadioAction(a.Name, a.Label, a.Tooltip, a.StockID, a.Value)
+		if i == 0 {
+			first_action = action
+		}
+
+		C.gtk_radio_action_set_group(action.InheritedFromGtkRadioAction(), group)
+		group = C.gtk_radio_action_get_group(action.InheritedFromGtkRadioAction())
+
+		if a.Value == value {
+			action.SetActive(true)
+		}
+
+		this.AddActionWithAccel(action, a.Accelerator)
+	}
+
+	if on_change != nil {
+		first_action.Connect("changed", on_change)
+	}
+}
+
+//----------------------------------------------------------------------------
+// Container
+//----------------------------------------------------------------------------
+
+func (this *Container) FindChildProperty(name string) *gobject.ParamSpec {
+	cname := C.CString(name)
+	ret := C._gtk_container_find_child_property(this.InheritedFromGtkContainer(), cname)
+	C.free(unsafe.Pointer(cname))
+	return (*gobject.ParamSpec)(gobject.ParamSpecWrap(unsafe.Pointer(ret), true))
+}
+
+func (this *Container) ChildGet(child WidgetLike, props ...interface{}) {
+	for_pairs(props, func(key, value interface{}) {
+		name, ok := key.(string)
+		panic_if_not_type(ok, "string", key)
+		pspec := this.FindChildProperty(name)
+		if pspec == nil {
+			panic("Container has no property with that name: " + name)
+		}
+		var gvalue gobject.Value
+		gvalue.Init(pspec.GetValueType())
+		this.ChildGetProperty(child, name, &gvalue)
+		gvalue.GetGoInterface(value)
+		gvalue.Unset()
+	})
+}
+
+func (this *Container) ChildSet(child WidgetLike, props ...interface{}) {
+	for_pairs(props, func(key, value interface{}) {
+		name, ok := key.(string)
+		panic_if_not_type(ok, "string", key)
+		pspec := this.FindProperty(name)
+		if pspec == nil {
+			panic("Container has no property with that name: " + name)
+		}
+		var gvalue gobject.Value
+		gvalue.Init(pspec.GetValueType())
+		gvalue.SetGoInterface(value)
+		this.ChildSetProperty(child, name, &gvalue)
+		gvalue.Unset()
+	})
+}
+
+//----------------------------------------------------------------------------
+// Builder
+//----------------------------------------------------------------------------
+
+func (this *Builder) ConnectSignals(recv interface{}) {
+	t := reflect.TypeOf(recv)
+	this.ConnectSignalsFull(func(builder *Builder, object *gobject.Object, signal_name, handler_name string, connect_object *gobject.Object, flags gobject.ConnectFlags) {
+		// TODO: I'm ignoring here a lot is it ok?
+
+		meth, ok := t.MethodByName(handler_name)
+		if !ok {
+			println("could not find signal handler: '" + handler_name + "'")
+			return
+		}
+
+		object.ConnectMethod(signal_name, meth.Func.Interface(), recv)
+	})
+}
+
+//----------------------------------------------------------------------------
+// StockItem
+//----------------------------------------------------------------------------
+
+type StockItem struct {
+	StockID string
+	Label string
+	Modifier gdk.ModifierType
+	Keyval uint32
+	TranslationDomain string
+}
+
+func (this *StockItem) alloc_c(c *_CStockItem) {
+	c.StockID = _GoStringToGString(this.StockID)
+	c.Label = _GoStringToGString(this.Label)
+	c.Modifier = C.GdkModifierType(this.Modifier)
+	c.Keyval = C.uint32_t(this.Keyval)
+	c.TranslationDomain = _GoStringToGString(this.TranslationDomain)
+}
+
+type _CStockItem struct {
+	StockID *C.char
+	Label *C.char
+	Modifier C.GdkModifierType
+	Keyval C.uint32_t
+	TranslationDomain *C.char
+}
+
+func (this *_CStockItem) free() {
+	if this.StockID != nil {
+		C.free(unsafe.Pointer(this.StockID))
+	}
+	if this.Label != nil {
+		C.free(unsafe.Pointer(this.Label))
+	}
+	if this.TranslationDomain != nil {
+		C.free(unsafe.Pointer(this.TranslationDomain))
+	}
+}
+
+func StockAddItems(items []StockItem) {
+	citems := make([]_CStockItem, len(items))
+	for i, item := range items {
+		item.alloc_c(&citems[i])
+		defer citems[i].free()
+	}
+
+	first := (*C.GtkStockItem)(unsafe.Pointer(&citems[0]))
+	C.gtk_stock_add(first, C.uint32_t(len(citems)))
+}
+
+func StockLookup(stock_id string) (StockItem, bool) {
+	var stockitem StockItem
+	var cstockitem _CStockItem
+	cstock_id := _GoStringToGString(stock_id)
+	ok := C.gtk_stock_lookup(cstock_id, (*C.GtkStockItem)(unsafe.Pointer(&cstockitem))) != 0
+	C.free(unsafe.Pointer(cstock_id))
+	if !ok {
+		return stockitem, false
+	}
+
+	if cstockitem.StockID != nil {
+		stockitem.StockID = C.GoString(cstockitem.StockID)
+	}
+	if cstockitem.Label != nil {
+		stockitem.Label = C.GoString(cstockitem.Label)
+	}
+	if cstockitem.TranslationDomain != nil {
+		stockitem.TranslationDomain = C.GoString(cstockitem.TranslationDomain)
+	}
+	stockitem.Keyval = uint32(cstockitem.Keyval)
+	stockitem.Modifier = gdk.ModifierType(cstockitem.Modifier)
+
+	return stockitem, true
+}
+
+//----------------------------------------------------------------------------
+// Menu
+//----------------------------------------------------------------------------
+
+func (this *Menu) Popup(parent_menu_shell WidgetLike, parent_menu_item WidgetLike, func_ MenuPositionFunc, button int, activate_time int) {
+	this.PopupForDevice(nil, parent_menu_shell, parent_menu_item, func_, button, activate_time)
+}
+
+func (this *Menu) AttachToWidget(attach_widget0 WidgetLike) {
+	C.gtk_menu_attach_to_widget(this.InheritedFromGtkMenu(),
+		attach_widget0.InheritedFromGtkWidget(), nil)
+}

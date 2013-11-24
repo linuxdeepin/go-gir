@@ -1,0 +1,69 @@
+Why am I using the waf build system?
+
+First let's point out what were the alternatives:
+
+1. Go tool. Asks for a lots of ugly conventions, ignores the complicated world,
+pretends everything is simple. Their answer to things that go tool can't handle
+is "use something else". Good.
+
+2. Make. Too simple even to handle implicit dependencies. Windows developers
+don't like it.
+
+3. CMake. Good tool in general, but it is built around C/C++ approach to
+compilers, where one source file means one translation unit and can be compiled
+separately. Therefore it is not possible to define a custom compiler which takes
+multiple files at once. You can create custom commands and all that, but let's
+just say no.
+
+4. SCons. Known to be slow. There is no point to spend time on a system which
+will suck on large projects anyway.
+
+5. Autotools. ^_^
+
+6. ???
+
+
+
+As you can see, there are not so many things to choose from. Here are some of
+the benefits from using waf:
+
+1. Waf, despite the first impression, is a very simple tool, you need to learn
+only 5 concepts in order to use it easily: Context, ConfigSet, Task, TaskGen,
+Node. The core of the waf is very small, sure it has a complicated task
+generation and execution scheme, but you don't have to know it very well in
+order to use it. Things that matters for an end user are simple. Just look into
+the source code, read the docs.
+
+2. It's written in python, which makes it very flexible, because you can even
+hack the waf itself in order to make it a better tool for your particular
+job. Distribution model (you distribute the whole tool with your project) allows
+that and encourages that.
+
+3. Can handle practically anything I had a need for:
+
+   - Implicit dependencies: no problem, Go, C and even mix of these for CGo. You
+   can make a scanner for your tasks in python.
+
+   - Multiple files at once: no problem.
+
+   - Various very complex scenarios: build a generator, generate sources, build
+   sources. No problem.
+
+4. Despite the fact that it's written in python, waf is fast. Yes it uses
+hashes, but I believe you can hack it and force mtime usage if you want to (for
+example if you build gigabytes of assets).
+
+5. It's has a truly beautiful design internally, which allows you to make all
+kinds of crazy mixes very quickly. For example I can easily use built-in
+implicit C dependency scanner for cgo files. I don't have to write everything
+from scratch for common things like 'uselib' system, binaries, static/shared
+libraries.
+
+6. Debugging is very easy too. It matters a lot for very dynamic python-based
+(or any other dynamic lanaguge based) systems.
+
+
+
+Sure, maybe I could also say that is has certain parts that I disagree with or
+think of them as "bad decisions", but hey, time will show. At the moment waf is
+the _only_ sane choice for any more or less complicated build process.

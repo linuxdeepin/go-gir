@@ -1,7 +1,7 @@
 package main
 
 import (
-	"dlib/gi"
+	"github.com/snyh/gir-generator/gi"
 )
 
 type function_builder struct {

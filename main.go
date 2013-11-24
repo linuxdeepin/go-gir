@@ -2,13 +2,13 @@ package main
 
 import (
 	"bufio"
-	"dlib/gi"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"github.com/snyh/gir-generator/gi"
 	"strings"
 )
 
@@ -193,6 +193,7 @@ func main() {
 	out_dir := in_dir
 	if *output_dir != "" {
 		out_dir = *output_dir
+		os.MkdirAll(out_dir, 0755)
 	}
 	out_base := filepath.Join(out_dir, in_base[:len(in_base)-6])
 

@@ -1,0 +1,235 @@
+{
+	"namespace": "Gtk",
+	"version": "2.0",
+	"blacklist": {
+		"objects": [
+			"Accessible",
+			"Application",
+			"LockButton",
+			"MountOperation",
+			"NumerableIcon",
+			"PageSetup",
+			"PrintSettings",
+			"PrintContext",
+			"PrintOperation"
+		],
+		"structs": [
+			"PaperSize"
+		],
+		"callbacks": [
+			"AccelMapForeach",
+			"PageSetupDoneFunc",
+			"RcPropertyParser",
+			"CTreeGNodeFunc",
+			"ClipboardRichTextReceivedFunc",
+			"MenuPositionFunc",
+			"TextBufferDeserializeFunc",
+			"TextBufferSerializeFunc"
+		],
+		"functions": [
+			"binding_entry_add_signal_from_string",
+			"binding_entry_add_signall",
+			"binding_entry_remove",
+			"binding_entry_skip",
+			"binding_entry_clear",
+			"binding_set_find",
+			"binding_parse_binding",
+			"paper_size_get_default",
+			"paper_size_get_paper_sizes",
+			"rc_property_parse_border",
+			"rc_property_parse_color",
+			"rc_property_parse_enum",
+			"rc_property_parse_flags",
+			"rc_property_parse_requisition",
+			"stock_add",
+			"print_run_page_setup_dialog",
+			"print_run_page_setup_dialog_async",
+			"init_with_args",
+			"rc_parse_color",
+			"rc_parse_color_full",
+			"rc_parse_priority",
+			"rc_parse_state",
+			"rc_find_pixmap_in_path",
+			"stock_set_translate_func",
+			"tree_row_reference_deleted",
+			"tree_row_reference_inserted",
+			"tree_row_reference_reordered",
+			"signal_newv"
+		]
+	},
+	"method-blacklist": {
+		"ActionGroup": [
+			"add_actions_full",
+			"add_radio_actions_full",
+			"add_toggle_actions_full"
+		],
+		"AccelMap": [
+			"foreach",
+			"foreach_unfiltered",
+			"load_scanner"
+		],
+		"BindingEntry": [
+			"add_signal_from_string"
+		],
+		"Builder": [
+			"value_from_string"
+		],
+		"Buildable": [
+			"custom_tag_start"
+		],
+		"Box": [
+			"query_child_packing"
+		],
+		"CList": [
+			"get_pixtext",
+			"get_selection_info",
+			"set_row_data_full"
+		],
+		"CTree": [
+			"get_node_info",
+			"node_get_pixtext",
+			"node_set_row_data_full"
+		],
+		"ComboBox": [
+			"new_text",
+			"get_popup_accessible"
+		],
+		"ColorSelection": [
+			"get_color",
+			"set_color"
+		],
+		"IconView": [
+			"get_dest_item_at_pos",
+			"get_drag_dest_item"
+		],
+		"IconInfo": [
+			"get_attach_points"
+		],
+		"IconTheme": [
+			"get_search_path"
+		],
+		"ItemFactory": [
+			"popup_with_data"
+		],
+		"IMContextSimple": [
+			"add_table"
+		],
+		"Widget": [
+			"get_accessible"
+		],
+		"ListStore": [
+			"insert_with_valuesv",
+			"set",
+			"set_valuesv"
+		],
+		"TreeStore": [
+			"insert_with_valuesv",
+			"insert_with_values",
+			"set",
+			"set_valuesv"
+		],
+		"Menu": [
+			"popup_for_device",
+			"attach_to_widget"
+		],
+		"MenuItem": [
+			"toggle_size_request"
+		],
+		"Notebook": [
+			"query_tab_label_packing"
+		],
+		"Preview": [
+			"draw_row"
+		],
+		"SelectionData": [
+			"get_data",
+			"get_text"
+		],
+		"StatusIcon": [
+			"position_menu"
+		],
+		"TargetList": [
+			"find"
+		],
+		"TextBuffer": [
+			"register_deserialize_format",
+			"register_serialize_format"
+		],
+		"TextLayout": [
+			"get_iter_at_position",
+			"get_line_at_y",
+			"get_line_yrange",
+			"get_lines",
+			"get_size"
+		],
+		"TreeSortable": [
+			"get_sort_column_id"
+		],
+		"TreeView": [
+			"set_hadjustment",
+			"set_vadjustment",
+			"tree_to_widget_coords",
+			"widget_to_tree_coords"
+		],
+		"TreeViewColumn": [
+			"cell_get_position"
+		],
+		"TreeModel": [
+			"rows_reordered"
+		],
+		"TreePath": [
+			"get_indices"
+		],
+		"TreeRowReference": [
+			"reordered"
+		],
+		"RcProperty": [
+			"parse_border",
+			"parse_color",
+			"parse_enum",
+			"parse_flags",
+			"parse_requisition"
+		],
+		"Settings": [
+			"install_property",
+			"install_property_parser"
+		],
+		"StyleProvider": [
+			"get_style_property"
+		],
+		"Window": [
+			"get_application",
+			"set_application",
+			"get_default_size"
+		],
+		"Clipboard": [
+			"request_rich_text"
+		],
+		"Object": [
+			"set_data_by_id_full",
+			"set_data_full",
+			"weakref",
+			"weakunref"
+		]
+	},
+	"method-whitelist": {
+		"AppChooser": []
+	},
+	"renames": {
+		"Dialog.AddButton": "_AddButton",
+		"Widget.SetHexpand": "SetHExpand",
+		"Widget.SetVexpand": "SetVExpand",
+		"Widget.SetHexpandSet": "SetHExpandSet",
+		"Widget.SetVexpandSet": "SetVExpandSet",
+		"Widget.GetHexpand": "GetHExpand",
+		"Widget.GetVexpand": "GetVExpand",
+		"Widget.GetHexpandSet": "GetHExpandSet",
+		"Widget.GetVexpandSet": "GetVExpandSet",
+
+		"NewTreeStore": "_NewTreeStore",
+		"TreeStore.Append": "_Append",
+
+		"NewListStore": "_NewListStore",
+		"ListStore.Append": "_Append"
+	}
+}

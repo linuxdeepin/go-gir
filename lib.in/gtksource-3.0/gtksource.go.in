@@ -1,0 +1,28 @@
+package gtksource
+
+/*
+#include "gtksource.gen.h"
+
+[<.g_object_ref_unref>]
+[<.g_error_free>]
+[<.g_free>]
+*/
+import "C"
+import "unsafe"
+import "errors"
+
+// package dependencies
+import (
+	"gobject/gobject-2.0"
+	"gobject/gdkpixbuf-2.0"
+	"gobject/gdk-3.0"
+	"gobject/gtk-3.0"
+	"gobject/cairo-1.0"
+	"gobject/gio-2.0"
+	"gobject/atk-1.0"
+)
+
+[<.go_utils>]
+
+[<.go_bindings>]
+

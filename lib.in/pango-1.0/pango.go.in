@@ -1,0 +1,24 @@
+package pango
+
+/*
+#include "pango.gen.h"
+
+[<.g_object_ref_unref>]
+[<.g_free>]
+[<.g_error_free>]
+#cgo pkg-config: pango
+*/
+import "C"
+import "unsafe"
+import "errors"
+
+// package dependencies
+import (
+	"gobject/gobject-2.0"
+	"gobject/glib-2.0"
+)
+
+[<.go_utils>]
+
+[<.go_bindings>]
+

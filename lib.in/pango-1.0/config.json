@@ -1,0 +1,53 @@
+{
+	"namespace": "Pango",
+	"version": "1.0",
+	"method-blacklist": {
+		"AttrIterator": [
+			"range"
+		],
+		"Attribute": [
+			"init"
+		],
+		"Coverage": [
+			"to_bytes"
+		],
+		"FontFace": [
+			"list_sizes"
+		],
+		"GlyphItem": [
+			"get_logical_widths"
+		],
+		"GlyphString": [
+			"get_logical_widths",
+			"index_to_x",
+			"x_to_index"
+		],
+		"Language": [
+			"get_scripts"
+		],
+		"Layout": [
+			"get_log_attrs_readonly",
+			"move_cursor_visually"
+		],
+		"TabArray": [
+			"get_tabs"
+		]
+	},
+	"blacklist": {
+		"functions": [
+			"find_paragraph_boundary",
+			"font_description_from_string",
+			"get_mirror_char",
+			"language_from_string",
+			"language_get_default",
+			"log2vis_get_embedding_levels",
+			"parse_stretch",
+			"parse_style",
+			"parse_variant",
+			"parse_weight",
+			"read_line",
+			"scan_string",
+			"scan_word"
+		]
+	}
+}

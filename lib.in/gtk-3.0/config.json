@@ -1,0 +1,123 @@
+{
+	"namespace": "Gtk",
+	"version": "3.0",
+	"blacklist": {
+		"structs": [
+			"StockItem" // implemented manually
+		],
+		"structdefs": [
+			// implemented manually
+			"ActionEntry",
+			"RadioActionEntry",
+			"ToggleActionEntry"
+		],
+		"callbacks": [
+			"AccelMapForeach",
+			"RcPropertyParser", // uses glib.String
+
+			// mess with void* or byte[]
+			"ClipboardRichTextReceivedFunc",
+			"TextBufferDeserializeFunc",
+			"TextBufferSerializeFunc"
+		],
+		"functions": [
+			"accelerator_parse_with_keycode",
+			"binding_entry_add_signal_from_string",
+			"binding_entry_add_signall",
+			"binding_entry_remove",
+			"binding_entry_skip",
+			"binding_set_find",
+			"paper_size_get_default",
+			"paper_size_get_paper_sizes",
+			"rc_property_parse_border",
+			"rc_property_parse_color",
+			"rc_property_parse_enum",
+			"rc_property_parse_flags",
+			"rc_property_parse_requisition",
+			"print_run_page_setup_dialog",
+			"print_run_page_setup_dialog_async",
+			"init_with_args",
+			"stock_add", // implemented manually and renamed to StockAddItems (name clash)
+			"stock_lookup", // implemented manually
+			"stock_add_static", // doesn't make sense
+			"rc_parse_color",
+			"rc_parse_color_full",
+			"rc_parse_priority",
+			"rc_parse_state",
+			"rc_find_pixmap_in_path",
+			"stock_set_translate_func",
+			"tree_row_reference_deleted",
+			"tree_row_reference_inserted"
+		]
+	},
+	"method-blacklist": {
+		"AccelMap": [
+			"foreach", // broken annotation
+			"foreach_unfiltered", // broken annotation
+			"load_scanner" // uses glib.Scanner
+		],
+		"Buildable": [
+			"custom_tag_start" // uses glib.MarkupParser
+		],
+		"ListStore": [
+			"reorder", // buggy
+			"insert_with_valuesv", // to be implemented manually
+			"set" // implemented manually
+		],
+		"TreeStore": [
+			"insert_with_valuesv", // to be implemented manually
+			"insert_with_values", // to be implemented manually
+			"set" // implemented manually
+		],
+		"Menu": [
+			"attach_to_widget", // it uses callback which has no userdata
+			"popup" // implemented manually
+		],
+		"MenuItem": [
+			"toggle_size_request"
+		],
+		"TextBuffer": [
+			"register_deserialize_format",
+			"register_serialize_format"
+		],
+		"TreeView": [
+			// these two are deprecated
+			"set_hadjustment",
+			"set_vadjustment"
+		],
+		"RcProperty": [
+			"parse_border",
+			"parse_color",
+			"parse_enum",
+			"parse_flags",
+			"parse_requisition"
+		],
+		"Settings": [
+			"install_property",
+			"install_property_parser"
+		],
+		"StyleProvider": [
+			"get_style_property"
+		],
+		"Clipboard": [
+			"request_rich_text"
+		],
+		"Builder": [
+			"connect_signals" // custom implementation
+		]
+	},
+	"renames": {
+		"Main": "_Main",
+
+		"InfoBar.AddButton": "_AddButton",
+
+		"Dialog.AddButton": "_AddButton",
+		"Dialog.Run": "_Run",
+
+		"NewTreeStore": "_NewTreeStore",
+		"TreeStore.Append": "_Append",
+
+		"NewListStore": "_NewListStore",
+		"ListStore.Append": "_Append"
+	}
+}

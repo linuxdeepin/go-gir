@@ -1,0 +1,16 @@
+# -*- python -*-
+
+def build(bld):
+	for demoapp in bld.path.ant_glob('*.go', excl=['demos.go', 'main.go']):
+		bld(
+			features='go',
+			source=demoapp,
+			target=demoapp.name[:-3],
+		)
+
+	bld(
+		features='go goprogram',
+		source='main.go demos.go',
+		target='gogtk-demo',
+		install_path=None, # don't install
+	)

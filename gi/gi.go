@@ -8,6 +8,7 @@ static inline void free_string(char *p) { free(p); }
 static inline void free_gstring(gchar *p) { if (p) g_free(p); }
 static inline char *gpointer_to_charp(gpointer p) { return p; }
 static inline gchar **next_gcharptr(gchar **s) { return s+1; }
+#cgo pkg-config: gobject-introspection-1.0
 */
 import "C"
 import (

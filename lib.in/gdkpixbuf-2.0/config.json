@@ -1,0 +1,45 @@
+{
+	"namespace": "GdkPixbuf",
+	"version": "2.0",
+	"whitelist": {
+		"callbacks": []
+	},
+	"blacklist": {
+		"objects": [
+			"PixbufSimpleAnimIter"
+		],
+		"functions": [
+			"pixbuf_new_from_stream_async",
+			"pixbuf_new_from_stream_at_scale_async"
+		]
+	},
+	"method-blacklist": {
+		"Pixbuf": [
+			"gettext",
+			"new_from_data",
+			"new_from_stream",
+			"new_from_stream_at_scale",
+			"new_from_stream_async",
+			"new_from_stream_at_scale_async",
+			"new_from_stream_finish",
+			"save_to_stream_finish",
+			"new_from_inline",
+			"get_file_info",
+			"get_pixels",
+			"save_to_bufferv",
+			"save_to_callbackv",
+			"savev"
+		],
+		"PixbufAnimation": [
+			"get_iter"
+		],
+		"PixbufAnimationIter": [
+			"advance"
+		],
+		"Pixdata": [
+			"serialize",
+			"deserialize",
+			"to_csource"
+		]
+	}
+}

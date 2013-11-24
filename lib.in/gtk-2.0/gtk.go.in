@@ -1,0 +1,149 @@
+package gtk
+
+/*
+#include "gtk.gen.h"
+
+[<.g_object_ref_unref>]
+[<.g_free>]
+[<.g_error_free>]
+
+extern GtkWidget *gtk_message_dialog_new(GtkWindow*, GtkDialogFlags, GtkMessageType, GtkButtonsType, const char *msg);
+*/
+import "C"
+import "unsafe"
+import "errors"
+import "fmt"
+
+// package dependencies
+import (
+	"gobject/gdk-2.0"
+	"gobject/gdkpixbuf-2.0"
+	"gobject/gobject-2.0"
+	"gobject/gio-2.0"
+	"gobject/pango-1.0"
+	"gobject/atk-1.0"
+)
+
+[<.go_utils>]
+
+[<.go_bindings>]
+
+//----------------------------------------------------------------------------
+// Dialog
+//----------------------------------------------------------------------------
+
+func NewDialogWithButtons(title string, parent *Window, flags DialogFlags, buttons ...interface{}) *Dialog {
+	dialog := NewDialog()
+
+	if title != "" {
+		dialog.SetTitle(title)
+	}
+
+	if parent != nil {
+		dialog.SetTransientFor(parent)
+	}
+
+	if flags & DialogFlagsModal != 0 {
+		dialog.SetModal(true)
+	}
+
+	if flags & DialogFlagsDestroyWithParent != 0 {
+		dialog.SetDestroyWithParent(true)
+	}
+
+	if len(buttons) == 0 {
+		return dialog
+	}
+
+	if len(buttons) & 1 != 0 {
+		panic("the number of button specs should be even (name/response pairs)")
+	}
+
+	var ok bool
+	var text string
+	var response ResponseType
+	for i, spec := range buttons {
+		if i & 1 == 0 {
+			text, ok = spec.(string)
+			if !ok {
+				panic("non-string button text")
+			}
+		} else {
+			response, ok = spec.(ResponseType)
+			if !ok {
+				panic("non-ResponseType button response")
+			}
+			dialog._AddButton(text, int(response))
+		}
+	}
+
+	return dialog
+}
+
+func (this *Dialog) AddButton(text string, response ResponseType) *Widget {
+	return this._AddButton(text, int(response))
+}
+
+//----------------------------------------------------------------------------
+// MessageDialog
+//----------------------------------------------------------------------------
+
+func NewMessageDialogWithMarkup(parent0 WindowLike, flags0 DialogFlags, type0 MessageType,
+		buttons0 ButtonsType, format string, args ...interface{}) *MessageDialog {
+	var parent1 *C.GtkWindow
+	var flags1 C.GtkDialogFlags
+	var type1 C.GtkMessageType
+	var buttons1 C.GtkButtonsType
+	if parent0 != nil {
+		parent1 = parent0.InheritedFromGtkWindow()
+	}
+	flags1 = C.GtkDialogFlags(flags0)
+	type1 = C.GtkMessageType(type0)
+	buttons1 = C.GtkButtonsType(buttons0)
+	ret1 := C.gtk_message_dialog_new(parent1, flags1, type1, buttons1, nil)
+	var ret2 *MessageDialog
+	ret2 = (*MessageDialog)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
+	ret2.SetMarkup(fmt.Sprintf(format, args...))
+	return ret2
+}
+
+//----------------------------------------------------------------------------
+// TreeStore
+//----------------------------------------------------------------------------
+
+func NewTreeStore(types ...gobject.Type) *TreeStore {
+	return _NewTreeStore(types)
+}
+
+func (this *TreeStore) Append(parent *TreeIter, values ...interface{}) TreeIter {
+	iter := this._Append(parent)
+	for i, v := range values {
+		var gvalue gobject.Value
+		gvalue.Init(this.GetColumnType(i))
+		gvalue.SetGoInterface(v)
+		this.SetValue(&iter, i, &gvalue)
+		gvalue.Unset()
+	}
+	return iter
+}
+
+//----------------------------------------------------------------------------
+// ListStore
+//----------------------------------------------------------------------------
+
+func NewListStore(types ...gobject.Type) *ListStore {
+	return _NewListStore(types)
+}
+
+func (this *ListStore) Append(values ...interface{}) TreeIter {
+	iter := this._Append()
+	for i, v := range values {
+		var gvalue gobject.Value
+		gvalue.Init(this.GetColumnType(i))
+		gvalue.SetGoInterface(v)
+		this.SetValue(&iter, i, &gvalue)
+		gvalue.Unset()
+	}
+	return iter
+}
+

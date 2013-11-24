@@ -1,0 +1,40 @@
+{
+	"disguised-types": [
+		"gdk.Atom"
+	],
+	"word-subst": {
+		"hadjustment"	: "HAdjustment",
+		"vadjustment"	: "VAdjustment",
+		"hborder"	: "HBorder",
+		"vborder"	: "VBorder",
+		"hscroll"	: "HScroll",
+		"vscroll"	: "VScroll",
+		"halign"	: "HAlign",
+		"valign"	: "VAlign",
+		"hline"		: "HLine",
+		"vline"		: "VLine",
+		"hexpand"	: "HExpand",
+		"vexpand"	: "VExpand",
+		"uri"		: "URI",	// Uniform Resource Identifier
+		"uris"		: "URIs",
+		"id"		: "ID",		// Identity Document
+		"ids"		: "IDs",
+		"gicon"		: "GIcon",	// gio.Icon
+		"fd"		: "FD",		// File Descriptor
+		"im"		: "IM",		// Input Method
+		"mime"		: "MIME",	// Multipurpose Internet Mail Extensions
+		"rgba"		: "RGBA",
+		"rgb"		: "RGB",
+		"hsv"		: "HSV",
+		"ppd"		: "PPD",	// PostScript Printer Description
+		"dpi"		: "DPI",	// Dots Per Inch
+		"lpi"		: "LPI",	// Lines Per Inch
+		"xy"		: "XY",
+		"yrange"	: "YRange",
+		"ui"		: "UI",		// User Interface
+		"wmclass"	: "WMClass",	// Window Manager Class
+		"qclass"	: "QClass",
+		"qname"		: "QName",
+		"qregion"	: "QRegion"
+	}
+}

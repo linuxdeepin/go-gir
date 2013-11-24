@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	"dlib/gi"
+	"github.com/snyh/gir-generator/gi"
 )
 
 func cairo_go_type_for_interface(bi *gi.BaseInfo, flags type_flags) string {
