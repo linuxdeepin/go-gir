@@ -107,12 +107,16 @@ type [<.name>] struct {
 	[<.name>]Impl
 }
 
+func (*[<.name>]) GetStaticType() [<.gobjectns>]Type {
+	return [<.gobjectns>]Type(C.[<.typeinit>]())
+}
+
+
 type [<.name>]Impl struct {}
 
 func To[<.name>](objlike [<.gobjectns>]ObjectLike) *[<.name>] {
-	t := (*[<.name>]Impl)(nil).GetStaticType()
 	c := objlike.InheritedFromGObject()
-	obj := [<.gobjectns>]ObjectGrabIfType(unsafe.Pointer(c), t)
+	obj := [<.gobjectns>]ObjectGrabIfType(unsafe.Pointer(c), [<.gobjectns>]Type(C.[<.typeinit>]()))
 	if obj != nil {
 		return (*[<.name>])(obj)
 	}
@@ -124,13 +128,6 @@ func (this0 *[<.name>]Impl) Implements[<.cprefix>][<.name>]() [<.cgotype>] {
 	return ([<.cgotype>])((*[<.gobjectns>]Object)(unsafe.Pointer(obj)).C)
 }
 
-func (this0 *[<.name>]Impl) GetStaticType() [<.gobjectns>]Type {
-	return [<.gobjectns>]Type(C.[<.typeinit>]())
-}
-
-func [<.name>]GetType() [<.gobjectns>]Type {
-	return (*[<.name>]Impl)(nil).GetStaticType()
-}
 `)
 
 const c_header = `#pragma once
