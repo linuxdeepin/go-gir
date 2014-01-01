@@ -4,13 +4,13 @@
 	"whitelist": {
 		"objects": [],
 		"structs": [
-			// printer stuff in gtk uses that
+			"Bytes",
+			"TimeVal",
+			"DateTime",
+			"TimeZone",
 			"KeyFile",
-
-			// gio.ActionGroup interface uses that
 			"Variant",
 			"VariantType",
-
 			"PollFD"
 		],
 		"functions": [],
@@ -28,6 +28,10 @@
 		]
 	},
 	"method-blacklist": {
+		"Bytes": [
+			"get_data",
+			"unref_to_array"
+		],
 		"Variant": [
 			"new_bytestring",
 			"new_from_bytes",
