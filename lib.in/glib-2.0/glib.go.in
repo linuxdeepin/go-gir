@@ -2,6 +2,7 @@ package glib
 
 /*
 #include "glib.gen.h"
+extern void g_key_file_free(GKeyFile*);
 #cgo pkg-config: glib-2.0
 */
 import "C"
@@ -10,3 +11,12 @@ import "errors"
 
 [<.go_utils_no_cb>]
 [<.go_bindings>]
+
+
+
+//workaround
+func (this0 *KeyFile) Free() {
+	var this1 *C.GKeyFile
+	this1 = (*C.GKeyFile)(unsafe.Pointer(this0))
+	C.g_key_file_free(this1)
+}
