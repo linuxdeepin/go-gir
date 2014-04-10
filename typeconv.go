@@ -132,9 +132,26 @@ func go_to_cgo(ti *gi.TypeInfo, arg0, arg1 string, flags conv_flags) string {
 
 		}
 	case gi.TYPE_TAG_GLIST:
+		// convert elements
+		printf("for _, e := range %s {\n", arg0)
+
+		var conv string
+		if ti.ParamType(0).Tag() == gi.TYPE_TAG_INTERFACE {
+			conv += fmt.Sprintf("var s %s\n", cgo_type(ti.ParamType(0), type_pointer))
+		} else {
+			conv += fmt.Sprintf("var s %s\n", cgo_type(ti.ParamType(0), type_none))
+		}
+		conv += fmt.Sprintln(go_to_cgo(ti.ParamType(0), "e", "s", flags))
+		conv += fmt.Sprintf("%s = C.g_list_append(%s, unsafe.Pointer(%s))", arg1, arg1, "s")
+		printf(print_lines_with_indent(conv))
+		printf("}\n")
+		printf("defer C.g_list_free(%s)", arg1)
+
 	case gi.TYPE_TAG_GSLIST:
 	case gi.TYPE_TAG_GHASH:
 	case gi.TYPE_TAG_ERROR:
+		printf("//NOTEO: hasn't implemnt GSLIST/GHASH/GERROR convert.\n")
+
 	case gi.TYPE_TAG_INTERFACE:
 		if ti.IsPointer() {
 			flags |= conv_pointer

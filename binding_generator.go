@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"os"
 	"github.com/snyh/gir-generator/gi"
+	"os"
 	"strings"
 )
 
@@ -60,6 +60,7 @@ func (this *binding_generator) generate(go_template string) {
 
 	t := must_template(go_template)
 	t.Execute(this.out_go, map[string]interface{}{
+		"g_list_funcs":       g_list_funcs,
 		"g_object_ref_unref": g_object_ref_unref,
 		"go_utils":           go_utils(true),
 		"go_utils_no_cb":     go_utils(false),

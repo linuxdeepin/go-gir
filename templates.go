@@ -7,6 +7,11 @@ const g_error_free = `extern void g_error_free(GError*);`
 
 const g_free = `extern void g_free(void*);`
 
+const g_list_funcs = `
+GList* g_list_append(GList*, void*);
+void g_list_free(GList*);
+`
+
 var go_utils_template = must_template(`
 const alot = 999999
 

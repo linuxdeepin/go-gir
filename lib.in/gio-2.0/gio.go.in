@@ -3,6 +3,7 @@ package gio
 /*
 #include "gio.gen.h"
 
+[<.g_list_funcs>]
 [<.g_object_ref_unref>]
 [<.g_error_free>]
 [<.g_free>]
@@ -13,8 +14,8 @@ import "unsafe"
 import "errors"
 
 import (
-	"gobject/gobject-2.0"
-	"gobject/glib-2.0"
+	"dlib/gobject-2.0"
+	"dlib/glib-2.0"
 )
 
 [<.go_utils>]

@@ -53,8 +53,8 @@
 			"FileAttributeMatcher",
 			"ActionEntry",
 			"SettingsBackend",
-			"MountIface",
-			"SettingsSchema"
+			"MountIface"
+			//"SettingsSchema"
 		],
 		"interfaces": [
 			"Seekable",
@@ -226,7 +226,8 @@
 			"get_dbus_connection"
 		],
 		"Settings": [
-			"get_mapped"
+			"get_mapped",
+			"new_full"
 		]
 
 	}
