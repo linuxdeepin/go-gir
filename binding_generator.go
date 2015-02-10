@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"github.com/snyh/gir-generator/gi"
 	"os"
+	"pkg.linuxdeepin.com/gir-generator/gi"
 	"strings"
 )
 

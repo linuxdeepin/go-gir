@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/snyh/gir-generator/gi"
+	"pkg.linuxdeepin.com/gir-generator/gi"
 )
 
 type function_builder struct {

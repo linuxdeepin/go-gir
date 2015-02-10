@@ -3,7 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"github.com/snyh/gir-generator/gi"
+	"pkg.linuxdeepin.com/gir-generator/gi"
 	"strings"
 )
 
