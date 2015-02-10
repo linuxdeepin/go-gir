@@ -46,9 +46,10 @@ func go_to_cgo_for_interface(bi *gi.BaseInfo, arg0, arg1 string, flags conv_flag
 	switch bi.Type() {
 	case gi.INFO_TYPE_OBJECT:
 		prefix := gi.DefaultRepository().CPrefix(bi.Namespace())
+		ctypeName := prefix + bi.Name()
 		printf("if %s != nil {\n", arg0)
-		printf("\t%s = %s.InheritedFrom%s%s()\n",
-			arg1, arg0, prefix, bi.Name())
+		printf("\t%s = (*C.%s)(%s.InheritedFrom%s())\n",
+			arg1, ctypeName, arg0, ctypeName)
 		printf("}")
 	case gi.INFO_TYPE_ENUM, gi.INFO_TYPE_FLAGS:
 		ctype := cgo_type_for_interface(bi, type_none)

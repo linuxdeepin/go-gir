@@ -1026,7 +1026,7 @@ func (this *Object) Connect(signal string, clo interface{}) {
 	csignal := C.CString(signal)
 	Holder.Grab(clo)
 	goclosure := C.g_goclosure_new(unsafe.Pointer(&clo), nil)
-	C.g_signal_connect_closure(this.C, csignal, (*C.GClosure)(unsafe.Pointer(goclosure)), 0)
+	C.g_signal_connect_closure((*C.GObject)(this.C), csignal, (*C.GClosure)(unsafe.Pointer(goclosure)), 0)
 	C.free(unsafe.Pointer(csignal))
 }
 
@@ -1035,7 +1035,7 @@ func (this *Object) ConnectMethod(signal string, clo interface{}, recv interface
 	Holder.Grab(clo)
 	Holder.Grab(recv)
 	goclosure := C.g_goclosure_new(unsafe.Pointer(&clo), unsafe.Pointer(&recv))
-	C.g_signal_connect_closure(this.C, csignal, (*C.GClosure)(unsafe.Pointer(goclosure)), 0)
+	C.g_signal_connect_closure((*C.GObject)(this.C), csignal, (*C.GClosure)(unsafe.Pointer(goclosure)), 0)
 	C.free(unsafe.Pointer(csignal))
 
 }
