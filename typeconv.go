@@ -313,23 +313,23 @@ func cgo_to_go_for_tag(tag gi.TypeTag, arg1, arg2 string, flags conv_flags) stri
 	case gi.TYPE_TAG_BOOLEAN:
 		return fmt.Sprintf("%s = %s != 0", arg2, arg1)
 	case gi.TYPE_TAG_INT8:
-		return fmt.Sprintf("%s = int(%s)", arg2, arg1)
+		return fmt.Sprintf("%s = int8(%s)", arg2, arg1)
 	case gi.TYPE_TAG_UINT8:
-		return fmt.Sprintf("%s = int(%s)", arg2, arg1)
+		return fmt.Sprintf("%s = uint8(%s)", arg2, arg1)
 	case gi.TYPE_TAG_INT16:
-		return fmt.Sprintf("%s = int(%s)", arg2, arg1)
+		return fmt.Sprintf("%s = int16(%s)", arg2, arg1)
 	case gi.TYPE_TAG_UINT16:
-		return fmt.Sprintf("%s = int(%s)", arg2, arg1)
+		return fmt.Sprintf("%s = uint16(%s)", arg2, arg1)
 	case gi.TYPE_TAG_INT32:
-		return fmt.Sprintf("%s = int(%s)", arg2, arg1)
+		return fmt.Sprintf("%s = int32(%s)", arg2, arg1)
 	case gi.TYPE_TAG_UINT32:
-		return fmt.Sprintf("%s = int(%s)", arg2, arg1)
+		return fmt.Sprintf("%s = uint32(%s)", arg2, arg1)
 	case gi.TYPE_TAG_INT64:
 		return fmt.Sprintf("%s = int64(%s)", arg2, arg1)
 	case gi.TYPE_TAG_UINT64:
 		return fmt.Sprintf("%s = uint64(%s)", arg2, arg1)
 	case gi.TYPE_TAG_FLOAT:
-		return fmt.Sprintf("%s = float64(%s)", arg2, arg1)
+		return fmt.Sprintf("%s = float32(%s)", arg2, arg1)
 	case gi.TYPE_TAG_DOUBLE:
 		return fmt.Sprintf("%s = float64(%s)", arg2, arg1)
 	case gi.TYPE_TAG_GTYPE:
