@@ -5,7 +5,7 @@ import (
 	"bytes"
 	"fmt"
 	"os"
-	"pkg.linuxdeepin.com/gir-generator/gi"
+	"pkg.deepin.io/gir-generator/gi"
 	"strings"
 )
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	"pkg.linuxdeepin.com/gir-generator/gi"
+	"pkg.deepin.io/gir-generator/gi"
 )
 
 func cairo_go_type_for_interface(bi *gi.BaseInfo, flags type_flags) string {

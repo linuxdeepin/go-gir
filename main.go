@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"pkg.linuxdeepin.com/gir-generator/gi"
+	"pkg.deepin.io/gir-generator/gi"
 	"strings"
 )
 
