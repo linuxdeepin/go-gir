@@ -7,7 +7,6 @@ extern void g_key_file_free(GKeyFile*);
 */
 import "C"
 import "unsafe"
-import "errors"
 
 [<.go_utils_no_cb>]
 [<.go_bindings>]

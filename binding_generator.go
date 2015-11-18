@@ -970,7 +970,7 @@ func (this *binding_generator) process_function_info(fi *gi.FunctionInfo) {
 	for _, ret := range fb.rets {
 		if ret.index == -2 {
 			p("\tif err1 != nil {\n")
-			p("\t\terr2 = errors.New(C.GoString(((*_GError)(unsafe.Pointer(err1))).message))\n")
+			p("\t\terr2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()\n")
 			p("\t\tC.g_error_free(err1)\n")
 			p("\t}\n")
 			continue

@@ -408,23 +408,23 @@ func go_type_for_tag(tag gi.TypeTag, flags type_flags) string {
 		case gi.TYPE_TAG_BOOLEAN:
 			p("bool")
 		case gi.TYPE_TAG_INT8:
-			p("int")
+			p("int8")
 		case gi.TYPE_TAG_UINT8:
-			p("int")
+			p("uint8")
 		case gi.TYPE_TAG_INT16:
-			p("int")
+			p("int16")
 		case gi.TYPE_TAG_UINT16:
-			p("int")
+			p("uint16")
 		case gi.TYPE_TAG_INT32:
-			p("int")
+			p("int32")
 		case gi.TYPE_TAG_UINT32:
-			p("int")
+			p("uint32")
 		case gi.TYPE_TAG_INT64:
 			p("int64")
 		case gi.TYPE_TAG_UINT64:
 			p("uint64")
 		case gi.TYPE_TAG_FLOAT:
-			p("float64")
+			p("float32")
 		case gi.TYPE_TAG_DOUBLE:
 			p("float64")
 		case gi.TYPE_TAG_GTYPE:

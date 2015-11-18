@@ -56,7 +56,7 @@ func (this *Pixbuf) Save(filename0, type0 string, args ...string) error {
 		&keys[0], &values[0], &err1)
 	var err2 error
 	if err1 != nil {
-		err2 = errors.New(C.GoString(((*_GError)(unsafe.Pointer(err1))).message))
+		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
 		C.g_error_free(err1)
 	}
 
