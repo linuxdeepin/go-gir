@@ -60,7 +60,7 @@ func checkDesktopFile(f *KeyFile, c *C.C) {
 	{
 		l, r, err := f.GetStringList("Desktop Entry", "Keywords")
 		c.Check(err, C.Equals, nil)
-		c.Check(l, C.Equals, uint64(4))
+		c.Check(uint64(l), C.Equals, uint64(4))
 		c.Check(strings.Join(r, ";"), C.Equals, "shell;prompt;command;commandline")
 	}
 	{
@@ -76,7 +76,7 @@ func checkDesktopFile(f *KeyFile, c *C.C) {
 	{
 		l, r, err := f.GetLocaleStringList("Desktop Entry", "Keywords", "zh_CN")
 		c.Check(err, C.Equals, nil)
-		c.Check(l, C.Equals, uint64(7))
+		c.Check(uint64(l), C.Equals, uint64(7))
 		c.Check(strings.Join(r, ";"), C.Equals, "shell;prompt;command;commandline;命令;提示符;命令行")
 	}
 	{
