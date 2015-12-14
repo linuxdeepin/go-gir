@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
+	"gi"
 	"os"
-	"pkg.deepin.io/gir-generator/gi"
 	"strings"
 )
 

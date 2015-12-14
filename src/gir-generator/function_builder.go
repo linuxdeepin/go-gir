@@ -1,7 +1,7 @@
 package main
 
 import (
-	"pkg.deepin.io/gir-generator/gi"
+	"gi"
 )
 
 type function_builder struct {

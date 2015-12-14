@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"gi"
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"pkg.deepin.io/gir-generator/gi"
 	"strings"
 )
 

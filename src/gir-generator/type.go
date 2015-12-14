@@ -5,7 +5,7 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"pkg.deepin.io/gir-generator/gi"
+	"gi"
 	"strings"
 	"unsafe"
 )
