@@ -6,7 +6,7 @@ package gio
 // #cgo pkg-config: gdk-3.0
 import "C"
 import "unsafe"
-import "pkg.deepin.io/lib/gobject-2.0"
+import "gir/gobject-2.0"
 
 type GdkAppLaunchContext struct {
 	AppLaunchContext
