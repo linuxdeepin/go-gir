@@ -33,7 +33,7 @@ test: copyfile
 	cd out/src/gir/gio-2.0 && go test	
 	cd out/src/gir/glib-2.0 && go test	
 	
-install:
+install: copyfile
 	install -d  $(DESTDIR)$(PREFIX)/share/gocode/src/gir $(DESTDIR)$(PREFIX)/bin
 	cp -r  out/src/gir/*   $(DESTDIR)$(PREFIX)/share/gocode/src/gir
 	cp     out/gir-generator $(DESTDIR)$(PREFIX)/bin/
