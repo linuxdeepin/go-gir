@@ -165,6 +165,7 @@ static unsigned int _array_length(void* _array)
 
 var c_template = must_template(`
 #include "[<.package>].gen.h"
+#include "_cgo_export.h"
 
 static void _c_callback_cleanup(void *userdata)
 {
