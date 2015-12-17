@@ -1,5 +1,14 @@
 PREFIX = /usr
 
+ifndef USE_GCCGO
+	GOBUILD = go build
+else
+	LDFLAGS = $(shell pkg-config --libs gobject-introspection-1.0)
+	GOBUILD = go build -compiler gccgo -gccgoflags "${LDFLAGS}"
+endif
+
+
+
 all: build
 
 CURRENT_DIR = $(shell pwd)
@@ -11,7 +20,7 @@ build: glib-2.0 gobject-2.0 gio-2.0
 
 generator:
 	mkdir -p out/src/gir
-	cd src/gir-generator && go build -o $(CURRENT_DIR)/${GENERATOR}
+	cd src/gir-generator && ${GOBUILD}  -o $(CURRENT_DIR)/${GENERATOR}
 
 copyfile:
 	cp -r  lib.in/gobject-2.0/*   out/src/gir/gobject-2.0
