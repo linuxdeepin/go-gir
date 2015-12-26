@@ -1151,7 +1151,14 @@ func g_goclosure_marshal_go(goclosure_up, ret_up unsafe.Pointer, nargs int32, ar
 		callargs[i] = v
 	}
 
+
+	// The running thread of f need be the owner of global
+	// default main content.
+	// And g_goclosure_marshal_go is called by main loop,
+	// So we can simply make this by using runtime.LockOSThread
+	runtime.LockOSThread()
 	out := f.Call(callargs[:callargsn])
+	runtime.UnlockOSThread()
 	if len(out) == 1 {
 		ret.SetGoValue(out[0])
 	}
