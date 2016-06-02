@@ -127,7 +127,10 @@ func (this *Object) GetType() Type {
 func (this *Object) Connect(signal string, clo interface{}) {
 	csignal := C.CString(signal)
 	Holder.Grab(clo)
-	goclosure := C.g_goclosure_new(unsafe.Pointer(&clo), nil)
+	if clo == nil {
+		panic("Connect with nil")
+	}
+	goclosure := C.g_goclosure_new(toGoInterfaceHolder(clo), toGoInterfaceHolder(nil))
 	C.g_signal_connect_closure((*C.GObject)(this.C), csignal, (*C.GClosure)(unsafe.Pointer(goclosure)), 0)
 	C.free(unsafe.Pointer(csignal))
 }
@@ -136,10 +139,9 @@ func (this *Object) ConnectMethod(signal string, clo interface{}, recv interface
 	csignal := C.CString(signal)
 	Holder.Grab(clo)
 	Holder.Grab(recv)
-	goclosure := C.g_goclosure_new(unsafe.Pointer(&clo), unsafe.Pointer(&recv))
+	goclosure := C.g_goclosure_new(toGoInterfaceHolder(clo), toGoInterfaceHolder(recv))
 	C.g_signal_connect_closure((*C.GObject)(this.C), csignal, (*C.GClosure)(unsafe.Pointer(goclosure)), 0)
 	C.free(unsafe.Pointer(csignal))
-
 }
 
 func (this *Object) FindProperty(name string) *ParamSpec {
@@ -205,8 +207,8 @@ func (this *Object) Unref() {
 //export g_goclosure_finalize_go
 func g_goclosure_finalize_go(goclosure_up unsafe.Pointer) {
 	goclosure := (*C.GGoClosure)(goclosure_up)
-	clo := *(*interface{})(C.g_goclosure_get_func(goclosure))
-	recv := *(*interface{})(C.g_goclosure_get_recv(goclosure))
+	clo := fromGoInterfaceHolder(C.g_goclosure_get_func(goclosure))
+	recv := fromGoInterfaceHolder(C.g_goclosure_get_recv(goclosure))
 	Holder.Release(clo)
 	Holder.Release(recv)
 }
@@ -218,11 +220,11 @@ func g_goclosure_marshal_go(goclosure_up, ret_up unsafe.Pointer, nargs int32, ar
 	goclosure := (*C.GGoClosure)(goclosure_up)
 	ret := (*Value)(ret_up)
 	args := (*(*[alot]Value)(args_up))[:nargs]
-	f := reflect.ValueOf(*(*interface{})(C.g_goclosure_get_func(goclosure)))
+	f := reflect.ValueOf(fromGoInterfaceHolder(C.g_goclosure_get_func(goclosure)))
 	ft := f.Type()
 	callargsn := ft.NumIn()
 
-	recvi := *(*interface{})(C.g_goclosure_get_recv(goclosure))
+	recvi := fromGoInterfaceHolder(C.g_goclosure_get_recv(goclosure))
 	if recvi != nil {
 		recv = reflect.ValueOf(recvi)
 	}

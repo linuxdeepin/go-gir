@@ -5,8 +5,8 @@
 
 struct _GGoClosure {
 	GClosure closure;
-	void *func[2];
-	void *recv[2];
+	GoInterfaceHolder func;
+	GoInterfaceHolder recv;
 };
 
 GType _g_param_spec_type(GParamSpec *pspec) {
@@ -111,19 +111,16 @@ static void g_goclosure_marshal(GClosure *closure, GValue *return_value,
 			       (GValue*)param_values);
 }
 
-GGoClosure *g_goclosure_new(void *func, void *recv)
+GGoClosure *g_goclosure_new(GoInterfaceHolder func, GoInterfaceHolder recv)
 {
 	GClosure *closure;
 	GGoClosure *goclosure;
 
 	closure = g_closure_new_simple(sizeof(GGoClosure), 0);
 	goclosure = (GGoClosure*)closure;
-	memset(goclosure->func, 0, sizeof(void*)*2);
-	memset(goclosure->recv, 0, sizeof(void*)*2);
-	if (func)
-		memcpy(goclosure->func, func, sizeof(void*)*2);
-	if (recv)
-		memcpy(goclosure->recv, recv, sizeof(void*)*2);
+
+	goclosure->func = func;
+	goclosure->recv = recv;
 
 	g_closure_add_finalize_notifier(closure, 0, g_goclosure_finalize);
 	g_closure_set_marshal(closure, g_goclosure_marshal);
@@ -131,11 +128,11 @@ GGoClosure *g_goclosure_new(void *func, void *recv)
 	return goclosure;
 }
 
-void *g_goclosure_get_func(GGoClosure *clo) {
+GoInterfaceHolder g_goclosure_get_func(GGoClosure *clo) {
 	return clo->func;
 }
 
-void *g_goclosure_get_recv(GGoClosure *clo) {
+GoInterfaceHolder g_goclosure_get_recv(GGoClosure *clo) {
 	return clo->recv;
 }
 

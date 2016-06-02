@@ -28,7 +28,21 @@ import "C"
 type holder_key [2]unsafe.Pointer
 type holder_type map[holder_key]int
 
+func init() {
+	var i interface{} = 0
+	if unsafe.Sizeof(i) != unsafe.Sizeof(holder_key{}) || unsafe.Sizeof(i) != unsafe.Sizeof(C.GoInterfaceHolder{}) {
+		panic("The Go gir world be damaged because interface{} implement changed. :(")
+	}
+}
+
 var Holder = holder_type(make(map[holder_key]int))
+
+func toGoInterfaceHolder(x interface{}) C.GoInterfaceHolder {
+	return *(*C.GoInterfaceHolder)(unsafe.Pointer(&x))
+}
+func fromGoInterfaceHolder(x C.GoInterfaceHolder) interface{} {
+	return *(*interface{})(unsafe.Pointer(&x))
+}
 
 func (this holder_type) Grab(x interface{}) {
 	if x == nil {

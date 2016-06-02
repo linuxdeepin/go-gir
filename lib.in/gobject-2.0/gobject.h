@@ -1,5 +1,7 @@
 #pragma once
 
+typedef struct _CGoInterface { uint8_t  _data[16]; } GoInterfaceHolder;
+
 typedef struct _GGoClosure GGoClosure;
 
 GType _g_param_spec_type(GParamSpec *pspec);
@@ -55,6 +57,6 @@ GType _g_type_param_variant();
 GParamSpec *_g_object_find_property(GObject *object, const char *name);
 
 // null recv is allowed
-GGoClosure *g_goclosure_new(void *func, void *recv);
-void *g_goclosure_get_func(GGoClosure *clo);
-void *g_goclosure_get_recv(GGoClosure *clo);
+GGoClosure *g_goclosure_new(GoInterfaceHolder func, GoInterfaceHolder recv);
+GoInterfaceHolder g_goclosure_get_func(GGoClosure *clo);
+GoInterfaceHolder g_goclosure_get_recv(GGoClosure *clo);
