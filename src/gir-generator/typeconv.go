@@ -31,6 +31,32 @@ const (
 	conv_own_everything
 )
 
+func (v conv_flags) String() string {
+	var r = ""
+
+	if v&conv_pointer != 0 {
+		r += " conv_pointer"
+	}
+	if v&conv_list_member != 0 {
+		r += " conv_list_member"
+	}
+	if v&conv_own_none != 0 {
+		r += " conv_own_none"
+	}
+	if v&conv_own_container != 0 {
+		r += " conv_own_container"
+	}
+	if v&conv_own_everything != 0 {
+		r += " conv_own_everything"
+	}
+
+	if r == "" {
+		return "conv_none"
+	}
+
+	return r
+}
+
 func ownership_to_conv_flags(t gi.Transfer) conv_flags {
 	switch t {
 	case gi.TRANSFER_NOTHING:
