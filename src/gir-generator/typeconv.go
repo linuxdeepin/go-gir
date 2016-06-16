@@ -156,10 +156,9 @@ func go_to_cgo(ti *gi.TypeInfo, arg0, arg1 string, flags conv_flags) string {
 		printf("}\n")
 		printf("defer C.g_list_free(%s)", arg1)
 
-	case gi.TYPE_TAG_GSLIST:
-	case gi.TYPE_TAG_GHASH:
-	case gi.TYPE_TAG_ERROR:
-		printf("//NOTEO: hasn't implemnt GSLIST/GHASH/GERROR convert.\n")
+	case gi.TYPE_TAG_GSLIST, gi.TYPE_TAG_GHASH, gi.TYPE_TAG_ERROR:
+		//printf("//NOTE: It hasn't implemnt converting the type of %v from go to cgo.\n", tag)
+		panic(fmt.Sprintf("It hasn't implemnt converting the type of %v from go to cgo.", tag))
 
 	case gi.TYPE_TAG_INTERFACE:
 		if ti.IsPointer() {
@@ -296,6 +295,7 @@ func cgo_to_go(ti *gi.TypeInfo, arg1, arg2 string, flags conv_flags) string {
 		printf("\t%s = append(%s, elt)\n", arg2, arg2)
 		printf("}")
 	case gi.TYPE_TAG_GHASH:
+		panic("NotImplement")
 	case gi.TYPE_TAG_ERROR:
 		printf("if %s != nil {\n", arg1)
 		printf("\t%s = ((*_GError)(unsafe.Pointer(%s))).ToGError()\n", arg2, arg1)

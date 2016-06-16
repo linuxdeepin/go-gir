@@ -1,58 +1,61 @@
 {
-	"namespace": "GLib",
-	"version": "2.0",
-	"whitelist": {
-		"objects": [],
-		"structs": [
-			"Bytes",
-			"TimeVal",
-			"DateTime",
-			"TimeZone",
-			"KeyFile",
-			"Variant",
-			"VariantType",
-			"PollFD"
-		],
-		"functions": [
-			"get_user_cache_dir",
-			"get_user_config_dir",
-			"get_user_data_dir",
-			"get_user_runtime_dir",
-			"get_user_special_dir",
+    "namespace": "GLib",
+    "version": "2.0",
+    "whitelist": {
+	"objects": [],
+	"structs": [
+	    "Bytes",
+	    "TimeVal",
+	    "DateTime",
+	    "TimeZone",
+	    "KeyFile",
+	    "Variant",
+	    "VariantType",
+	    "PollFD"
+	],
+	"functions": [
+	    "get_user_cache_dir",
+	    "get_user_config_dir",
+	    "get_user_data_dir",
+	    "get_user_runtime_dir",
+	    "get_user_special_dir",
 
-			"get_system_data_dirs",
-			"get_system_config_dirs",
+	    "get_system_data_dirs",
+	    "get_system_config_dirs",
 
-			"get_current_dir",
-			"get_home_dir",
+	    "get_current_dir",
+	    "get_home_dir",
 
-			"get_tmp_dir"
-		],
-		"callbacks": [
-			// callbacks depend on gobject-2.0, glib shouldn't depened on gobject-2.0
-			// "DestroyNotify"
-		]
-	},
-	"blacklist": {
-		"constants": [
-			// two constants, automatic renaming facility fails to deal with them
-			// (produces redeclaration)
-			"CSET_A_2_Z",
-			"CSET_a_2_z"
-		]
-	},
-	"method-blacklist": {
-		"Bytes": [
-			"get_data",
-			"unref_to_array"
-		],
-		"Variant": [
-			"new_bytestring",
-			"new_from_bytes",
-			"get_data_as_bytes",
+	    "get_tmp_dir"
+	],
+	"callbacks": [
+	    // callbacks depend on gobject-2.0, glib shouldn't depened on gobject-2.0
+	    // "DestroyNotify"
+	]
+    },
+    "blacklist": {
+	"constants": [
+	    // two constants, automatic renaming facility fails to deal with them
+	    // (produces redeclaration)
+	    "CSET_A_2_Z",
+	    "CSET_a_2_z"
+	]
+    },
+    "method-blacklist": {
+	"Bytes": [
+	    "get_data",
+	    "unref_to_array"
+	],
+	"Variant": [
+	    // hasn't implement error to GError converting
+	    "parse_error_print_context",
 
-			// cannot use notify1 (type unsafe.Pointer) as type _Ctype_GDestroyNotify in function argument
-			"new_from_data"
-		]
-	}
+	    "new_bytestring",
+	    "new_from_bytes",
+	    "get_data_as_bytes",
+
+	    // cannot use notify1 (type unsafe.Pointer) as type _Ctype_GDestroyNotify in function argument
+	    "new_from_data"
+	]
+    }
 }
