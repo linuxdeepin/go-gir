@@ -15,7 +15,7 @@ func RSSinMB() int64 {
 
 func TestFunc() {
 	gio.AppInfoGetAll()
-	//TODO: fix memory leak of DesktopAppInfoSearch("d")
+	gio.DesktopAppInfoSearch("d")
 }
 
 func main() {

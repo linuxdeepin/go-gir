@@ -554,7 +554,7 @@ func (this *binding_generator) process_struct_info(si *gi.StructInfo) {
 				name, lower_case_to_camel_case(nm), gotype)
 			p("\tvar %s1 %s\n", nm, gotype)
 			conv := cgo_to_go(ft, "this0."+nm+"0", nm+"1",
-				conv_own_none)
+				conv_own_none, 0)
 			p("%s", print_lines_with_indent(conv))
 			p("\treturn %s1\n", nm)
 			p("}\n")
@@ -993,12 +993,13 @@ func (this *binding_generator) process_function_info(fi *gi.FunctionInfo) {
 
 		// array length
 		if len := ret.type_info.ArrayLength(); len != -1 {
+			// TODO: move this to cgo_to_go
 			lenarg := fb.orig_args[len]
 			p("\t%s2 = make(%s, %s)\n",
 				nm, go_type(ret.type_info, type_return),
 				lenarg.Name()+"1")
 		} else if ret.type_info.IsZeroTerminated() {
-			p("\t%s2 = make(%s, uint(C._array_length(unsafe.Pointer(%s1))))\n", nm, go_type(ret.type_info, type_return), nm)
+			//p("\t%s2 = make(%s, uint(C._array_length(unsafe.Pointer(%s1))))\n", nm, go_type(ret.type_info, type_return), nm)
 		}
 
 		var ownership gi.Transfer
@@ -1020,7 +1021,7 @@ func (this *binding_generator) process_function_info(fi *gi.FunctionInfo) {
 				conv_pointer|ownership_to_conv_flags(ownership))
 		} else {
 			conv = cgo_to_go(ret.type_info, nm+"1", nm+"2",
-				ownership_to_conv_flags(ownership))
+				ownership_to_conv_flags(ownership), 0)
 		}
 		p("%s", print_lines_with_indent(conv))
 	}

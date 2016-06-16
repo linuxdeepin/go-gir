@@ -274,7 +274,7 @@ func cgo_to_go_for_interface(bi *gi.BaseInfo, arg1, arg2 string, flags conv_flag
 	return out.String()
 }
 
-func cgo_to_go(ti *gi.TypeInfo, arg1, arg2 string, flags conv_flags) string {
+func cgo_to_go(ti *gi.TypeInfo, arg1, arg2 string, flags conv_flags, depth int) string {
 	var out bytes.Buffer
 	printf := printer_to(&out)
 
@@ -293,11 +293,21 @@ func cgo_to_go(ti *gi.TypeInfo, arg1, arg2 string, flags conv_flags) string {
 	case gi.TYPE_TAG_ARRAY:
 		switch ti.ArrayType() {
 		case gi.ARRAY_TYPE_C:
+			index := fmt.Sprintf("[i%d]", depth)
+			if ti.IsZeroTerminated() {
+				printf("%s = make(%s, C._array_length(unsafe.Pointer(%s)))\n",
+					arg2, go_type(ti, type_return), arg1)
+			}
+
+			elementTi := ti.ParamType(0)
+
 			// array was allocated already at this point
-			printf("for i := range %s {\n", arg2)
-			array := cgo_array_to_go_array(ti.ParamType(0), arg1)
+			printf("for i%d := range %s {\n", depth, arg2)
+
+			array := cgo_array_to_go_array(elementTi, arg1)
+
 			conv := cgo_to_go(ti.ParamType(0),
-				array+"[i]", arg2+"[i]", flags)
+				array+index, arg2+index, flags, depth+1)
 			printf(print_lines_with_indent(conv))
 			printf("}")
 
@@ -313,7 +323,7 @@ func cgo_to_go(ti *gi.TypeInfo, arg1, arg2 string, flags conv_flags) string {
 		elt := fmt.Sprintf("(%s)(iter.data)",
 			force_pointer(cgo_type(ptype, type_return|type_list_member)))
 		printf("\tvar elt %s\n", go_type(ptype, type_return|type_list_member))
-		conv := cgo_to_go(ptype, elt, "elt", flags|conv_list_member)
+		conv := cgo_to_go(ptype, elt, "elt", flags|conv_list_member, depth+1)
 		printf(print_lines_with_indent(conv))
 		printf("\t%s = append(%s, elt)\n", arg2, arg2)
 		printf("}")
@@ -326,7 +336,7 @@ func cgo_to_go(ti *gi.TypeInfo, arg1, arg2 string, flags conv_flags) string {
 		elt := fmt.Sprintf("(%s)(iter.data)",
 			force_pointer(cgo_type(ptype, type_return|type_list_member)))
 		printf("\tvar elt %s\n", go_type(ptype, type_return|type_list_member))
-		conv := cgo_to_go(ptype, elt, "elt", flags|conv_list_member)
+		conv := cgo_to_go(ptype, elt, "elt", flags|conv_list_member, depth+1)
 		printf(print_lines_with_indent(conv))
 		printf("\t%s = append(%s, elt)\n", arg2, arg2)
 		printf("}")
@@ -396,5 +406,5 @@ func cgo_to_go_for_tag(tag gi.TypeTag, arg1, arg2 string, flags conv_flags) stri
 func simple_cgo_to_go(ti *gi.TypeInfo, arg0, arg1 string, flags conv_flags) string {
 	cgotype := cgo_type(ti, type_none)
 	arg0 = fmt.Sprintf("(%s)(%s)", cgotype, arg0)
-	return cgo_to_go(ti, arg0, arg1, flags)
+	return cgo_to_go(ti, arg0, arg1, flags, 0)
 }
