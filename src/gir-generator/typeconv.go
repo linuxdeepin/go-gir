@@ -138,7 +138,8 @@ func go_to_cgo(ti *gi.TypeInfo, arg0, arg1 string, flags conv_flags) string {
 			if ti.IsZeroTerminated() {
 				printf("\n%s[len(%s)] = nil", array, arg0)
 			}
-
+		case gi.ARRAY_TYPE_ARRAY, gi.ARRAY_TYPE_PTR_ARRAY, gi.ARRAY_TYPE_BYTE_ARRAY:
+			panic("Not implement")
 		}
 	case gi.TYPE_TAG_GLIST:
 		// convert elements
@@ -273,6 +274,12 @@ func cgo_to_go(ti *gi.TypeInfo, arg1, arg2 string, flags conv_flags) string {
 				array+"[i]", arg2+"[i]", flags)
 			printf(print_lines_with_indent(conv))
 			printf("}")
+
+			if flags&conv_own_container != 0 || flags&conv_own_everything != 0 {
+				printf("\nC.g_free(unsafe.Pointer(%s))", arg1)
+			}
+		case gi.ARRAY_TYPE_ARRAY, gi.ARRAY_TYPE_PTR_ARRAY, gi.ARRAY_TYPE_BYTE_ARRAY:
+			panic("Not implement")
 		}
 	case gi.TYPE_TAG_GLIST:
 		ptype := ti.ParamType(0)
@@ -284,6 +291,9 @@ func cgo_to_go(ti *gi.TypeInfo, arg1, arg2 string, flags conv_flags) string {
 		printf(print_lines_with_indent(conv))
 		printf("\t%s = append(%s, elt)\n", arg2, arg2)
 		printf("}")
+		if flags&conv_own_container != 0 || flags&conv_own_everything != 0 {
+			printf("\nC.g_list_free(%s)", arg1)
+		}
 	case gi.TYPE_TAG_GSLIST:
 		ptype := ti.ParamType(0)
 		printf("for iter := (*_GSList)(unsafe.Pointer(%s)); iter != nil; iter = iter.next {\n", arg1)
@@ -294,18 +304,18 @@ func cgo_to_go(ti *gi.TypeInfo, arg1, arg2 string, flags conv_flags) string {
 		printf(print_lines_with_indent(conv))
 		printf("\t%s = append(%s, elt)\n", arg2, arg2)
 		printf("}")
+		if flags&conv_own_container != 0 || flags&conv_own_everything != 0 {
+			printf("\nC.g_slist_free(%s)", arg1)
+		}
 	case gi.TYPE_TAG_GHASH:
 		panic("NotImplement")
-	case gi.TYPE_TAG_ERROR:
-		printf("if %s != nil {\n", arg1)
-		printf("\t%s = ((*_GError)(unsafe.Pointer(%s))).ToGError()\n", arg2, arg1)
-		printf("\tC.g_error_free(%s)\n", arg1)
-		printf("}\n")
+
 	case gi.TYPE_TAG_INTERFACE:
 		if ti.IsPointer() {
 			flags |= conv_pointer
 		}
 		printf(cgo_to_go_for_interface(ti.Interface(), arg1, arg2, flags))
+
 	default:
 		if ti.IsPointer() {
 			flags |= conv_pointer
