@@ -1,0 +1,19 @@
+package gudev
+
+/*
+#include "gudev.gen.h"
+
+[<.g_list_funcs>]
+
+#cgo pkg-config: gudev-1.0
+*/
+import "C"
+import "unsafe"
+
+import (
+    "gir/gobject-2.0"
+)
+
+[<.go_utils_no_cb>]
+
+[<.go_bindings>]
