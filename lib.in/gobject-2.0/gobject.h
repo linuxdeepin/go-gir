@@ -1,6 +1,7 @@
 #pragma once
 
-typedef struct _CGoInterface { uint8_t  _data[16]; } GoInterfaceHolder;
+
+typedef struct _CGoInterface { uint8_t  _data[2*sizeof(void*)]; } GoInterfaceHolder;
 
 typedef struct _GGoClosure GGoClosure;
 
