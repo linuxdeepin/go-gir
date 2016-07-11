@@ -7,10 +7,10 @@ import "syscall"
 import "fmt"
 import "os"
 
-func RSSinMB() int64 {
+func RSSinMB() int {
 	var r syscall.Rusage
 	syscall.Getrusage(syscall.RUSAGE_SELF, &r)
-	return r.Maxrss / int64(1024)
+	return int(r.Maxrss) / 1024
 }
 
 func TestFunc() {
