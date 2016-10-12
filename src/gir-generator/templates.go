@@ -149,8 +149,8 @@ func To[<.name>](objlike [<.gobjectns>]ObjectLike) *[<.name>] {
 }
 
 func (this0 *[<.name>]Impl) Implements[<.cprefix>][<.name>]() [<.cgotype>] {
-	obj := uintptr(unsafe.Pointer(this0)) - unsafe.Sizeof(uintptr(0))
-	return ([<.cgotype>])((*[<.gobjectns>]Object)(unsafe.Pointer(obj)).C)
+	base := unsafe.Pointer(uintptr(unsafe.Pointer(this0)) - unsafe.Sizeof(uintptr(0)))
+	return ([<.cgotype>])((*[<.gobjectns>]Object)(base).C)
 }
 
 `)
