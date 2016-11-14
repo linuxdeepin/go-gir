@@ -1,0 +1,71 @@
+go-gir-generator (0.9.5-1) stable; urgency=low
+
+  * Autobuild Tag 0.9.5 
+
+ -- TagBuilder <tagbuilder@deepin.com>  Wed, 03 Aug 2016 08:54:04 +0000
+
+go-gir-generator (0.9.4-1) stable; urgency=low
+
+  * Autobuild Tag 0.9.4 
+
+ -- TagBuilder <tagbuilder@deepin.com>  Sat, 09 Jul 2016 00:40:37 +0000
+
+go-gir-generator (0.9.3-1) stable; urgency=low
+
+  * Autobuild Tag 0.9.3 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 23 May 2016 09:20:44 +0000
+
+go-gir-generator (0.9.2-6) stable; urgency=low
+
+  * Rebuild Version 0.9.2 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Thu, 21 Apr 2016 15:54:09 +0000
+
+go-gir-generator (0.9.2-5) stable; urgency=low
+
+  * Rebuild Version 0.9.2 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 22 Feb 2016 09:20:37 +0000
+
+go-gir-generator (0.9.2-4) stable; urgency=low
+
+  * Rebuild Version 0.9.2 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 25 Jan 2016 17:16:12 +0000
+
+go-gir-generator (0.9.2-3) stable; urgency=low
+
+  * Rebuild Version 0.9.2 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 25 Jan 2016 16:36:37 +0000
+
+go-gir-generator (0.9.2-2) stable; urgency=low
+
+  * Rebuild Version 0.9.2 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 25 Jan 2016 16:21:09 +0000
+
+go-gir-generator (0.9.2-1) stable; urgency=low
+
+  * Autobuild Tag 0.9.2 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Tue, 29 Dec 2015 21:00:07 +0000
+
+go-gir-generator (0.9.1-1) stable; urgency=low
+
+  * Autobuild Tag 0.9.1 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Fri, 18 Dec 2015 17:50:47 +0000
+
+go-gir-generator (0.9.0-1) stable; urgency=low
+
+  * Autobuild Tag 0.9.0 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Fri, 18 Dec 2015 16:53:49 +0000
+
+go-gir-generator (0.0.1) unstable; urgency=low
+
+  * Initial release 
+
+ -- Deepin Packages Builder <packages@linuxdeepin.com>  Mon, 30 Nov 2015 11:02:47 +0800
