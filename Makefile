@@ -2,9 +2,13 @@ PREFIX = /usr
 
 ifndef USE_GCCGO
 	GOBUILD = go build
+	GOTEST = go build
+	GORUN = go run
 else
-	LDFLAGS = $(shell pkg-config --libs gobject-introspection-1.0)
+	LDFLAGS = $(shell pkg-config --libs gobject-introspection-1.0 gio-2.0 gudev-1.0 gdk-3.0)
 	GOBUILD = go build -compiler gccgo -gccgoflags "${LDFLAGS}"
+	GOTEST = go test -compiler gccgo -gccgoflags "${LDFLAGS}"
+	GORUN = go run -compiler gccgo -gccgoflags "${LDFLAGS}"
 endif
 
 
@@ -41,12 +45,12 @@ gudev-1.0: lib.in/gudev-1.0/gudev.go.in lib.in/gudev-1.0/config.json generator
 	${GENERATOR} -o out/src/gir/$@ $<
 
 test: copyfile glib-2.0 gobject-2.0 gio-2.0 gudev-1.0
-	cd out/src/gir/gobject-2.0 && go test
-	cd out/src/gir/gio-2.0 && go test
-	cd out/src/gir/glib-2.0 && go test
-	cd out/src/gir/gudev-1.0 && go test
+	cd out/src/gir/gobject-2.0 && ${GOTEST}
+	cd out/src/gir/gio-2.0 && ${GOTEST}
+	cd out/src/gir/glib-2.0 && ${GOTEST}
+	cd out/src/gir/gudev-1.0 && ${GOTEST}
 	@echo "Memory Testing"
-	GOPATH=`pwd`/out go run test/memory.go
+	GOPATH=`pwd`/out ${GORUN} test/memory.go
 
 install: copyfile
 	install -d  $(DESTDIR)$(PREFIX)/share/gocode/src/gir $(DESTDIR)$(PREFIX)/bin

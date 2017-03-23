@@ -25,7 +25,7 @@ func main() {
 	})
 	for {
 		TestFunc()
-		if RSSinMB() > 50 {
+		if RSSinMB() > 60 {
 			fmt.Println("V:", RSSinMB())
 			panic("RSS beyond 50MB, detect a memory leak!")
 		}
