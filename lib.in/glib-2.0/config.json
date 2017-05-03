@@ -43,7 +43,6 @@
     },
     "method-blacklist": {
 	"Bytes": [
-	    "get_data",
 	    "unref_to_array"
 	],
 	"Variant": [
