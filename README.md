@@ -36,7 +36,7 @@ and the orignal author [nsf](https://github.com/nsf/gogobject).
 Install prerequisites
 
 ```
-$ apt-get install libgirepository1.0-dev
+$ apt-get install libgirepository1.0-dev libgudev-1.0-dev
 $ make install
 ```
 
