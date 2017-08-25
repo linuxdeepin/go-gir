@@ -36,6 +36,7 @@ func init() {
 }
 
 var Holder = holder_type(make(map[holder_key]int))
+var holderLocker sync.Mutex
 
 func toGoInterfaceHolder(x interface{}) C.GoInterfaceHolder {
 	return *(*C.GoInterfaceHolder)(unsafe.Pointer(&x))
@@ -49,6 +50,8 @@ func (this holder_type) Grab(x interface{}) {
 		return
 	}
 
+	holderLocker.Lock()
+	defer holderLocker.Unlock()
 	key := *(*holder_key)(unsafe.Pointer(&x))
 	count := this[key]
 	this[key] = count + 1
@@ -59,6 +62,8 @@ func (this holder_type) Release(x interface{}) {
 		return
 	}
 
+	holderLocker.Lock()
+	defer holderLocker.Unlock()
 	key := *(*holder_key)(unsafe.Pointer(&x))
 	count := this[key]
 	if count <= 1 {
