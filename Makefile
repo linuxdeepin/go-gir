@@ -5,10 +5,9 @@ ifndef USE_GCCGO
 	GOTEST = go build
 	GORUN = go run
 else
-	LDFLAGS = $(shell pkg-config --libs gobject-introspection-1.0 gio-2.0 gudev-1.0 gdk-3.0)
-	GOBUILD = go build -compiler gccgo -gccgoflags "${LDFLAGS}"
-	GOTEST = go test -compiler gccgo -gccgoflags "${LDFLAGS}"
-	GORUN = go run -compiler gccgo -gccgoflags "${LDFLAGS}"
+	GOBUILD = gccgo_build.pl -p "gobject-introspection-1.0 gio-2.0 gudev-1.0 gdk-3.0"
+	GOTEST = echo
+	GORUN = echo
 endif
 
 

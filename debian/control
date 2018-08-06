@@ -3,6 +3,7 @@ Section: devel
 Priority: optional
 Maintainer: Deepin Packages Builder <packages@deepin.com>
 Build-Depends: debhelper (>= 9), dh-golang, golang-go, libgirepository1.0-dev, libgtk-3-dev,libgudev-1.0-dev,
+ sw-go-tools [sw_64]
 Standards-Version: 3.9.8
 Homepage: http://www.deepin.org
 
