@@ -227,7 +227,9 @@
 		],
 		"Settings": [
 			"get_mapped",
-			"new_full"
+			"new_full",
+			"new_with_backend",
+			"new_with_backend_and_path"
 		]
 
 	}
