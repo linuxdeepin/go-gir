@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [1.0.4] - 2018-08-12
+*   fix: `sw_64` gccgo720 build failed
+*   fix: build failed SettingsBackendLike undefined
+
 ## [1.0.3] - 2018-03-09
 - docs: rewirte Chinglish style README part
 - fix: Adapt lintian
