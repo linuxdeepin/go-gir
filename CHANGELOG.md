@@ -1,4 +1,5 @@
-## [Unreleased]
+## [1.1.0] - 2018-10-25
+*   fix: `sw_64` no export `USE_GCCGO=1`
 
 ## [1.0.4] - 2018-08-12
 *   fix: `sw_64` gccgo720 build failed
