@@ -217,7 +217,8 @@
 	},
 	"method-blacklist": {
 		"DesktopAppInfo":[
-			"launch_uris_as_manager"
+			"launch_uris_as_manager",
+			"launch_uris_as_manager_with_fds"
 		],
 		"Cancellable": [
 			"connect"
