@@ -1,0 +1,7 @@
+Verified+1: <jenkins@deepin.com>
+Code-Review+2: electricface <songwentai@deepin.com>
+Submitted-by: Felix Yan <felixonmars@archlinux.org>
+Submitted-at: Fri, 26 Oct 2018 13:15:02 +0800
+Reviewed-on: https://cr.deepin.io/39231
+Project: go-gir-generator
+Branch: refs/heads/master
