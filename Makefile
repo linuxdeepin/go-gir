@@ -1,16 +1,7 @@
 PREFIX = /usr
-
-ifndef USE_GCCGO
-	GOBUILD = go build
-	GOTEST = go build
-	GORUN = go run
-else
-	GOBUILD = gccgo_build.pl -p "gobject-introspection-1.0 gio-2.0 gudev-1.0 gdk-3.0"
-	GOTEST = echo
-	GORUN = echo
-endif
-
-
+GOBUILD = go build
+GOTEST = go build
+GORUN = go run
 
 all: build
 

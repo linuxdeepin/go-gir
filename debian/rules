@@ -1,9 +1,5 @@
 #!/usr/bin/make -f
 
-ifeq ($(DEB_BUILD_ARCH), sw_64)
-	export USE_GCCGO=1
-endif
-
 %:
 	dh $@  
 
