@@ -1,3 +1,7 @@
+## [1.2.0] - 2019-01-03
+*   chore: compile with sw arch no longer needs to use gccgo
+*   fix: dde-api build error with gobject-introspection 1.58+
+
 ## [1.1.0] - 2018-10-25
 *   fix: `sw_64` no export `USE_GCCGO=1`
 
