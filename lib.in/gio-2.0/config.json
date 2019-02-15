@@ -53,7 +53,8 @@
 			"FileAttributeMatcher",
 			"ActionEntry",
 			"SettingsBackend",
-			"MountIface"
+			"MountIface",
+			"OutputVector"
 			//"SettingsSchema"
 		],
 		"interfaces": [
