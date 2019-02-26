@@ -11,7 +11,7 @@ import "C"
 import "unsafe"
 
 import (
-    "gir/gobject-2.0"
+    "pkg.deepin.io/gir/gobject-2.0"
 )
 
 [<.go_utils_no_cb>]

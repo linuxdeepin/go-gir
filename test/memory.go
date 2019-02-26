@@ -1,6 +1,6 @@
 package main
 
-import "gir/gio-2.0"
+import "pkg.deepin.io/gir/gio-2.0"
 import "time"
 import "runtime"
 import "syscall"
