@@ -1,3 +1,7 @@
+[2.0.0] 2019-03-01
+*   chore: put code into pkg.deepin.io dir
+*   fix: build issues with new glib2/gobject-introspection
+
 ## [1.2.0] - 2019-01-03
 *   chore: compile with sw arch no longer needs to use gccgo
 *   fix: dde-api build error with gobject-introspection 1.58+
