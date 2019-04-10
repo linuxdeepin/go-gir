@@ -14,14 +14,14 @@ GENERATOR = out/gir-generator
 build: glib-2.0 gobject-2.0 gio-2.0 gudev-1.0 copyfile 
 
 generator:
-	mkdir -p out/src/gir
+	mkdir -p $(OUT_GIR_DIR)
 	cd src/gir-generator && ${GOBUILD}  -o $(CURRENT_DIR)/${GENERATOR}
 
 copyfile:
-	cp -r  lib.in/gobject-2.0/*   $(OUT_GIR_DIR)gobject-2.0
-	cp -r  lib.in/gio-2.0/*       $(OUT_GIR_DIR)gio-2.0
-	cp -r  lib.in/glib-2.0/*      $(OUT_GIR_DIR)glib-2.0
-	cp -r  lib.in/gudev-1.0/*     $(OUT_GIR_DIR)gudev-1.0
+	cp -r  lib.in/gobject-2.0   $(OUT_GIR_DIR)
+	cp -r  lib.in/gio-2.0       $(OUT_GIR_DIR)
+	cp -r  lib.in/glib-2.0      $(OUT_GIR_DIR)
+	cp -r  lib.in/gudev-1.0     $(OUT_GIR_DIR)
 
 glib-2.0: lib.in/glib-2.0/glib.go.in lib.in/glib-2.0/config.json generator
 	${GENERATOR} -o  $(OUT_GIR_DIR)$@ $<
