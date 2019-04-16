@@ -1,3 +1,7 @@
+[2.0.1] 2019-04-16
+*   Fix path in Makefile.
+*   chore: improve english
+
 [2.0.0] 2019-03-01
 *   chore: put code into pkg.deepin.io dir
 *   fix: build issues with new glib2/gobject-introspection
