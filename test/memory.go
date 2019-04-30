@@ -19,15 +19,23 @@ func TestFunc() {
 }
 
 func main() {
+	baseRSSinMB := RSSinMB()
+	fmt.Printf("base: %dMB\n", baseRSSinMB)
+	getIncreased := func() int {
+		return  RSSinMB() - baseRSSinMB
+	}
+
 	time.AfterFunc(time.Second*60, func() {
-		fmt.Printf("Memory Used: %dMB\n", RSSinMB())
+		fmt.Printf("increased: %dMB\n", getIncreased())
 		os.Exit(0)
 	})
 	for {
 		TestFunc()
-		if RSSinMB() > 60 {
-			fmt.Println("V:", RSSinMB())
-			panic("RSS beyond 50MB, detect a memory leak!")
+		const limit = 30
+		increasedInMB := getIncreased()
+		if increasedInMB > limit {
+			fmt.Printf("increased: %dMB\n", increasedInMB)
+			panic(fmt.Errorf("increased beyond %dMB, detect a memory leak", limit))
 		}
 		runtime.GC()
 	}
