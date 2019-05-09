@@ -1,3 +1,7 @@
+[2.0.2] 2019-05-09
+*   fix: memory test failed on arm64 arch
+*   feat: memory test comparing growth
+
 [2.0.1] 2019-04-16
 *   Fix path in Makefile.
 *   chore: improve english
