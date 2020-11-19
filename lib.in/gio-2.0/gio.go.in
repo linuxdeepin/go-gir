@@ -20,3 +20,10 @@ import (
 [<.go_utils>]
 
 [<.go_bindings>]
+
+func (gs *Settings) GetSchema() *SettingsSchema {
+	var gsSchema *SettingsSchema
+	gs.GetProperty("settings-schema", &gsSchema)
+
+	return gsSchema
+}
