@@ -11,7 +11,7 @@ Version:        2.0.3
 Release:        1
 Summary:        Generate static golang bindings for GObject
 License:        GPLv3
-URL:            https://github.com/linuxdeepin/go-gir-generator
+URL:            https://gitlabwh.uniontech.com/wuhan/dde-v20/go-gir-generator
 Source0:        %{name}-%{version}.orig.tar.xz
 #Patch0:         SettingsBackendLike.patch
 # https://cr.deepin.io/#/c/go-gir-generator/+/41653/
