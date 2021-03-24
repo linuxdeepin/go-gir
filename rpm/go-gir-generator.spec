@@ -7,11 +7,11 @@
 %endif
 
 Name:           go-gir-generator
-Version:        2.0.4
+Version:        2.0.5
 Release:        1
 Summary:        Generate static golang bindings for GObject
 License:        GPLv3
-URL:            https://gitlabwh.uniontech.com/wuhan/dde-v20/go-gir-generator
+URL:            ssh://gerrit.uniontech.com:29418/go-gir-generator
 Source0:        %{name}-%{version}.orig.tar.xz
 #Patch0:         SettingsBackendLike.patch
 # https://cr.deepin.io/#/c/go-gir-generator/+/41653/
@@ -57,5 +57,5 @@ export GOPATH="%{gopath}"
 %{gopath}/src/pkg.deepin.io/gir/
 
 %changelog
-* Thu Mar 23 2021 uoser <uoser@uniontech.com> - 2.0.4-1
-- Update to 2.0.4
+* Thu Mar 23 2021 uoser <uoser@uniontech.com> - 2.0.5-1
+- Update to 2.0.5
