@@ -28,6 +28,7 @@ Provides:       golang(gir/gio-2.0)
 Provides:       golang(gir/glib-2.0)
 Provides:       golang(gir/gudev-1.0)
 Provides:       pkgconfig(pkg.deepin.io/gir/gio-2.0)
+Provides:       deepin-gir-generator
 
 %description
 Generate static golang bindings for GObject
