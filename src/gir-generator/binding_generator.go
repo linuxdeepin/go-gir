@@ -302,13 +302,15 @@ func (this *binding_generator) c_forward_declaration10(bi *gi.BaseInfo) {
 		pc := printer_to(this.out_c)
 		ctype := c_type_for_interface(bi, type_none)
 
+		ci := gi.ToCallableInfo(bi)
+
 		// type doesn't matter here, it's just a pointer after all
 		p("typedef void* %s;\n", ctype)
 
 		// and wrapper declarations for .c file only (cgo has problems
 		// with that)
-		pc("extern void _%s_c_wrapper();\n", ctype)
-		pc("extern void _%s_c_wrapper_once();\n", ctype)
+		pc("extern %s _%s_c_wrapper();\n", c_type(ci.ReturnType(), type_none), ctype)
+		pc("extern %s _%s_c_wrapper_once();\n", c_type(ci.ReturnType(), type_none), ctype)
 	}
 }
 
