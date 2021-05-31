@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
+
+export GOCACHE := /tmp/gocache
 %:
 	dh $@  
 
