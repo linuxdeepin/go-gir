@@ -3,6 +3,7 @@ GOBUILD = go build
 GOTEST = go build
 GORUN = go run
 OUT_GIR_DIR = out/src/pkg.deepin.io/gir/
+export GO111MODULE=off
 
 all: build
 
