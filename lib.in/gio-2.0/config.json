@@ -224,7 +224,8 @@
 			"launch_uris_as_manager_with_fds"
 		],
 		"Cancellable": [
-			"connect"
+			"connect",
+			"source_new"
 		],
 		"Application": [
 			"get_dbus_connection"
