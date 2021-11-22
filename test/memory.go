@@ -26,9 +26,9 @@ func TestFunc() {
 }
 
 func main() {
-	var limit = 30
+	var limit = 60
 	if strings.HasPrefix(runtime.GOARCH, "arm") {
-		// GOARCH is arm or arm64 or i386
+		// GOARCH is arm or arm64
 		limit = 200
 	}
 	fmt.Printf("limit: %dMB\n", limit)
