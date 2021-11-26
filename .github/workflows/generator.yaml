@@ -29,14 +29,18 @@ jobs:
           git clone https://x-access-token:$API_TOKEN_GITHUB@github.com/linuxdeepin/go-gir.git
       - name: copy file
         run: |
+          cd ..
           rm -rf go-gir/*
-          cp -r go-gir/generator/out/src/github.com/linuxdeepin/go-gir/* go-gir/
+          cp -r go-gir-generator/out/src/github.com/linuxdeepin/go-gir/* go-gir/
       - name: add files
         run: |
+          cd ..
           cd go-gir
           git add .
           date=$(date)
           git commit -m "auto generator at ${date}"
       - name: push
         run: |
+          cd ..
+          cd go-gir
           git push -f
