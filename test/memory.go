@@ -1,14 +1,15 @@
 package main
 
 import (
-	"pkg.deepin.io/gir/gio-2.0"
+	"fmt"
+	"os"
 	"runtime"
 	"strings"
+	"syscall"
+	"time"
+
+	"github.com/linuxdeepin/go-gir/gio-2.0"
 )
-import "time"
-import "syscall"
-import "fmt"
-import "os"
 
 func RSSinMB() int {
 	var r syscall.Rusage

@@ -27,7 +27,7 @@ Provides:       golang(gir/gobject-2.0)
 Provides:       golang(gir/gio-2.0)
 Provides:       golang(gir/glib-2.0)
 Provides:       golang(gir/gudev-1.0)
-Provides:       pkgconfig(pkg.deepin.io/gir/gio-2.0)
+Provides:       pkgconfig(github.com/linuxdeepin/go-gir/gio-2.0)
 Provides:       deepin-gir-generator
 
 %description
@@ -55,7 +55,7 @@ export GOPATH="%{gopath}"
 %doc README.md
 %license LICENSE
 %{_bindir}/gir-generator
-%{gopath}/src/pkg.deepin.io/gir/
+%{gopath}/src/github.com/linuxdeepin/go-gir/
 
 %changelog
 * Thu Mar 23 2021 uoser <uoser@uniontech.com> - 2.0.5-1

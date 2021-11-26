@@ -13,8 +13,8 @@ import "C"
 import "unsafe"
 
 import (
-	"pkg.deepin.io/gir/gobject-2.0"
-	"pkg.deepin.io/gir/glib-2.0"
+	"github.com/linuxdeepin/go-gir/gobject-2.0"
+	"github.com/linuxdeepin/go-gir/glib-2.0"
 )
 
 [<.go_utils>]
