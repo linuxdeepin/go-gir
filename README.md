@@ -28,7 +28,7 @@ Many thanks to the genius guys who created the [GObject Introspection](https://w
 Install prerequisites
 
 ```
-$ apt-get install libgirepository1.0-dev libgudev-1.0-dev
+$ sudo apt-get install libgirepository1.0-dev libgudev-1.0-dev
 $ make install
 ```
 
