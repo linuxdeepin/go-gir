@@ -36,6 +36,7 @@ jobs:
         run: |
           cd ..
           cd go-gir
+          rm -rf ./**/.gitignore
           git add .
           date=$(date)
           git commit -m "auto generator at ${date}"
