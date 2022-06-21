@@ -12,15 +12,11 @@ checkdepends=('golang-gopkg-check.v1')
 provides=('golang-deepin-gir')
 conflicts=('golang-deepin-gir')
 groups=('deepin-git')
-source=("$pkgname-$pkgver::source.tar.gz")
+source=('source.tar.gz')
 sha512sums=('SKIP')
-pkgver() {
-    cd $pkgname-$pkgver
-    git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
-}
 
 prepare() {
-  cd $pkgname-$pkgver
+    cd $deepin_source_name
 
   mkdir -p "$srcdir"/build/src/github.com/linuxdeepin/
   # Should be fixed upstream
@@ -34,7 +30,7 @@ build() {
   export GOPATH="$srcdir/build:/usr/share/gocode"
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
   export GO111MODULE=off
-  cd $pkgname-$pkgver
+  cd $deepin_source_name
   rm -r gogtk-demo
   make
   mv out/src/github.com/linuxdeepin/go-gir "$srcdir"/build/src/github.com/linuxdeepin/
@@ -45,7 +41,7 @@ check() {
   export GOPATH="$srcdir/build:/usr/share/gocode"
   cd "$srcdir"/build/src/github.com/linuxdeepin/go-gir
   go test -v $(go list ./...)
-  cd "$srcdir/$pkgname"
+  cd "$srcdir/$deepin_source_name"
   go run test/memory.go
 }
 
