@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Combo boxes
 //
 // The ComboBox widget allows to select one option out of a list.
@@ -7,12 +11,14 @@
 // How the options are displayed is controlled by cell renderers.
 package combo_boxes
 
-import "gobject/gobject-2.0"
-import "gobject/gtk-3.0"
-import "gobject/gdk-3.0"
-import "gobject/gdkpixbuf-2.0"
-import "strings"
-import "regexp"
+import (
+	"gobject/gdk-3.0"
+	"gobject/gdkpixbuf-2.0"
+	"gobject/gobject-2.0"
+	"gobject/gtk-3.0"
+	"regexp"
+	"strings"
+)
 
 var window *gtk.Window
 
@@ -30,7 +36,6 @@ func create_stock_icon_store() *gtk.TreeModel {
 		gobject.NilString,
 		gtk.StockOpen,
 	}
-
 
 	cellview := gtk.NewCellView()
 	store := gtk.NewListStore(gdkpixbuf.PixbufGetType(), gobject.String)
@@ -70,8 +75,8 @@ func is_separator(model *gtk.TreeModel, iter *gtk.TreeIter) bool {
 }
 
 func create_capital_store() *gtk.TreeModel {
-	capitals := []struct{
-		name string
+	capitals := []struct {
+		name     string
 		capitals []string
 	}{
 		{"A - B", []string{

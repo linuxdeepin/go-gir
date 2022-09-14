@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "_cgo_export.h"
 
 cairo_surface_t * _cairo_image_surface_create_from_png_stream(void *closure)

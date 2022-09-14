@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Drawing Area
 //
 // GtkDrawingArea is a blank area where you can draw custom displays
@@ -13,10 +17,12 @@
 // to clear the area.
 package drawing_area
 
-import "gobject/gdk-3.0"
-import "gobject/gtk-3.0"
-import "gobject/cairo-1.0"
-import "gobject/gobject-2.0"
+import (
+	"gobject/cairo-1.0"
+	"gobject/gdk-3.0"
+	"gobject/gobject-2.0"
+	"gobject/gtk-3.0"
+)
 
 var window *gtk.Window
 var surface *cairo.Surface
@@ -41,7 +47,7 @@ func checkerboard_draw(da *gtk.DrawingArea, cr *cairo.Context) bool {
 		j := spacing
 		ycount := xcount % 2 // start with even/odd depending on row
 		for j < height {
-			if ycount % 2 != 0 {
+			if ycount%2 != 0 {
 				cr.SetSourceRGB(0.45777, 0, 0.45777)
 			} else {
 				cr.SetSourceRGB(1, 1, 1)
@@ -127,7 +133,7 @@ func scribble_motion_notify_event(widget *gtk.Widget, event *gdk.EventMotion) bo
 	// can cope.
 	x, y, state, _ := event.Window().GetPointer()
 
-	if state & gdk.ModifierTypeButton1Mask != 0 {
+	if state&gdk.ModifierTypeButton1Mask != 0 {
 		draw_brush(widget, float64(x), float64(y))
 	}
 

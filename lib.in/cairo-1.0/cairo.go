@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Full cairo bindings. Made in a stupid fashion (i.e. no sugar). But bits of
 // memory management are here (GC finalizer hooks).
 
@@ -15,14 +19,13 @@ extern cairo_surface_t *_cairo_pdf_surface_create_for_stream(void *closure, doub
 #cgo pkg-config: cairo-gobject cairo-png
 */
 import "C"
-import "runtime"
-import "strings"
-import "reflect"
-import "unsafe"
-import "io"
-
 import (
 	"gobject/gobject-2.0"
+	"io"
+	"reflect"
+	"runtime"
+	"strings"
+	"unsafe"
 )
 
 //----------------------------------------------------------------------------

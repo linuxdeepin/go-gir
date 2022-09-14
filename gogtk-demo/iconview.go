@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Icon View/Icon View Basics
 //
 // The GtkIconView widget is used to display and manipulate icons.
@@ -5,13 +9,16 @@
 // example might be helpful.
 package iconview
 
-import "gobject/gtk-3.0"
-import "gobject/gobject-2.0"
-import "gobject/gdkpixbuf-2.0"
-import "strings"
-import "path/filepath"
-import "os"
-import "./gogtk-demo/common"
+import (
+	"gobject/gdkpixbuf-2.0"
+	"gobject/gobject-2.0"
+	"gobject/gtk-3.0"
+	"os"
+	"path/filepath"
+	"strings"
+
+	"./gogtk-demo/common"
+)
 
 var window *gtk.Window
 var file_pixbuf *gdkpixbuf.Pixbuf

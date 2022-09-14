@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 package main
 
 import (
@@ -28,7 +32,7 @@ func TestFunc() {
 
 func main() {
 	var limit = 60
-	if strings.HasPrefix(runtime.GOARCH, "arm") {	// 易阻塞CRP打包，只在本地进行测试
+	if strings.HasPrefix(runtime.GOARCH, "arm") { // 易阻塞CRP打包，只在本地进行测试
 		// GOARCH is arm or arm64
 		limit = 200
 	}
@@ -38,7 +42,7 @@ func main() {
 	baseRSSinMB := RSSinMB()
 	fmt.Printf("base: %dMB\n", baseRSSinMB)
 	getIncreased := func() int {
-		return  RSSinMB() - baseRSSinMB
+		return RSSinMB() - baseRSSinMB
 	}
 
 	time.AfterFunc(time.Second*60, func() {

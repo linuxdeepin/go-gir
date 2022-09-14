@@ -1,31 +1,36 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 package main
 
-import "gobject/gtk-3.0"
 import (
+	"gobject/gtk-3.0"
+
 	"./gogtk-demo/assistant"
 	"./gogtk-demo/builder"
 	"./gogtk-demo/button_boxes"
 	"./gogtk-demo/color_selector"
+	"./gogtk-demo/combo_boxes"
+	"./gogtk-demo/dialog"
+	"./gogtk-demo/drawing_area"
 	"./gogtk-demo/entry_buffer"
+	"./gogtk-demo/entry_completion"
 	"./gogtk-demo/expander"
+	"./gogtk-demo/iconview"
+	"./gogtk-demo/iconview_edit"
 	"./gogtk-demo/info_bar"
 	"./gogtk-demo/links"
 	"./gogtk-demo/list_store"
 	"./gogtk-demo/main_window"
+	"./gogtk-demo/menus"
 	"./gogtk-demo/paned_widgets"
 	"./gogtk-demo/pickers"
+	"./gogtk-demo/pixbufs"
+	"./gogtk-demo/search_entry"
 	"./gogtk-demo/size_groups"
 	"./gogtk-demo/spinner"
 	"./gogtk-demo/stock_browser"
-	"./gogtk-demo/menus"
-	"./gogtk-demo/entry_completion"
-	"./gogtk-demo/drawing_area"
-	"./gogtk-demo/combo_boxes"
-	"./gogtk-demo/dialog"
-	"./gogtk-demo/search_entry"
-	"./gogtk-demo/iconview_edit"
-	"./gogtk-demo/iconview"
-	"./gogtk-demo/pixbufs"
 )
 
 type DemoFunc func(mainwin *gtk.Window) *gtk.Window

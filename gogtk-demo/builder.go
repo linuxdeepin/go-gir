@@ -1,10 +1,17 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Builder
 //
 // Demonstrates an interface loaded from a XML description.
 package builder
 
-import "gobject/gtk-3.0"
-import "./gogtk-demo/common"
+import (
+	"gobject/gtk-3.0"
+
+	"./gogtk-demo/common"
+)
 
 var window *gtk.Window
 var builder *gtk.Builder

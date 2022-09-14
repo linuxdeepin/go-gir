@@ -1,11 +1,17 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Entry/Entry Completion
 //
 // GtkEntryCompletion provides a mechanism for adding support for
 // completion in GtkEntry.
 package entry_completion
 
-import "gobject/gtk-3.0"
-import "gobject/gobject-2.0"
+import (
+	"gobject/gobject-2.0"
+	"gobject/gtk-3.0"
+)
 
 func create_completion_model() *gtk.TreeModel {
 	store := gtk.NewListStore(gobject.String)

@@ -45,7 +45,7 @@ cd lib.in/gobject-2.0
 gir-generator -o . gobject.go.in
 ```
 
-Note: deepin generate all bindings under $GOPATH/src/gir/$PackageName
+*Note: deepin generate all bindings under `$GOPATH/src/gir/$PackageName`.*
 
 ## Getting help
 

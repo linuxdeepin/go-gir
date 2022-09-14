@@ -1,3 +1,9 @@
+go-gir-generator (0.9.6) stable; urgency=low
+
+  * adapt license and copyright
+
+ -- dengbo <dengbo@uniontech.com>  Wed, 14 Sep 2022 16:34:35 +0000
+
 go-gir-generator (0.9.5-1) stable; urgency=low
 
   * Autobuild Tag 0.9.5 

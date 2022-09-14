@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Icon View/Editing and Drag-and-Drop
 //
 // The GtkIconView widget supports Editing and Drag-and-Drop.
@@ -5,10 +9,12 @@
 // interface to set up cell renderers in an icon view.
 package iconview_edit
 
-import "gobject/gtk-3.0"
-import "gobject/gdk-3.0"
-import "gobject/gobject-2.0"
-import "gobject/gdkpixbuf-2.0"
+import (
+	"gobject/gdk-3.0"
+	"gobject/gdkpixbuf-2.0"
+	"gobject/gobject-2.0"
+	"gobject/gtk-3.0"
+)
 
 var window *gtk.Window
 
@@ -26,9 +32,9 @@ func set_cell_color(cell_layout *gtk.CellLayout, cell *gtk.CellRenderer, model *
 
 	model.Get(iter, 0, &text)
 	if color, ok := gdk.ColorParse(text); ok {
-		pixel = int(color.Red   >> 8) << 24 |
-			int(color.Green >> 8) << 16 |
-			int(color.Blue  >> 8) << 8
+		pixel = int(color.Red>>8)<<24 |
+			int(color.Green>>8)<<16 |
+			int(color.Blue>>8)<<8
 	}
 
 	pixbuf := gdkpixbuf.NewPixbuf(gdkpixbuf.ColorspaceRGB, false, 8, 24, 24)

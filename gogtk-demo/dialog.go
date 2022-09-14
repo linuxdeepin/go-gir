@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Dialog and Message Boxes
 //
 // Dialog widgets are used to pop up a transient window for user feedback.
@@ -11,7 +15,7 @@ var entry2 *gtk.Entry
 var i = 1
 
 func message_dialog_clicked() {
-	dialog := gtk.NewMessageDialog(window, gtk.DialogFlagsModal | gtk.DialogFlagsDestroyWithParent,
+	dialog := gtk.NewMessageDialog(window, gtk.DialogFlagsModal|gtk.DialogFlagsDestroyWithParent,
 		gtk.MessageTypeInfo, gtk.ButtonsTypeOk,
 		"This message box has been popped up the following\nnumber of times:")
 	dialog.FormatSecondaryText("%d", i)
@@ -22,7 +26,7 @@ func message_dialog_clicked() {
 
 func interactive_dialog_clicked() {
 	dialog := gtk.NewDialogWithButtons("Interactive Dialog", window,
-		gtk.DialogFlagsModal | gtk.DialogFlagsDestroyWithParent,
+		gtk.DialogFlagsModal|gtk.DialogFlagsDestroyWithParent,
 		gtk.StockOk, gtk.ResponseTypeOk, "_Non-stock Button", gtk.ResponseTypeCancel)
 
 	content_area := gtk.ToBox(dialog.GetContentArea())

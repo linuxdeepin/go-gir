@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Assistant
 //
 // Demonstrates a sample multi-step assistant. Assistants are used to divide
@@ -5,10 +9,12 @@
 // through these steps.
 package assistant
 
-import "gobject/gdk-3.0"
-import "gobject/gtk-3.0"
-import "fmt"
-import "time"
+import (
+	"fmt"
+	"gobject/gdk-3.0"
+	"gobject/gtk-3.0"
+	"time"
+)
 
 var assistant *gtk.Assistant
 var progress_bar *gtk.ProgressBar

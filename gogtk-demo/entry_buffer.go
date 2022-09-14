@@ -1,10 +1,16 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Entry/Entry Buffer
 //
 // GtkEntryBuffer provides the text content in a GtkEntry.
 package entry_buffer
 
-import "gobject/gtk-3.0"
-import "gobject/gobject-2.0"
+import (
+	"gobject/gobject-2.0"
+	"gobject/gtk-3.0"
+)
 
 var dialog *gtk.Dialog
 
