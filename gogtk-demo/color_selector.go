@@ -1,13 +1,19 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Color Selector
 //
 // GtkColorSelection lets the user choose a color. GtkColorSelectionDialog is
 // a prebuilt dialog containing a GtkColorSelection.
 package color_selector
 
-import "gobject/gtk-3.0"
-import "gobject/gdk-3.0"
-import "gobject/cairo-1.0"
-import "gobject/gobject-2.0"
+import (
+	"gobject/cairo-1.0"
+	"gobject/gdk-3.0"
+	"gobject/gobject-2.0"
+	"gobject/gtk-3.0"
+)
 
 var color gdk.RGBA
 var window *gtk.Window

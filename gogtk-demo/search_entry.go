@@ -1,13 +1,19 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Entry/Search Entry
 //
 // GtkEntry allows to display icons and progress information.
 // This demo shows how to use these features in a search entry.
 package search_entry
 
-import "gobject/gtk-3.0"
-import "gobject/gdk-3.0"
-import "gobject/gobject-2.0"
-import "time"
+import (
+	"gobject/gdk-3.0"
+	"gobject/gobject-2.0"
+	"gobject/gtk-3.0"
+	"time"
+)
 
 var dialog *gtk.Dialog
 var notebook *gtk.Notebook
@@ -65,7 +71,8 @@ func start_search_daemon(msgqueue chan int) {
 			gdk.ThreadsLeave()
 		}
 
-		done: for {
+	done:
+		for {
 			select {
 			case cmd := <-msgqueue:
 				switch cmd {
@@ -94,21 +101,21 @@ func start_search_daemon(msgqueue chan int) {
 
 func search_by_name() {
 	entry.SetIconFromStock(gtk.EntryIconPositionPrimary, gtk.StockFind)
-	entry.SetIconTooltipText(gtk.EntryIconPositionPrimary, "Search by name\n" +
+	entry.SetIconTooltipText(gtk.EntryIconPositionPrimary, "Search by name\n"+
 		"Click here to change the search type")
 	entry.SetPlaceholderText("name")
 }
 
 func search_by_description() {
 	entry.SetIconFromStock(gtk.EntryIconPositionPrimary, gtk.StockEdit)
-	entry.SetIconTooltipText(gtk.EntryIconPositionPrimary, "Search by description\n" +
+	entry.SetIconTooltipText(gtk.EntryIconPositionPrimary, "Search by description\n"+
 		"Click here to change the search type")
 	entry.SetPlaceholderText("description")
 }
 
 func search_by_file() {
 	entry.SetIconFromStock(gtk.EntryIconPositionPrimary, gtk.StockOpen)
-	entry.SetIconTooltipText(gtk.EntryIconPositionPrimary, "Search by file name\n" +
+	entry.SetIconTooltipText(gtk.EntryIconPositionPrimary, "Search by file name\n"+
 		"Click here to change the search type")
 	entry.SetPlaceholderText("file name")
 }

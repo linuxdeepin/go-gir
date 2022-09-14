@@ -1,13 +1,20 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Application main window
 //
 // Demonstrates a typical application window with menubar, toolbar, statusbar.
 package main_window
 
-import "gobject/gobject-2.0"
-import "gobject/gtk-3.0"
-import "gobject/gdkpixbuf-2.0"
-import "fmt"
-import "./gogtk-demo/common"
+import (
+	"fmt"
+	"gobject/gdkpixbuf-2.0"
+	"gobject/gobject-2.0"
+	"gobject/gtk-3.0"
+
+	"./gogtk-demo/common"
+)
 
 var window *gtk.Window
 var infobar *gtk.InfoBar

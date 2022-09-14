@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Menus
 //
 // There are several widgets involved in displaying menus. The
@@ -24,8 +28,10 @@
 // do that. There's a separate demo for GtkUIManager.
 package menus
 
-import "gobject/gtk-3.0"
-import "fmt"
+import (
+	"fmt"
+	"gobject/gtk-3.0"
+)
 
 func create_menu(depth int, tearoff bool) *gtk.Menu {
 	if depth < 1 {
@@ -39,16 +45,16 @@ func create_menu(depth int, tearoff bool) *gtk.Menu {
 		menuitem.Show()
 	}
 
-//	var group *gtk.RadioMenuItem
+	//	var group *gtk.RadioMenuItem
 
 	for i, j := 0, 1; i < 5; i, j = i+1, j+1 {
 		label := fmt.Sprintf("item %2d - %d", depth, j)
 		// TODO: groups
 		var menuitem *gtk.RadioMenuItem
 		menuitem = gtk.NewRadioMenuItemWithLabel(nil, label)
-//		if i == 0 {
-//			group = menuitem
-//		}
+		//		if i == 0 {
+		//			group = menuitem
+		//		}
 
 		menu.Append(menuitem)
 		menuitem.Show()

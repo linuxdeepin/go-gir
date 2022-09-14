@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Paned Widgets
 //
 // The GtkHPaned and GtkVPaned Widgets divide their content
@@ -11,8 +15,10 @@
 // each side of each widget.
 package paned_widgets
 
-import "gobject/gobject-2.0"
-import "gobject/gtk-3.0"
+import (
+	"gobject/gobject-2.0"
+	"gobject/gtk-3.0"
+)
 
 var window *gtk.Window
 

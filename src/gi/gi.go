@@ -1,11 +1,7 @@
-/**
- * Copyright (C) 2015 Deepin Technology Co., Ltd.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * (at your option) any later version.
- **/
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 package gi
 
 /*
@@ -21,10 +17,10 @@ static inline gchar **next_gcharptr(gchar **s) { return s+1; }
 import "C"
 import (
 	"errors"
-	"strings"
-	"runtime"
-	"unsafe"
 	"fmt"
+	"runtime"
+	"strings"
+	"unsafe"
 )
 
 // utils

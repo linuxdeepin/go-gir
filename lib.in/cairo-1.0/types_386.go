@@ -4,7 +4,7 @@
 package cairo
 
 type Glyph struct {
-	Index	uint32
-	X	float64
-	Y	float64
+	Index uint32
+	X     float64
+	Y     float64
 }

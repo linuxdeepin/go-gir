@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Stock Item and Icon Browser
 //
 // This source code for this demo doesn't demonstrate anything
@@ -6,13 +10,15 @@
 // and stock items.
 package stock_browser
 
-import "gobject/gtk-3.0"
-import "gobject/gobject-2.0"
-import "gobject/gdkpixbuf-2.0"
-import "fmt"
-import "sort"
-import "bytes"
-import "strings"
+import (
+	"bytes"
+	"fmt"
+	"gobject/gdkpixbuf-2.0"
+	"gobject/gobject-2.0"
+	"gobject/gtk-3.0"
+	"sort"
+	"strings"
+)
 
 var window *gtk.Window
 

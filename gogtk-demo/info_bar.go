@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Info bar
 //
 // Info bar widgets are used to report important messages to the user.

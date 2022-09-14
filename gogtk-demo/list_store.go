@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Tree View/List Store
 //
 // The GtkListStore is used to store data in list form, to be used

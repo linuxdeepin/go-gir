@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Pixbufs
 //
 // A GdkPixbuf represents an image, normally in RGB or RGBA format.
@@ -11,14 +15,17 @@
 // Look at the Image demo for additional pixbuf usage examples.
 package pixbufs
 
-import "gobject/gtk-3.0"
-import "gobject/gdk-3.0"
-import "gobject/gdkpixbuf-2.0"
-import "gobject/cairo-1.0"
-import "math"
-import "time"
-import "sync"
-import "./gogtk-demo/common"
+import (
+	"gobject/cairo-1.0"
+	"gobject/gdk-3.0"
+	"gobject/gdkpixbuf-2.0"
+	"gobject/gtk-3.0"
+	"math"
+	"sync"
+	"time"
+
+	"./gogtk-demo/common"
+)
 
 const frame_delay = 50
 const background_name = "background.jpg"
@@ -82,33 +89,34 @@ func draw_cb(widget *gtk.Widget, cr *cairo.Context) bool {
 }
 
 const cycle_len = 60
+
 var frame_num int
 
 func draw_one_frame() {
 	background.CopyArea(0, 0, back_width, back_height, frame, 0, 0)
-	f := float64(frame_num % cycle_len) / cycle_len
+	f := float64(frame_num%cycle_len) / cycle_len
 	xmid := float64(back_width) / 2
 	ymid := float64(back_height) / 2
 	radius := math.Min(xmid, ymid) / 2
 
 	for i, image := range images {
-		ang := 2 * math.Pi * float64(i) / float64(len(images)) - f * 2 * math.Pi
+		ang := 2*math.Pi*float64(i)/float64(len(images)) - f*2*math.Pi
 
 		iw := image.GetWidth()
 		ih := image.GetHeight()
 
-		r := radius + (radius / 3) * math.Sin(f * 2 * math.Pi)
+		r := radius + (radius/3)*math.Sin(f*2*math.Pi)
 
-		xpos := math.Floor(xmid + r * math.Cos(ang) - float64(iw) / 2 + 0.5)
-		ypos := math.Floor(ymid + r * math.Sin(ang) - float64(ih) / 2 + 0.5)
+		xpos := math.Floor(xmid + r*math.Cos(ang) - float64(iw)/2 + 0.5)
+		ypos := math.Floor(ymid + r*math.Sin(ang) - float64(ih)/2 + 0.5)
 
 		var k, alpha float64
-		if i & 1 != 0 {
+		if i&1 != 0 {
 			k = math.Sin(f * 2 * math.Pi)
-			alpha = math.Max(127, math.Abs(255 * math.Sin(f * 2 * math.Pi)))
+			alpha = math.Max(127, math.Abs(255*math.Sin(f*2*math.Pi)))
 		} else {
 			k = math.Cos(f * 2 * math.Pi)
-			alpha = math.Max(127, math.Abs(255 * math.Cos(f * 2 * math.Pi)))
+			alpha = math.Max(127, math.Abs(255*math.Cos(f*2*math.Pi)))
 		}
 		k = 2 * k * k
 		k = math.Max(0.25, k)
