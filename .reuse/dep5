@@ -8,10 +8,15 @@ Files: .gitignore .clang-format .gitreview .mailmap .tx/config
 Copyright: None
 License: CC0-1.0
 
-# Project file
-Files: *Makefile* gogtk-demo/wscript lib.in/cairo-1.0/types_386.go lib.in/cairo-1.0/types_amd64.go
+# Makefile
+Files: *Makefile*
 Copyright: None
 License: CC0-1.0
+
+# Project file
+Files: gogtk-demo/wscript lib.in/cairo-1.0/types_386.go lib.in/cairo-1.0/types_amd64.go
+Copyright: None
+License: GPL-3.0-or-later
 
 # ci
 Files: .github/* .gitlab-ci.yml
@@ -46,4 +51,5 @@ License: GPL-3.0-or-later
 # go vendor dir
 Files: vendor/*
 Copyright: UnionTech Software Technology Co., Ltd.
-License: CC0-1.0
+License: GPL-3.0-or-later
+

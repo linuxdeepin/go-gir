@@ -65,5 +65,5 @@ We encourage you to report issues and contribute changes
 
 ## License
 
-go-gir-generator is licensed under [GPLv3](LICENSE).
+go-gir-generator is licensed under [GPL-3.0-or-later](LICENSE).
 
