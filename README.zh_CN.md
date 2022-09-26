@@ -62,5 +62,5 @@ gir-generator -o . gobject.go.in
 * [Contribution guide for developers](http://wiki.deepin.org/index.php?title=Contribution_Guidelines_for_Developers)
 
 ## 开源许可
-go-gir-generator项目在LGPL-3.0-or-later开源协议下发布。
+go-gir-generator项目在[GPL-3.0-or-later](LICENSE)开源协议下发布。
 
