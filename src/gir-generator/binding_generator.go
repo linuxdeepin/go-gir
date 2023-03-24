@@ -7,9 +7,10 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"gi"
 	"os"
 	"strings"
+
+	"github.com/linuxdeepin/go-gir-generator/src/gi"
 )
 
 type binding_generator struct {

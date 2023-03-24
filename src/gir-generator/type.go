@@ -9,9 +9,10 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"gi"
 	"strings"
 	"unsafe"
+
+	"github.com/linuxdeepin/go-gir-generator/src/gi"
 )
 
 func force_pointer(x string) string {

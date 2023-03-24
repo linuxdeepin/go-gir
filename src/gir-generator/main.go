@@ -9,11 +9,12 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"gi"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/linuxdeepin/go-gir-generator/src/gi"
 )
 
 var config config_type

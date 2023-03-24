@@ -7,8 +7,9 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"gi"
 	"strings"
+
+	"github.com/linuxdeepin/go-gir-generator/src/gi"
 )
 
 func cgo_array_to_go_array(elem *gi.TypeInfo, name string) string {
