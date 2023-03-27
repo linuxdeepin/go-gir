@@ -17,7 +17,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"./gogtk-demo/common"
+	"gogtk-demo/common"
 )
 
 var window *gtk.Window

@@ -19,7 +19,7 @@ import (
 	"os"
 	"strings"
 
-	"./gogtk-demo/common"
+	"gogtk-demo/common"
 )
 
 const (

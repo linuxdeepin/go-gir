@@ -13,7 +13,7 @@ import (
 	"gobject/gobject-2.0"
 	"gobject/gtk-3.0"
 
-	"./gogtk-demo/common"
+	"gogtk-demo/common"
 )
 
 var window *gtk.Window

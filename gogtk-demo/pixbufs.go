@@ -24,7 +24,7 @@ import (
 	"sync"
 	"time"
 
-	"./gogtk-demo/common"
+	"gogtk-demo/common"
 )
 
 const frame_delay = 50
