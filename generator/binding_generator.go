@@ -10,7 +10,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/linuxdeepin/go-gir-generator/src/gi"
+	"github.com/linuxdeepin/go-gir/generator/gi"
 )
 
 type binding_generator struct {

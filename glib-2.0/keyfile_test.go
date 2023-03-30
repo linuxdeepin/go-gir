@@ -86,7 +86,7 @@ func checkDesktopFile(f *KeyFile, c *C.C) {
 	}
 	{
 		_, err := f.GetDouble("Can'tFind", "Name")
-		c.Check(err, C.ErrorMatches, "Key file does not have group 'Can'tFind'")
+		c.Check(err, C.ErrorMatches, "Key file does not have group “Can'tFind”")
 	}
 }
 

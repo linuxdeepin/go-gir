@@ -14,7 +14,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/linuxdeepin/go-gir-generator/src/gi"
+	"github.com/linuxdeepin/go-gir/generator/gi"
 )
 
 var config config_type

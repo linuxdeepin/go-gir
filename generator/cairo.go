@@ -7,7 +7,7 @@ package main
 import (
 	"bytes"
 
-	"github.com/linuxdeepin/go-gir-generator/src/gi"
+	"github.com/linuxdeepin/go-gir/generator/gi"
 )
 
 func cairo_go_type_for_interface(bi *gi.BaseInfo, flags type_flags) string {

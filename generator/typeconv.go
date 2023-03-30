@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/linuxdeepin/go-gir-generator/src/gi"
+	"github.com/linuxdeepin/go-gir/generator/gi"
 )
 
 func cgo_array_to_go_array(elem *gi.TypeInfo, name string) string {
