@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 package gobject
 
 /*
@@ -646,4 +650,3 @@ func (this *Value) GetGoInterface(v interface{}) {
 	}
 	vp.Elem().Set(this.GetGoValue(vp.Type().Elem()))
 }
-
