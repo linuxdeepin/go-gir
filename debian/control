@@ -46,9 +46,3 @@ Description: Go bindings
  Go bindings for Deepin Desktop Environment development
  .
  gudev-1.0  go bindings.
-
-Package: golang-gir-generator
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends},
-Description: generate library binding code which support gir for golang.
- This tool can generate library binding code which support gir for golang.

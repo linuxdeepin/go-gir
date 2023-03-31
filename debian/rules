@@ -1,5 +1,6 @@
 #!/usr/bin/make -f
 
+export GO111MODULE=off
 
 export GOCACHE := /tmp/gocache
 %:
