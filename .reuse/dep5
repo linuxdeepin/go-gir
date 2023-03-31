@@ -14,7 +14,18 @@ Copyright: None
 License: CC0-1.0
 
 # Project file
-Files: gogtk-demo/wscript lib.in/cairo-1.0/types_386.go lib.in/cairo-1.0/types_amd64.go
+Files:
+ gio-2.0/*.h
+ gio-2.0/*.c
+ glib-2.0/*.h
+ glib-2.0/*.c
+ gobject-2.0/*.h
+ gobject-2.0/*.c
+ gudev-1.0/*.h
+ gudev-1.0/*.c
+ glib-2.0/testdata/deepin-terminal.desktop
+ go.mod
+ go.sum
 Copyright: None
 License: GPL-3.0-or-later
 
@@ -29,7 +40,7 @@ Copyright: None
 License: CC0-1.0
 
 # README
-Files: *.md src/gi/README README.zh_CN.md
+Files: *.md generator/gi/README README.zh_CN.md
 Copyright: UnionTech Software Technology Co., Ltd.
 License: CC-BY-4.0
 
@@ -52,4 +63,3 @@ License: GPL-3.0-or-later
 Files: vendor/*
 Copyright: UnionTech Software Technology Co., Ltd.
 License: GPL-3.0-or-later
-
