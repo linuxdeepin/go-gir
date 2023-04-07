@@ -1,6 +1,13 @@
+go-gir-generator (3.0.3) unstable; urgency=medium
+
+  * fix: debian build failed
+  * chore: support go generate and mod
+
+ -- dengbo <dengbo@deepin.org>  Fri, 7 Apr 2023 13:51:15 +0800
+
 go-gir-generator (3.0.2) unstable; urgency=medium
 
-  * release go-gir-generator 3.0.2 
+  * release go-gir-generator 3.0.2
 
  -- dengbo <dengbo@deepin.org>  Wed, 29 Mar 2023 16:21:08 +0800
 
