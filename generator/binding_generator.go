@@ -50,9 +50,12 @@ func (this *binding_generator) release() {
 	this.out_go.Flush()
 	this.out_c.Flush()
 	this.out_h.Flush()
-	this.file_go.Close()
-	this.file_c.Close()
-	this.file_h.Close()
+	err := this.file_go.Close()
+	panic_if_error(err)
+	err = this.file_c.Close()
+	panic_if_error(err)
+	err = this.file_h.Close()
+	panic_if_error(err)
 }
 
 func (this *binding_generator) generate(go_template string) {

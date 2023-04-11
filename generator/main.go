@@ -166,7 +166,11 @@ func parse_json_with_comments(filename string, data interface{}) error {
 	if err != nil {
 		return err
 	}
-	defer f.Close()
+	defer func() {
+		if err := f.Close(); err != nil {
+			panic(err)
+		}
+	}()
 
 	d := json.NewDecoder(new_comment_skipper(f))
 	err = d.Decode(data)
