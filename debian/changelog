@@ -1,3 +1,9 @@
+go-gir-generator (3.0.4) unstable; urgency=medium
+
+  * chore: tag with v prefix
+
+ -- chenhongtao <chenhongtao@deepin.org>  Thu, 13 Apr 2023 14:40:15 +0800
+
 go-gir-generator (3.0.3) unstable; urgency=medium
 
   * fix: debian build failed
