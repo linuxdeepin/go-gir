@@ -20,9 +20,11 @@ extern void g_type_init();
 #cgo pkg-config: gobject-2.0
 */
 import "C"
-import "unsafe"
-import "runtime"
-import "reflect"
+import (
+	"reflect"
+	"runtime"
+	"unsafe"
+)
 
 
 const alot = 999999
@@ -43,6 +45,7 @@ type _GError struct {
 	code int32
 	message *C.char
 }
+
 func (e _GError) ToGError() GError {
 	return GError{e.domain, e.code, C.GoString(e.message)}
 }
@@ -52,6 +55,7 @@ type GError struct {
 	Code int32
 	Message string
 }
+
 func (e GError) Error() string {
 	return e.Message
 }
@@ -122,6 +126,7 @@ func (this0 *Binding) GetStaticType() Type {
 func BindingGetType() Type {
 	return (*Binding)(nil).GetStaticType()
 }
+
 func (this0 *Binding) DupSource() *Object {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -134,6 +139,7 @@ func (this0 *Binding) DupSource() *Object {
 	ret2 = (*Object)(ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Binding) DupTarget() *Object {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -146,6 +152,7 @@ func (this0 *Binding) DupTarget() *Object {
 	ret2 = (*Object)(ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Binding) GetFlags() BindingFlags {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -158,6 +165,7 @@ func (this0 *Binding) GetFlags() BindingFlags {
 	ret2 = BindingFlags(ret1)
 	return ret2
 }
+
 func (this0 *Binding) GetSource() *Object {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -170,6 +178,7 @@ func (this0 *Binding) GetSource() *Object {
 	ret2 = (*Object)(ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Binding) GetSourceProperty() string {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -182,6 +191,7 @@ func (this0 *Binding) GetSourceProperty() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Binding) GetTarget() *Object {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -194,6 +204,7 @@ func (this0 *Binding) GetTarget() *Object {
 	ret2 = (*Object)(ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Binding) GetTargetProperty() string {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -206,6 +217,7 @@ func (this0 *Binding) GetTargetProperty() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Binding) Unbind() {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -228,6 +240,7 @@ type CClosure struct {
 	Closure Closure
 	Callback unsafe.Pointer
 }
+
 func CClosureMarshalBoolean_BoxedBoxed(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -243,6 +256,7 @@ func CClosureMarshalBoolean_BoxedBoxed(closure0 *Closure, return_value0 *Value, 
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_BOOLEAN__BOXED_BOXED(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalBoolean_Flags(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -258,6 +272,7 @@ func CClosureMarshalBoolean_Flags(closure0 *Closure, return_value0 *Value, n_par
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_BOOLEAN__FLAGS(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalString_ObjectPointer(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -273,6 +288,7 @@ func CClosureMarshalString_ObjectPointer(closure0 *Closure, return_value0 *Value
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_STRING__OBJECT_POINTER(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Boolean(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -288,6 +304,7 @@ func CClosureMarshalVoid_Boolean(closure0 *Closure, return_value0 *Value, n_para
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__BOOLEAN(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Boxed(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -303,6 +320,7 @@ func CClosureMarshalVoid_Boxed(closure0 *Closure, return_value0 *Value, n_param_
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__BOXED(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Char(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -318,6 +336,7 @@ func CClosureMarshalVoid_Char(closure0 *Closure, return_value0 *Value, n_param_v
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__CHAR(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Double(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -333,6 +352,7 @@ func CClosureMarshalVoid_Double(closure0 *Closure, return_value0 *Value, n_param
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__DOUBLE(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Enum(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -348,6 +368,7 @@ func CClosureMarshalVoid_Enum(closure0 *Closure, return_value0 *Value, n_param_v
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__ENUM(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Flags(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -363,6 +384,7 @@ func CClosureMarshalVoid_Flags(closure0 *Closure, return_value0 *Value, n_param_
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__FLAGS(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Float(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -378,6 +400,7 @@ func CClosureMarshalVoid_Float(closure0 *Closure, return_value0 *Value, n_param_
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__FLOAT(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Int(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -393,6 +416,7 @@ func CClosureMarshalVoid_Int(closure0 *Closure, return_value0 *Value, n_param_va
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__INT(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Long(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -408,6 +432,7 @@ func CClosureMarshalVoid_Long(closure0 *Closure, return_value0 *Value, n_param_v
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__LONG(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Object(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -423,6 +448,7 @@ func CClosureMarshalVoid_Object(closure0 *Closure, return_value0 *Value, n_param
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__OBJECT(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Param(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -438,6 +464,7 @@ func CClosureMarshalVoid_Param(closure0 *Closure, return_value0 *Value, n_param_
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__PARAM(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Pointer(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -453,6 +480,7 @@ func CClosureMarshalVoid_Pointer(closure0 *Closure, return_value0 *Value, n_para
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__POINTER(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_String(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -468,6 +496,7 @@ func CClosureMarshalVoid_String(closure0 *Closure, return_value0 *Value, n_param
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__STRING(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Uchar(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -483,6 +512,7 @@ func CClosureMarshalVoid_Uchar(closure0 *Closure, return_value0 *Value, n_param_
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__UCHAR(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Uint(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -498,6 +528,7 @@ func CClosureMarshalVoid_Uint(closure0 *Closure, return_value0 *Value, n_param_v
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__UINT(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_UintPointer(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -513,6 +544,7 @@ func CClosureMarshalVoid_UintPointer(closure0 *Closure, return_value0 *Value, n_
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__UINT_POINTER(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Ulong(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -528,6 +560,7 @@ func CClosureMarshalVoid_Ulong(closure0 *Closure, return_value0 *Value, n_param_
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__ULONG(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Variant(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -543,6 +576,7 @@ func CClosureMarshalVoid_Variant(closure0 *Closure, return_value0 *Value, n_para
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__VARIANT(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalVoid_Void(closure0 *Closure, return_value0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_value1 *C.GValue
@@ -558,6 +592,7 @@ func CClosureMarshalVoid_Void(closure0 *Closure, return_value0 *Value, n_param_v
 	marshal_data1 = unsafe.Pointer(marshal_data0)
 	C.g_cclosure_marshal_VOID__VOID(closure1, return_value1, n_param_values1, param_values1, invocation_hint1, marshal_data1)
 }
+
 func CClosureMarshalGeneric(closure0 *Closure, return_gvalue0 *Value, n_param_values0 uint32, param_values0 *Value, invocation_hint0 unsafe.Pointer, marshal_data0 unsafe.Pointer) {
 	var closure1 *C.GClosure
 	var return_gvalue1 *C.GValue
@@ -591,6 +626,7 @@ type Closure struct {
 	Data unsafe.Pointer
 	Notifiers *ClosureNotifyData
 }
+
 func NewClosureObject(sizeof_closure0 uint32, object0 ObjectLike) *Closure {
 	var sizeof_closure1 C.uint32_t
 	var object1 *C.GObject
@@ -605,6 +641,7 @@ func NewClosureObject(sizeof_closure0 uint32, object0 ObjectLike) *Closure {
 	ret2 = (*Closure)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewClosureSimple(sizeof_closure0 uint32, data0 unsafe.Pointer) *Closure {
 	var sizeof_closure1 C.uint32_t
 	var data1 unsafe.Pointer
@@ -617,11 +654,13 @@ func NewClosureSimple(sizeof_closure0 uint32, data0 unsafe.Pointer) *Closure {
 	ret2 = (*Closure)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Closure) Invalidate() {
 	var this1 *C.GClosure
 	this1 = (*C.GClosure)(unsafe.Pointer(this0))
 	C.g_closure_invalidate(this1)
 }
+
 func (this0 *Closure) Invoke(param_values0 []Value, invocation_hint0 unsafe.Pointer) Value {
 	var this1 *C.GClosure
 	var param_values1 *C.GValue
@@ -643,6 +682,7 @@ func (this0 *Closure) Invoke(param_values0 []Value, invocation_hint0 unsafe.Poin
 	return_value2 = *(*Value)(unsafe.Pointer(&return_value1))
 	return return_value2
 }
+
 func (this0 *Closure) Sink() {
 	var this1 *C.GClosure
 	this1 = (*C.GClosure)(unsafe.Pointer(this0))
@@ -674,11 +714,13 @@ type EnumValue struct {
 	value_name0 *C.char
 	value_nick0 *C.char
 }
+
 func (this0 *EnumValue) ValueName() string {
 	var value_name1 string
 	value_name1 = C.GoString(this0.value_name0)
 	return value_name1
 }
+
 func (this0 *EnumValue) ValueNick() string {
 	var value_nick1 string
 	value_nick1 = C.GoString(this0.value_nick0)
@@ -696,11 +738,13 @@ type FlagsValue struct {
 	value_name0 *C.char
 	value_nick0 *C.char
 }
+
 func (this0 *FlagsValue) ValueName() string {
 	var value_name1 string
 	value_name1 = C.GoString(this0.value_name0)
 	return value_name1
 }
+
 func (this0 *FlagsValue) ValueNick() string {
 	var value_nick1 string
 	value_nick1 = C.GoString(this0.value_nick0)
@@ -818,6 +862,7 @@ type ObjectConstructParam struct {
 	pspec0 *C.GParamSpec
 	Value *Value
 }
+
 func (this0 *ObjectConstructParam) Pspec() *ParamSpec {
 	var pspec1 *ParamSpec
 	pspec1 = (*ParamSpec)(ObjectWrap(unsafe.Pointer(this0.pspec0), true))
@@ -884,6 +929,7 @@ type Parameter struct {
 	name0 *C.char
 	Value Value
 }
+
 func (this0 *Parameter) Name() string {
 	var name1 string
 	name1 = C.GoString(this0.name0)
@@ -933,11 +979,13 @@ type SignalQuery struct {
 	_ [4]byte
 	param_types0 *C.GType
 }
+
 func (this0 *SignalQuery) SignalName() string {
 	var signal_name1 string
 	signal_name1 = C.GoString(this0.signal_name0)
 	return signal_name1
 }
+
 func (this0 *SignalQuery) ParamTypes() []Type {
 	var param_types1 []Type
 	for i0 := range param_types1 {
@@ -960,6 +1008,7 @@ type TypeCValue struct {
 type TypeClass struct {
 	GType Type
 }
+
 func (this0 *TypeClass) AddPrivate(private_size0 uint64) {
 	var this1 *C.GTypeClass
 	var private_size1 C.uint64_t
@@ -967,6 +1016,7 @@ func (this0 *TypeClass) AddPrivate(private_size0 uint64) {
 	private_size1 = C.uint64_t(private_size0)
 	C.g_type_class_add_private(this1, private_size1)
 }
+
 func (this0 *TypeClass) GetPrivate(private_type0 Type) {
 	var this1 *C.GTypeClass
 	var private_type1 C.GType
@@ -974,6 +1024,7 @@ func (this0 *TypeClass) GetPrivate(private_type0 Type) {
 	private_type1 = C.GType(private_type0)
 	C.g_type_class_get_private(this1, private_type1)
 }
+
 func (this0 *TypeClass) PeekParent() *TypeClass {
 	var this1 *C.GTypeClass
 	this1 = (*C.GTypeClass)(unsafe.Pointer(this0))
@@ -984,6 +1035,7 @@ func (this0 *TypeClass) PeekParent() *TypeClass {
 	ret2 = (*TypeClass)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func TypeClassAdjustPrivateOffset(g_class0 unsafe.Pointer, private_size_or_offset0 *int32) {
 	var g_class1 unsafe.Pointer
 	var private_size_or_offset1 *C.int32_t
@@ -991,6 +1043,7 @@ func TypeClassAdjustPrivateOffset(g_class0 unsafe.Pointer, private_size_or_offse
 	private_size_or_offset1 = (*C.int32_t)(unsafe.Pointer(private_size_or_offset0))
 	C.g_type_class_adjust_private_offset(g_class1, private_size_or_offset1)
 }
+
 func TypeClassPeek(type0 Type) *TypeClass {
 	var type1 C.GType
 	type1 = C.GType(type0)
@@ -1001,6 +1054,7 @@ func TypeClassPeek(type0 Type) *TypeClass {
 	ret2 = (*TypeClass)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func TypeClassPeekStatic(type0 Type) *TypeClass {
 	var type1 C.GType
 	type1 = C.GType(type0)
@@ -1055,6 +1109,7 @@ type TypeInfo struct {
 type TypeInstance struct {
 	GClass *TypeClass
 }
+
 func (this0 *TypeInstance) GetPrivate(private_type0 Type) {
 	var this1 *C.GTypeInstance
 	var private_type1 C.GType
@@ -1066,6 +1121,7 @@ type TypeInterface struct {
 	GType Type
 	GInstanceType Type
 }
+
 func (this0 *TypeInterface) PeekParent() *TypeInterface {
 	var this1 *C.GTypeInterface
 	this1 = (*C.GTypeInterface)(unsafe.Pointer(this0))
@@ -1076,6 +1132,7 @@ func (this0 *TypeInterface) PeekParent() *TypeInterface {
 	ret2 = (*TypeInterface)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func TypeInterfaceAddPrerequisite(interface_type0 Type, prerequisite_type0 Type) {
 	var interface_type1 C.GType
 	var prerequisite_type1 C.GType
@@ -1083,6 +1140,7 @@ func TypeInterfaceAddPrerequisite(interface_type0 Type, prerequisite_type0 Type)
 	prerequisite_type1 = C.GType(prerequisite_type0)
 	C.g_type_interface_add_prerequisite(interface_type1, prerequisite_type1)
 }
+
 func TypeInterfaceGetPlugin(instance_type0 Type, interface_type0 Type) *TypePlugin {
 	var instance_type1 C.GType
 	var interface_type1 C.GType
@@ -1095,6 +1153,7 @@ func TypeInterfaceGetPlugin(instance_type0 Type, interface_type0 Type) *TypePlug
 	ret2 = (*TypePlugin)(ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func TypeInterfaceInstantiatablePrerequisite(interface_type0 Type) Type {
 	var interface_type1 C.GType
 	interface_type1 = C.GType(interface_type0)
@@ -1105,6 +1164,7 @@ func TypeInterfaceInstantiatablePrerequisite(interface_type0 Type) Type {
 	ret2 = Type(ret1)
 	return ret2
 }
+
 func TypeInterfacePeek(instance_class0 *TypeClass, iface_type0 Type) *TypeInterface {
 	var instance_class1 *C.GTypeClass
 	var iface_type1 C.GType
@@ -1117,6 +1177,7 @@ func TypeInterfacePeek(instance_class0 *TypeClass, iface_type0 Type) *TypeInterf
 	ret2 = (*TypeInterface)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func TypeInterfacePrerequisites(interface_type0 Type) (uint32, []Type) {
 	var interface_type1 C.GType
 	var n_prerequisites1 C.uint32_t
@@ -1167,6 +1228,7 @@ func (this0 *TypePluginImpl) ImplementsGTypePlugin() *C.GTypePlugin {
 	base := unsafe.Pointer(uintptr(unsafe.Pointer(this0)) - unsafe.Sizeof(uintptr(0)))
 	return (*C.GTypePlugin)((*Object)(base).C)
 }
+
 func (this0 *TypePluginImpl) CompleteInterfaceInfo(instance_type0 Type, interface_type0 Type, info0 *InterfaceInfo) {
 	var this1 *C.GTypePlugin
 	var instance_type1 C.GType
@@ -1180,6 +1242,7 @@ func (this0 *TypePluginImpl) CompleteInterfaceInfo(instance_type0 Type, interfac
 	info1 = (*C.GInterfaceInfo)(unsafe.Pointer(info0))
 	C.g_type_plugin_complete_interface_info(this1, instance_type1, interface_type1, info1)
 }
+
 func (this0 *TypePluginImpl) CompleteTypeInfo(g_type0 Type, info0 *TypeInfo, value_table0 *TypeValueTable) {
 	var this1 *C.GTypePlugin
 	var g_type1 C.GType
@@ -1193,6 +1256,7 @@ func (this0 *TypePluginImpl) CompleteTypeInfo(g_type0 Type, info0 *TypeInfo, val
 	value_table1 = (*C.GTypeValueTable)(unsafe.Pointer(value_table0))
 	C.g_type_plugin_complete_type_info(this1, g_type1, info1, value_table1)
 }
+
 func (this0 *TypePluginImpl) Unuse() {
 	var this1 *C.GTypePlugin
 	if this0 != nil {
@@ -1200,6 +1264,7 @@ func (this0 *TypePluginImpl) Unuse() {
 	}
 	C.g_type_plugin_unuse(this1)
 }
+
 func (this0 *TypePluginImpl) Use() {
 	var this1 *C.GTypePlugin
 	if this0 != nil {
@@ -1224,6 +1289,7 @@ type TypeQuery struct {
 	ClassSize uint32
 	InstanceSize uint32
 }
+
 func (this0 *TypeQuery) TypeName() string {
 	var type_name1 string
 	type_name1 = C.GoString(this0.type_name0)
@@ -1239,11 +1305,13 @@ type TypeValueTable struct {
 	lcopy_format0 *C.char
 	LcopyValue unsafe.Pointer
 }
+
 func (this0 *TypeValueTable) CollectFormat() string {
 	var collect_format1 string
 	collect_format1 = C.GoString(this0.collect_format0)
 	return collect_format1
 }
+
 func (this0 *TypeValueTable) LcopyFormat() string {
 	var lcopy_format1 string
 	lcopy_format1 = C.GoString(this0.lcopy_format0)
@@ -1262,6 +1330,7 @@ type ValueArray struct {
 	NPrealloced uint32
 	_ [4]byte
 }
+
 func NewValueArray(n_prealloced0 uint32) *ValueArray {
 	var n_prealloced1 C.uint32_t
 	n_prealloced1 = C.uint32_t(n_prealloced0)
@@ -1272,6 +1341,7 @@ func NewValueArray(n_prealloced0 uint32) *ValueArray {
 	ret2 = (*ValueArray)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *ValueArray) Append(value0 *Value) *ValueArray {
 	var this1 *C.GValueArray
 	var value1 *C.GValue
@@ -1284,6 +1354,7 @@ func (this0 *ValueArray) Append(value0 *Value) *ValueArray {
 	ret2 = (*ValueArray)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *ValueArray) Copy() *ValueArray {
 	var this1 *C.GValueArray
 	this1 = (*C.GValueArray)(unsafe.Pointer(this0))
@@ -1294,6 +1365,7 @@ func (this0 *ValueArray) Copy() *ValueArray {
 	ret2 = (*ValueArray)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *ValueArray) GetNth(index_0 uint32) *Value {
 	var this1 *C.GValueArray
 	var index_1 C.uint32_t
@@ -1306,6 +1378,7 @@ func (this0 *ValueArray) GetNth(index_0 uint32) *Value {
 	ret2 = (*Value)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *ValueArray) Insert(index_0 uint32, value0 *Value) *ValueArray {
 	var this1 *C.GValueArray
 	var index_1 C.uint32_t
@@ -1320,6 +1393,7 @@ func (this0 *ValueArray) Insert(index_0 uint32, value0 *Value) *ValueArray {
 	ret2 = (*ValueArray)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *ValueArray) Prepend(value0 *Value) *ValueArray {
 	var this1 *C.GValueArray
 	var value1 *C.GValue
@@ -1332,6 +1406,7 @@ func (this0 *ValueArray) Prepend(value0 *Value) *ValueArray {
 	ret2 = (*ValueArray)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *ValueArray) Remove(index_0 uint32) *ValueArray {
 	var this1 *C.GValueArray
 	var index_1 C.uint32_t

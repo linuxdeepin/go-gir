@@ -15,10 +15,10 @@ void g_list_free(GList*);
 #cgo pkg-config: gudev-1.0
 */
 import "C"
-import "unsafe"
-
 import (
-    "github.com/linuxdeepin/go-gir/gobject-2.0"
+	"unsafe"
+
+	"github.com/linuxdeepin/go-gir/gobject-2.0"
 )
 
 const alot = 999999
@@ -39,6 +39,7 @@ type _GError struct {
 	code int32
 	message *C.char
 }
+
 func (e _GError) ToGError() GError {
 	return GError{e.domain, e.code, C.GoString(e.message)}
 }
@@ -48,6 +49,7 @@ type GError struct {
 	Code int32
 	Message string
 }
+
 func (e GError) Error() string {
 	return e.Message
 }
@@ -111,6 +113,7 @@ func (this0 *Client) GetStaticType() gobject.Type {
 func ClientGetType() gobject.Type {
 	return (*Client)(nil).GetStaticType()
 }
+
 func NewClient(subsystems0 []string) *Client {
 	var subsystems1 **C.char
 	subsystems1 = (**C.char)(C.malloc(C.size_t(int(unsafe.Sizeof(*subsystems1)) * (len(subsystems0) + 1))))
@@ -127,6 +130,7 @@ func NewClient(subsystems0 []string) *Client {
 	ret2 = (*Client)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Client) QueryByDeviceFile(device_file0 string) *Device {
 	var this1 *C.GUdevClient
 	var device_file1 *C.char
@@ -142,6 +146,7 @@ func (this0 *Client) QueryByDeviceFile(device_file0 string) *Device {
 	ret2 = (*Device)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Client) QueryByDeviceNumber(type0 DeviceType, number0 uint64) *Device {
 	var this1 *C.GUdevClient
 	var type1 C.GUdevDeviceType
@@ -158,6 +163,7 @@ func (this0 *Client) QueryByDeviceNumber(type0 DeviceType, number0 uint64) *Devi
 	ret2 = (*Device)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Client) QueryBySubsystem(subsystem0 string) []*Device {
 	var this1 *C.GUdevClient
 	var subsystem1 *C.char
@@ -178,6 +184,7 @@ func (this0 *Client) QueryBySubsystem(subsystem0 string) []*Device {
 	C.g_list_free(ret1)
 	return ret2
 }
+
 func (this0 *Client) QueryBySubsystemAndName(subsystem0 string, name0 string) *Device {
 	var this1 *C.GUdevClient
 	var subsystem1 *C.char
@@ -196,6 +203,7 @@ func (this0 *Client) QueryBySubsystemAndName(subsystem0 string, name0 string) *D
 	ret2 = (*Device)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Client) QueryBySysfsPath(sysfs_path0 string) *Device {
 	var this1 *C.GUdevClient
 	var sysfs_path1 *C.char
@@ -248,6 +256,7 @@ func (this0 *Device) GetStaticType() gobject.Type {
 func DeviceGetType() gobject.Type {
 	return (*Device)(nil).GetStaticType()
 }
+
 func (this0 *Device) GetAction() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -260,6 +269,7 @@ func (this0 *Device) GetAction() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetDeviceFile() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -272,6 +282,7 @@ func (this0 *Device) GetDeviceFile() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetDeviceFileSymlinks() []string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -287,6 +298,7 @@ func (this0 *Device) GetDeviceFileSymlinks() []string {
 	}
 	return ret2
 }
+
 func (this0 *Device) GetDeviceNumber() uint64 {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -299,6 +311,7 @@ func (this0 *Device) GetDeviceNumber() uint64 {
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetDeviceType() DeviceType {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -311,6 +324,7 @@ func (this0 *Device) GetDeviceType() DeviceType {
 	ret2 = DeviceType(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetDevtype() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -323,6 +337,7 @@ func (this0 *Device) GetDevtype() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetDriver() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -335,6 +350,7 @@ func (this0 *Device) GetDriver() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetIsInitialized() bool {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -347,6 +363,7 @@ func (this0 *Device) GetIsInitialized() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Device) GetName() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -359,6 +376,7 @@ func (this0 *Device) GetName() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetNumber() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -371,6 +389,7 @@ func (this0 *Device) GetNumber() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetParent() *Device {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -383,6 +402,7 @@ func (this0 *Device) GetParent() *Device {
 	ret2 = (*Device)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Device) GetParentWithSubsystem(subsystem0 string, devtype0 string) *Device {
 	var this1 *C.GUdevDevice
 	var subsystem1 *C.char
@@ -401,6 +421,7 @@ func (this0 *Device) GetParentWithSubsystem(subsystem0 string, devtype0 string) 
 	ret2 = (*Device)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Device) GetProperty(key0 string) string {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -416,6 +437,7 @@ func (this0 *Device) GetProperty(key0 string) string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetPropertyAsBoolean(key0 string) bool {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -431,6 +453,7 @@ func (this0 *Device) GetPropertyAsBoolean(key0 string) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Device) GetPropertyAsDouble(key0 string) float64 {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -446,6 +469,7 @@ func (this0 *Device) GetPropertyAsDouble(key0 string) float64 {
 	ret2 = float64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetPropertyAsInt(key0 string) int32 {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -461,6 +485,7 @@ func (this0 *Device) GetPropertyAsInt(key0 string) int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetPropertyAsStrv(key0 string) []string {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -479,6 +504,7 @@ func (this0 *Device) GetPropertyAsStrv(key0 string) []string {
 	}
 	return ret2
 }
+
 func (this0 *Device) GetPropertyAsUint64(key0 string) uint64 {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -494,6 +520,7 @@ func (this0 *Device) GetPropertyAsUint64(key0 string) uint64 {
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetPropertyKeys() []string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -509,6 +536,7 @@ func (this0 *Device) GetPropertyKeys() []string {
 	}
 	return ret2
 }
+
 func (this0 *Device) GetSeqnum() uint64 {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -521,6 +549,7 @@ func (this0 *Device) GetSeqnum() uint64 {
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSubsystem() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -533,6 +562,7 @@ func (this0 *Device) GetSubsystem() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttr(name0 string) string {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -548,6 +578,7 @@ func (this0 *Device) GetSysfsAttr(name0 string) string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsBoolean(name0 string) bool {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -563,6 +594,7 @@ func (this0 *Device) GetSysfsAttrAsBoolean(name0 string) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsBooleanUncached(name0 string) bool {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -578,6 +610,7 @@ func (this0 *Device) GetSysfsAttrAsBooleanUncached(name0 string) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsDouble(name0 string) float64 {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -593,6 +626,7 @@ func (this0 *Device) GetSysfsAttrAsDouble(name0 string) float64 {
 	ret2 = float64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsDoubleUncached(name0 string) float64 {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -608,6 +642,7 @@ func (this0 *Device) GetSysfsAttrAsDoubleUncached(name0 string) float64 {
 	ret2 = float64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsInt(name0 string) int32 {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -623,6 +658,7 @@ func (this0 *Device) GetSysfsAttrAsInt(name0 string) int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsIntUncached(name0 string) int32 {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -638,6 +674,7 @@ func (this0 *Device) GetSysfsAttrAsIntUncached(name0 string) int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsStrv(name0 string) []string {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -656,6 +693,7 @@ func (this0 *Device) GetSysfsAttrAsStrv(name0 string) []string {
 	}
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsStrvUncached(name0 string) []string {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -674,6 +712,7 @@ func (this0 *Device) GetSysfsAttrAsStrvUncached(name0 string) []string {
 	}
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsUint64(name0 string) uint64 {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -689,6 +728,7 @@ func (this0 *Device) GetSysfsAttrAsUint64(name0 string) uint64 {
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsUint64Uncached(name0 string) uint64 {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -704,6 +744,7 @@ func (this0 *Device) GetSysfsAttrAsUint64Uncached(name0 string) uint64 {
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrKeys() []string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -719,6 +760,7 @@ func (this0 *Device) GetSysfsAttrKeys() []string {
 	}
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrUncached(name0 string) string {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -734,6 +776,7 @@ func (this0 *Device) GetSysfsAttrUncached(name0 string) string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsPath() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -746,6 +789,7 @@ func (this0 *Device) GetSysfsPath() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetTags() []string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -761,6 +805,7 @@ func (this0 *Device) GetTags() []string {
 	}
 	return ret2
 }
+
 func (this0 *Device) GetUsecSinceInitialized() uint64 {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -773,6 +818,7 @@ func (this0 *Device) GetUsecSinceInitialized() uint64 {
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Device) HasProperty(key0 string) bool {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -788,6 +834,7 @@ func (this0 *Device) HasProperty(key0 string) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Device) HasSysfsAttr(key0 string) bool {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -803,6 +850,7 @@ func (this0 *Device) HasSysfsAttr(key0 string) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Device) HasSysfsAttrUncached(key0 string) bool {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -861,6 +909,7 @@ func (this0 *Enumerator) GetStaticType() gobject.Type {
 func EnumeratorGetType() gobject.Type {
 	return (*Enumerator)(nil).GetStaticType()
 }
+
 func NewEnumerator(client0 ClientLike) *Enumerator {
 	var client1 *C.GUdevClient
 	if client0 != nil {
@@ -873,6 +922,7 @@ func NewEnumerator(client0 ClientLike) *Enumerator {
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Enumerator) AddMatchIsInitialized() *Enumerator {
 	var this1 *C.GUdevEnumerator
 	if this0 != nil {
@@ -885,6 +935,7 @@ func (this0 *Enumerator) AddMatchIsInitialized() *Enumerator {
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddMatchName(name0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var name1 *C.char
@@ -900,6 +951,7 @@ func (this0 *Enumerator) AddMatchName(name0 string) *Enumerator {
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddMatchProperty(name0 string, value0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var name1 *C.char
@@ -918,6 +970,7 @@ func (this0 *Enumerator) AddMatchProperty(name0 string, value0 string) *Enumerat
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddMatchSubsystem(subsystem0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var subsystem1 *C.char
@@ -933,6 +986,7 @@ func (this0 *Enumerator) AddMatchSubsystem(subsystem0 string) *Enumerator {
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddMatchSysfsAttr(name0 string, value0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var name1 *C.char
@@ -951,6 +1005,7 @@ func (this0 *Enumerator) AddMatchSysfsAttr(name0 string, value0 string) *Enumera
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddMatchTag(tag0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var tag1 *C.char
@@ -966,6 +1021,7 @@ func (this0 *Enumerator) AddMatchTag(tag0 string) *Enumerator {
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddNomatchSubsystem(subsystem0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var subsystem1 *C.char
@@ -981,6 +1037,7 @@ func (this0 *Enumerator) AddNomatchSubsystem(subsystem0 string) *Enumerator {
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddNomatchSysfsAttr(name0 string, value0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var name1 *C.char
@@ -999,6 +1056,7 @@ func (this0 *Enumerator) AddNomatchSysfsAttr(name0 string, value0 string) *Enume
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddSysfsPath(sysfs_path0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var sysfs_path1 *C.char
@@ -1014,6 +1072,7 @@ func (this0 *Enumerator) AddSysfsPath(sysfs_path0 string) *Enumerator {
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) Execute() []*Device {
 	var this1 *C.GUdevEnumerator
 	if this0 != nil {

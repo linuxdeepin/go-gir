@@ -212,9 +212,6 @@ func go_to_cgo_for_tag(tag gi.TypeTag, arg0, arg1 string, flags conv_flags) stri
 				cgo_type_for_tag(tag, type_pointer), arg0)
 		}
 	}
-
-	panic("unreachable")
-	return ""
 }
 
 //------------------------------------------------------------------
@@ -393,7 +390,6 @@ func cgo_to_go_for_tag(tag gi.TypeTag, arg1, arg2 string, flags conv_flags) stri
 	}
 
 	panic("unreachable")
-	return ""
 }
 
 //------------------------------------------------------------------

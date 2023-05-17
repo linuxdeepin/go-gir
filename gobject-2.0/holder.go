@@ -45,6 +45,7 @@ var holderLocker sync.Mutex
 func toGoInterfaceHolder(x interface{}) C.GoInterfaceHolder {
 	return *(*C.GoInterfaceHolder)(unsafe.Pointer(&x))
 }
+
 func fromGoInterfaceHolder(x C.GoInterfaceHolder) interface{} {
 	return *(*interface{})(unsafe.Pointer(&x))
 }

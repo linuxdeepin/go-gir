@@ -35,6 +35,7 @@ type _GError struct {
 	code int32
 	message *C.char
 }
+
 func (e _GError) ToGError() GError {
 	return GError{e.domain, e.code, C.GoString(e.message)}
 }
@@ -44,6 +45,7 @@ type GError struct {
 	Code int32
 	Message string
 }
+
 func (e GError) Error() string {
 	return e.Message
 }

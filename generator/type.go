@@ -538,7 +538,6 @@ func type_size(ti *gi.TypeInfo, flags type_flags) int {
 		}
 		return type_size_for_tag(tag, flags)
 	}
-	panic("unreachable: " + ti.Tag().String())
 }
 
 func type_size_for_tag(tag gi.TypeTag, flags type_flags) int {

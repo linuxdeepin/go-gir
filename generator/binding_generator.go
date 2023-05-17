@@ -66,7 +66,7 @@ func (this *binding_generator) generate(go_template string) {
 	}
 
 	t := must_template(go_template)
-	t.Execute(this.out_go, map[string]interface{}{
+	_ = t.Execute(this.out_go, map[string]interface{}{
 		"g_list_funcs":       g_list_funcs,
 		"g_object_ref_unref": g_object_ref_unref,
 		"go_utils":           go_utils(true),
@@ -82,7 +82,7 @@ func (this *binding_generator) generate(go_template string) {
 
 	// TODO: using config.pkg here is probably incorrect, we should use the
 	// filename
-	c_template.Execute(this.out_c, map[string]interface{}{
+	_ = c_template.Execute(this.out_c, map[string]interface{}{
 		"namespace": config.namespace,
 		"package":   config.pkg,
 	})
@@ -385,7 +385,7 @@ func get_dependcies_declarations(namespace string) (ret []string) {
 		deps = append(deps, get_dependcies_declarations(depv[0])...)
 	}
 	tmp := list_to_map(deps)
-	for k, _ := range tmp {
+	for k := range tmp {
 		ret = append(ret, k)
 	}
 	return
@@ -421,7 +421,7 @@ func (this *binding_generator) c_forward_declarations() {
 func go_utils(cb bool) string {
 	var out bytes.Buffer
 
-	go_utils_template.Execute(&out, map[string]interface{}{
+	_ = go_utils_template.Execute(&out, map[string]interface{}{
 		"gobjectns":   config.gns,
 		"namespace":   config.namespace,
 		"nocallbacks": !cb,
@@ -805,7 +805,7 @@ func (this *binding_generator) process_function_info(fi *gi.FunctionInfo) {
 	case flags&gi.FUNCTION_IS_METHOD == 0 && container != nil:
 		name = fmt.Sprintf("%s%s", container.Name(), lower_case_to_camel_case(name))
 	default:
-		name = fmt.Sprintf("%s", lower_case_to_camel_case(name))
+		name = lower_case_to_camel_case(name)
 	}
 	fullnm += name
 	name = config.rename(fullnm, name)
@@ -999,8 +999,6 @@ func (this *binding_generator) process_function_info(fi *gi.FunctionInfo) {
 			p("\t%s2 = make(%s, %s)\n",
 				nm, go_type(ret.type_info, type_return),
 				lenarg.Name()+"1")
-		} else if ret.type_info.IsZeroTerminated() {
-			//p("\t%s2 = make(%s, uint(C._array_length(unsafe.Pointer(%s1))))\n", nm, go_type(ret.type_info, type_return), nm)
 		}
 
 		var ownership gi.Transfer

@@ -47,7 +47,5 @@ func (this0 *GdkAppLaunchContext) SetIconName(iconName string) *GdkAppLaunchCont
 
 func GetGdkAppLaunchContext() *GdkAppLaunchContext {
 	ret1 := C.gdk_display_get_app_launch_context(C.gdk_display_get_default())
-	var ret2 *GdkAppLaunchContext
-	ret2 = (*GdkAppLaunchContext)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
-	return ret2
+	return (*GdkAppLaunchContext)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 }

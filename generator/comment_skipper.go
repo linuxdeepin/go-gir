@@ -51,9 +51,6 @@ func (cs *comment_skipper) advance_to(str string) error {
 			return nil
 		}
 	}
-
-	panic("unreachable")
-	return nil
 }
 
 // advance to str, consume it, read and return the next byte if possible
@@ -117,7 +114,4 @@ func (cs *comment_skipper) Read(data []byte) (int, error) {
 		data[read] = b
 		read++
 	}
-
-	panic("unreachable")
-	return 0, nil
 }

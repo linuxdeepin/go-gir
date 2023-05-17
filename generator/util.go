@@ -54,7 +54,7 @@ func must_template(tpl string) *template.Template {
 
 func execute_template(tpl *template.Template, args interface{}) string {
 	var out bytes.Buffer
-	tpl.Execute(&out, args)
+	_ = tpl.Execute(&out, args)
 	return out.String()
 }
 

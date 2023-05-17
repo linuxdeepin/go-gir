@@ -30,6 +30,7 @@ type _GError struct {
 	code int32
 	message *C.char
 }
+
 func (e _GError) ToGError() GError {
 	return GError{e.domain, e.code, C.GoString(e.message)}
 }
@@ -39,6 +40,7 @@ type GError struct {
 	Code int32
 	Message string
 }
+
 func (e GError) Error() string {
 	return e.Message
 }
@@ -97,6 +99,7 @@ const (
 )
 // blacklisted: ByteArray (struct)
 type Bytes struct {}
+
 func NewBytes(data0 []uint8) *Bytes {
 	var data1 *C.uint8_t
 	var size1 C.uint64_t
@@ -113,6 +116,7 @@ func NewBytes(data0 []uint8) *Bytes {
 	ret2 = (*Bytes)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewBytesTake(data0 []uint8) *Bytes {
 	var data1 *C.uint8_t
 	var size1 C.uint64_t
@@ -129,6 +133,7 @@ func NewBytesTake(data0 []uint8) *Bytes {
 	ret2 = (*Bytes)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Bytes) Compare(bytes20 *Bytes) int32 {
 	var this1 *C.GBytes
 	var bytes21 *C.GBytes
@@ -141,6 +146,7 @@ func (this0 *Bytes) Compare(bytes20 *Bytes) int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Bytes) Equal(bytes20 *Bytes) bool {
 	var this1 *C.GBytes
 	var bytes21 *C.GBytes
@@ -153,6 +159,7 @@ func (this0 *Bytes) Equal(bytes20 *Bytes) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Bytes) GetData() (uint64, []uint8) {
 	var this1 *C.GBytes
 	var size1 C.uint64_t
@@ -171,6 +178,7 @@ func (this0 *Bytes) GetData() (uint64, []uint8) {
 	}
 	return size2, ret2
 }
+
 func (this0 *Bytes) GetRegion(element_size0 uint64, offset0 uint64, n_elements0 uint64) {
 	var this1 *C.GBytes
 	var element_size1 C.uint64_t
@@ -182,6 +190,7 @@ func (this0 *Bytes) GetRegion(element_size0 uint64, offset0 uint64, n_elements0 
 	n_elements1 = C.uint64_t(n_elements0)
 	C.g_bytes_get_region(this1, element_size1, offset1, n_elements1)
 }
+
 func (this0 *Bytes) GetSize() uint64 {
 	var this1 *C.GBytes
 	this1 = (*C.GBytes)(unsafe.Pointer(this0))
@@ -192,6 +201,7 @@ func (this0 *Bytes) GetSize() uint64 {
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Bytes) Hash() uint32 {
 	var this1 *C.GBytes
 	this1 = (*C.GBytes)(unsafe.Pointer(this0))
@@ -202,6 +212,7 @@ func (this0 *Bytes) Hash() uint32 {
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 func (this0 *Bytes) NewFromBytes(offset0 uint64, length0 uint64) *Bytes {
 	var this1 *C.GBytes
 	var offset1 C.uint64_t
@@ -216,6 +227,7 @@ func (this0 *Bytes) NewFromBytes(offset0 uint64, length0 uint64) *Bytes {
 	ret2 = (*Bytes)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Bytes) UnrefToData() (uint64, []uint8) {
 	var this1 *C.GBytes
 	var size1 C.uint64_t
@@ -297,6 +309,7 @@ const (
 	DateMonthDecember DateMonth = 12
 )
 type DateTime struct {}
+
 func NewDateTime(tz0 *TimeZone, year0 int32, month0 int32, day0 int32, hour0 int32, minute0 int32, seconds0 float64) *DateTime {
 	var tz1 *C.GTimeZone
 	var year1 C.int32_t
@@ -319,6 +332,7 @@ func NewDateTime(tz0 *TimeZone, year0 int32, month0 int32, day0 int32, hour0 int
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeFromIso8601(text0 string, default_tz0 *TimeZone) *DateTime {
 	var text1 *C.char
 	var default_tz1 *C.GTimeZone
@@ -332,6 +346,7 @@ func NewDateTimeFromIso8601(text0 string, default_tz0 *TimeZone) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeFromTimevalLocal(tv0 *TimeVal) *DateTime {
 	var tv1 *C.GTimeVal
 	tv1 = (*C.GTimeVal)(unsafe.Pointer(tv0))
@@ -342,6 +357,7 @@ func NewDateTimeFromTimevalLocal(tv0 *TimeVal) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeFromTimevalUtc(tv0 *TimeVal) *DateTime {
 	var tv1 *C.GTimeVal
 	tv1 = (*C.GTimeVal)(unsafe.Pointer(tv0))
@@ -352,6 +368,7 @@ func NewDateTimeFromTimevalUtc(tv0 *TimeVal) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeFromUnixLocal(t0 int64) *DateTime {
 	var t1 C.int64_t
 	t1 = C.int64_t(t0)
@@ -362,6 +379,7 @@ func NewDateTimeFromUnixLocal(t0 int64) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeFromUnixUtc(t0 int64) *DateTime {
 	var t1 C.int64_t
 	t1 = C.int64_t(t0)
@@ -372,6 +390,7 @@ func NewDateTimeFromUnixUtc(t0 int64) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeLocal(year0 int32, month0 int32, day0 int32, hour0 int32, minute0 int32, seconds0 float64) *DateTime {
 	var year1 C.int32_t
 	var month1 C.int32_t
@@ -392,6 +411,7 @@ func NewDateTimeLocal(year0 int32, month0 int32, day0 int32, hour0 int32, minute
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeNow(tz0 *TimeZone) *DateTime {
 	var tz1 *C.GTimeZone
 	tz1 = (*C.GTimeZone)(unsafe.Pointer(tz0))
@@ -402,6 +422,7 @@ func NewDateTimeNow(tz0 *TimeZone) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeNowLocal() *DateTime {
 	ret1 := C.g_date_time_new_now_local()
 	var ret2 *DateTime
@@ -410,6 +431,7 @@ func NewDateTimeNowLocal() *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeNowUtc() *DateTime {
 	ret1 := C.g_date_time_new_now_utc()
 	var ret2 *DateTime
@@ -418,6 +440,7 @@ func NewDateTimeNowUtc() *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeUtc(year0 int32, month0 int32, day0 int32, hour0 int32, minute0 int32, seconds0 float64) *DateTime {
 	var year1 C.int32_t
 	var month1 C.int32_t
@@ -438,6 +461,7 @@ func NewDateTimeUtc(year0 int32, month0 int32, day0 int32, hour0 int32, minute0 
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) Add(timespan0 int64) *DateTime {
 	var this1 *C.GDateTime
 	var timespan1 C.int64_t
@@ -450,6 +474,7 @@ func (this0 *DateTime) Add(timespan0 int64) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddDays(days0 int32) *DateTime {
 	var this1 *C.GDateTime
 	var days1 C.int32_t
@@ -462,6 +487,7 @@ func (this0 *DateTime) AddDays(days0 int32) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddFull(years0 int32, months0 int32, days0 int32, hours0 int32, minutes0 int32, seconds0 float64) *DateTime {
 	var this1 *C.GDateTime
 	var years1 C.int32_t
@@ -484,6 +510,7 @@ func (this0 *DateTime) AddFull(years0 int32, months0 int32, days0 int32, hours0 
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddHours(hours0 int32) *DateTime {
 	var this1 *C.GDateTime
 	var hours1 C.int32_t
@@ -496,6 +523,7 @@ func (this0 *DateTime) AddHours(hours0 int32) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddMinutes(minutes0 int32) *DateTime {
 	var this1 *C.GDateTime
 	var minutes1 C.int32_t
@@ -508,6 +536,7 @@ func (this0 *DateTime) AddMinutes(minutes0 int32) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddMonths(months0 int32) *DateTime {
 	var this1 *C.GDateTime
 	var months1 C.int32_t
@@ -520,6 +549,7 @@ func (this0 *DateTime) AddMonths(months0 int32) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddSeconds(seconds0 float64) *DateTime {
 	var this1 *C.GDateTime
 	var seconds1 C.double
@@ -532,6 +562,7 @@ func (this0 *DateTime) AddSeconds(seconds0 float64) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddWeeks(weeks0 int32) *DateTime {
 	var this1 *C.GDateTime
 	var weeks1 C.int32_t
@@ -544,6 +575,7 @@ func (this0 *DateTime) AddWeeks(weeks0 int32) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddYears(years0 int32) *DateTime {
 	var this1 *C.GDateTime
 	var years1 C.int32_t
@@ -556,6 +588,7 @@ func (this0 *DateTime) AddYears(years0 int32) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) Compare(dt20 *DateTime) int32 {
 	var this1 *C.GDateTime
 	var dt21 *C.GDateTime
@@ -568,6 +601,7 @@ func (this0 *DateTime) Compare(dt20 *DateTime) int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) Difference(begin0 *DateTime) int64 {
 	var this1 *C.GDateTime
 	var begin1 *C.GDateTime
@@ -580,6 +614,7 @@ func (this0 *DateTime) Difference(begin0 *DateTime) int64 {
 	ret2 = int64(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) Equal(dt20 *DateTime) bool {
 	var this1 *C.GDateTime
 	var dt21 *C.GDateTime
@@ -592,6 +627,7 @@ func (this0 *DateTime) Equal(dt20 *DateTime) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *DateTime) Format(format0 string) string {
 	var this1 *C.GDateTime
 	var format1 *C.char
@@ -606,6 +642,7 @@ func (this0 *DateTime) Format(format0 string) string {
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) FormatIso8601() string {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -617,6 +654,7 @@ func (this0 *DateTime) FormatIso8601() string {
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) GetDayOfMonth() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -627,6 +665,7 @@ func (this0 *DateTime) GetDayOfMonth() int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetDayOfWeek() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -637,6 +676,7 @@ func (this0 *DateTime) GetDayOfWeek() int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetDayOfYear() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -647,6 +687,7 @@ func (this0 *DateTime) GetDayOfYear() int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetHour() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -657,6 +698,7 @@ func (this0 *DateTime) GetHour() int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetMicrosecond() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -667,6 +709,7 @@ func (this0 *DateTime) GetMicrosecond() int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetMinute() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -677,6 +720,7 @@ func (this0 *DateTime) GetMinute() int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetMonth() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -687,6 +731,7 @@ func (this0 *DateTime) GetMonth() int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetSecond() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -697,6 +742,7 @@ func (this0 *DateTime) GetSecond() int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetSeconds() float64 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -707,6 +753,7 @@ func (this0 *DateTime) GetSeconds() float64 {
 	ret2 = float64(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetTimezone() *TimeZone {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -717,6 +764,7 @@ func (this0 *DateTime) GetTimezone() *TimeZone {
 	ret2 = (*TimeZone)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) GetTimezoneAbbreviation() string {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -727,6 +775,7 @@ func (this0 *DateTime) GetTimezoneAbbreviation() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetUtcOffset() int64 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -737,6 +786,7 @@ func (this0 *DateTime) GetUtcOffset() int64 {
 	ret2 = int64(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetWeekNumberingYear() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -747,6 +797,7 @@ func (this0 *DateTime) GetWeekNumberingYear() int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetWeekOfYear() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -757,6 +808,7 @@ func (this0 *DateTime) GetWeekOfYear() int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetYear() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -767,6 +819,7 @@ func (this0 *DateTime) GetYear() int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetYmd() (int32, int32, int32) {
 	var this1 *C.GDateTime
 	var year1 C.int32_t
@@ -788,6 +841,7 @@ func (this0 *DateTime) GetYmd() (int32, int32, int32) {
 	day2 = int32(day1)
 	return year2, month2, day2
 }
+
 func (this0 *DateTime) Hash() uint32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -798,6 +852,7 @@ func (this0 *DateTime) Hash() uint32 {
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) IsDaylightSavings() bool {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -808,6 +863,7 @@ func (this0 *DateTime) IsDaylightSavings() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *DateTime) ToLocal() *DateTime {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -818,6 +874,7 @@ func (this0 *DateTime) ToLocal() *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) ToTimeval(tv0 *TimeVal) bool {
 	var this1 *C.GDateTime
 	var tv1 *C.GTimeVal
@@ -830,6 +887,7 @@ func (this0 *DateTime) ToTimeval(tv0 *TimeVal) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *DateTime) ToTimezone(tz0 *TimeZone) *DateTime {
 	var this1 *C.GDateTime
 	var tz1 *C.GTimeZone
@@ -842,6 +900,7 @@ func (this0 *DateTime) ToTimezone(tz0 *TimeZone) *DateTime {
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) ToUnix() int64 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -852,6 +911,7 @@ func (this0 *DateTime) ToUnix() int64 {
 	ret2 = int64(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) ToUtc() *DateTime {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
@@ -1079,6 +1139,7 @@ const KeyFileDesktopTypeApplication = "Application"
 const KeyFileDesktopTypeDirectory = "Directory"
 const KeyFileDesktopTypeLink = "Link"
 type KeyFile struct {}
+
 func NewKeyFile() *KeyFile {
 	ret1 := C.g_key_file_new()
 	var ret2 *KeyFile
@@ -1087,6 +1148,7 @@ func NewKeyFile() *KeyFile {
 	ret2 = (*KeyFile)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *KeyFile) GetBoolean(group_name0 string, key0 string) (bool, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1109,6 +1171,7 @@ func (this0 *KeyFile) GetBoolean(group_name0 string, key0 string) (bool, error) 
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetBooleanList(group_name0 string, key0 string) (uint64, []bool, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1140,6 +1203,7 @@ func (this0 *KeyFile) GetBooleanList(group_name0 string, key0 string) (uint64, [
 	}
 	return length2, ret2, err2
 }
+
 func (this0 *KeyFile) GetComment(group_name0 string, key0 string) (string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1163,6 +1227,7 @@ func (this0 *KeyFile) GetComment(group_name0 string, key0 string) (string, error
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetDouble(group_name0 string, key0 string) (float64, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1185,6 +1250,7 @@ func (this0 *KeyFile) GetDouble(group_name0 string, key0 string) (float64, error
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetDoubleList(group_name0 string, key0 string) (uint64, []float64, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1216,6 +1282,7 @@ func (this0 *KeyFile) GetDoubleList(group_name0 string, key0 string) (uint64, []
 	}
 	return length2, ret2, err2
 }
+
 func (this0 *KeyFile) GetGroups() (uint64, []string) {
 	var this1 *C.GKeyFile
 	var length1 C.uint64_t
@@ -1236,6 +1303,7 @@ func (this0 *KeyFile) GetGroups() (uint64, []string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *KeyFile) GetInt64(group_name0 string, key0 string) (int64, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1258,6 +1326,7 @@ func (this0 *KeyFile) GetInt64(group_name0 string, key0 string) (int64, error) {
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetInteger(group_name0 string, key0 string) (int32, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1280,6 +1349,7 @@ func (this0 *KeyFile) GetInteger(group_name0 string, key0 string) (int32, error)
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetIntegerList(group_name0 string, key0 string) (uint64, []int32, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1311,6 +1381,7 @@ func (this0 *KeyFile) GetIntegerList(group_name0 string, key0 string) (uint64, [
 	}
 	return length2, ret2, err2
 }
+
 func (this0 *KeyFile) GetKeys(group_name0 string) (uint64, []string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1340,6 +1411,7 @@ func (this0 *KeyFile) GetKeys(group_name0 string) (uint64, []string, error) {
 	}
 	return length2, ret2, err2
 }
+
 func (this0 *KeyFile) GetLocaleForKey(group_name0 string, key0 string, locale0 string) string {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1360,6 +1432,7 @@ func (this0 *KeyFile) GetLocaleForKey(group_name0 string, key0 string, locale0 s
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *KeyFile) GetLocaleString(group_name0 string, key0 string, locale0 string) (string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1386,6 +1459,7 @@ func (this0 *KeyFile) GetLocaleString(group_name0 string, key0 string, locale0 s
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetLocaleStringList(group_name0 string, key0 string, locale0 string) (uint64, []string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1422,6 +1496,7 @@ func (this0 *KeyFile) GetLocaleStringList(group_name0 string, key0 string, local
 	}
 	return length2, ret2, err2
 }
+
 func (this0 *KeyFile) GetStartGroup() string {
 	var this1 *C.GKeyFile
 	this1 = (*C.GKeyFile)(unsafe.Pointer(this0))
@@ -1433,6 +1508,7 @@ func (this0 *KeyFile) GetStartGroup() string {
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *KeyFile) GetString(group_name0 string, key0 string) (string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1456,6 +1532,7 @@ func (this0 *KeyFile) GetString(group_name0 string, key0 string) (string, error)
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetStringList(group_name0 string, key0 string) (uint64, []string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1489,6 +1566,7 @@ func (this0 *KeyFile) GetStringList(group_name0 string, key0 string) (uint64, []
 	}
 	return length2, ret2, err2
 }
+
 func (this0 *KeyFile) GetUint64(group_name0 string, key0 string) (uint64, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1511,6 +1589,7 @@ func (this0 *KeyFile) GetUint64(group_name0 string, key0 string) (uint64, error)
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetValue(group_name0 string, key0 string) (string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1534,6 +1613,7 @@ func (this0 *KeyFile) GetValue(group_name0 string, key0 string) (string, error) 
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) HasGroup(group_name0 string) bool {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1547,6 +1627,7 @@ func (this0 *KeyFile) HasGroup(group_name0 string) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *KeyFile) LoadFromBytes(bytes0 *Bytes, flags0 KeyFileFlags) (bool, error) {
 	var this1 *C.GKeyFile
 	var bytes1 *C.GBytes
@@ -1567,6 +1648,7 @@ func (this0 *KeyFile) LoadFromBytes(bytes0 *Bytes, flags0 KeyFileFlags) (bool, e
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) LoadFromData(data0 string, length0 uint64, flags0 KeyFileFlags) (bool, error) {
 	var this1 *C.GKeyFile
 	var data1 *C.char
@@ -1590,6 +1672,7 @@ func (this0 *KeyFile) LoadFromData(data0 string, length0 uint64, flags0 KeyFileF
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) LoadFromDataDirs(file0 string, flags0 KeyFileFlags) (string, bool, error) {
 	var this1 *C.GKeyFile
 	var file1 *C.char
@@ -1617,6 +1700,7 @@ func (this0 *KeyFile) LoadFromDataDirs(file0 string, flags0 KeyFileFlags) (strin
 	}
 	return full_path2, ret2, err2
 }
+
 func (this0 *KeyFile) LoadFromDirs(file0 string, search_dirs0 []string, flags0 KeyFileFlags) (string, bool, error) {
 	var this1 *C.GKeyFile
 	var file1 *C.char
@@ -1652,6 +1736,7 @@ func (this0 *KeyFile) LoadFromDirs(file0 string, search_dirs0 []string, flags0 K
 	}
 	return full_path2, ret2, err2
 }
+
 func (this0 *KeyFile) LoadFromFile(file0 string, flags0 KeyFileFlags) (bool, error) {
 	var this1 *C.GKeyFile
 	var file1 *C.char
@@ -1673,6 +1758,7 @@ func (this0 *KeyFile) LoadFromFile(file0 string, flags0 KeyFileFlags) (bool, err
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) RemoveComment(group_name0 string, key0 string) (bool, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1695,6 +1781,7 @@ func (this0 *KeyFile) RemoveComment(group_name0 string, key0 string) (bool, erro
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) RemoveGroup(group_name0 string) (bool, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1714,6 +1801,7 @@ func (this0 *KeyFile) RemoveGroup(group_name0 string) (bool, error) {
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) RemoveKey(group_name0 string, key0 string) (bool, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1736,6 +1824,7 @@ func (this0 *KeyFile) RemoveKey(group_name0 string, key0 string) (bool, error) {
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) SaveToFile(filename0 string) (bool, error) {
 	var this1 *C.GKeyFile
 	var filename1 *C.char
@@ -1755,6 +1844,7 @@ func (this0 *KeyFile) SaveToFile(filename0 string) (bool, error) {
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) SetBoolean(group_name0 string, key0 string, value0 bool) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1768,6 +1858,7 @@ func (this0 *KeyFile) SetBoolean(group_name0 string, key0 string, value0 bool) {
 	value1 = _GoBoolToCBool(value0)
 	C.g_key_file_set_boolean(this1, group_name1, key1, value1)
 }
+
 func (this0 *KeyFile) SetBooleanList(group_name0 string, key0 string, list0 []bool) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1787,6 +1878,7 @@ func (this0 *KeyFile) SetBooleanList(group_name0 string, key0 string, list0 []bo
 	length1 = C.uint64_t(len(list0))
 	C.g_key_file_set_boolean_list(this1, group_name1, key1, list1, length1)
 }
+
 func (this0 *KeyFile) SetComment(group_name0 string, key0 string, comment0 string) (bool, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1812,6 +1904,7 @@ func (this0 *KeyFile) SetComment(group_name0 string, key0 string, comment0 strin
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) SetDouble(group_name0 string, key0 string, value0 float64) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1825,6 +1918,7 @@ func (this0 *KeyFile) SetDouble(group_name0 string, key0 string, value0 float64)
 	value1 = C.double(value0)
 	C.g_key_file_set_double(this1, group_name1, key1, value1)
 }
+
 func (this0 *KeyFile) SetDoubleList(group_name0 string, key0 string, list0 []float64) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1844,6 +1938,7 @@ func (this0 *KeyFile) SetDoubleList(group_name0 string, key0 string, list0 []flo
 	length1 = C.uint64_t(len(list0))
 	C.g_key_file_set_double_list(this1, group_name1, key1, list1, length1)
 }
+
 func (this0 *KeyFile) SetInt64(group_name0 string, key0 string, value0 int64) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1857,6 +1952,7 @@ func (this0 *KeyFile) SetInt64(group_name0 string, key0 string, value0 int64) {
 	value1 = C.int64_t(value0)
 	C.g_key_file_set_int64(this1, group_name1, key1, value1)
 }
+
 func (this0 *KeyFile) SetInteger(group_name0 string, key0 string, value0 int32) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1870,6 +1966,7 @@ func (this0 *KeyFile) SetInteger(group_name0 string, key0 string, value0 int32) 
 	value1 = C.int32_t(value0)
 	C.g_key_file_set_integer(this1, group_name1, key1, value1)
 }
+
 func (this0 *KeyFile) SetIntegerList(group_name0 string, key0 string, list0 []int32) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1889,6 +1986,7 @@ func (this0 *KeyFile) SetIntegerList(group_name0 string, key0 string, list0 []in
 	length1 = C.uint64_t(len(list0))
 	C.g_key_file_set_integer_list(this1, group_name1, key1, list1, length1)
 }
+
 func (this0 *KeyFile) SetListSeparator(separator0 int8) {
 	var this1 *C.GKeyFile
 	var separator1 C.int8_t
@@ -1896,6 +1994,7 @@ func (this0 *KeyFile) SetListSeparator(separator0 int8) {
 	separator1 = C.int8_t(separator0)
 	C.g_key_file_set_list_separator(this1, separator1)
 }
+
 func (this0 *KeyFile) SetLocaleString(group_name0 string, key0 string, locale0 string, string0 string) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1913,6 +2012,7 @@ func (this0 *KeyFile) SetLocaleString(group_name0 string, key0 string, locale0 s
 	defer C.free(unsafe.Pointer(string1))
 	C.g_key_file_set_locale_string(this1, group_name1, key1, locale1, string1)
 }
+
 func (this0 *KeyFile) SetLocaleStringList(group_name0 string, key0 string, locale0 string, list0 []string) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1937,6 +2037,7 @@ func (this0 *KeyFile) SetLocaleStringList(group_name0 string, key0 string, local
 	length1 = C.uint64_t(len(list0))
 	C.g_key_file_set_locale_string_list(this1, group_name1, key1, locale1, list1, length1)
 }
+
 func (this0 *KeyFile) SetString(group_name0 string, key0 string, string0 string) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1951,6 +2052,7 @@ func (this0 *KeyFile) SetString(group_name0 string, key0 string, string0 string)
 	defer C.free(unsafe.Pointer(string1))
 	C.g_key_file_set_string(this1, group_name1, key1, string1)
 }
+
 func (this0 *KeyFile) SetStringList(group_name0 string, key0 string, list0 []string) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1972,6 +2074,7 @@ func (this0 *KeyFile) SetStringList(group_name0 string, key0 string, list0 []str
 	length1 = C.uint64_t(len(list0))
 	C.g_key_file_set_string_list(this1, group_name1, key1, list1, length1)
 }
+
 func (this0 *KeyFile) SetUint64(group_name0 string, key0 string, value0 uint64) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1985,6 +2088,7 @@ func (this0 *KeyFile) SetUint64(group_name0 string, key0 string, value0 uint64) 
 	value1 = C.uint64_t(value0)
 	C.g_key_file_set_uint64(this1, group_name1, key1, value1)
 }
+
 func (this0 *KeyFile) SetValue(group_name0 string, key0 string, value0 string) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1999,6 +2103,7 @@ func (this0 *KeyFile) SetValue(group_name0 string, key0 string, value0 string) {
 	defer C.free(unsafe.Pointer(value1))
 	C.g_key_file_set_value(this1, group_name1, key1, value1)
 }
+
 func (this0 *KeyFile) ToData() (uint64, string, error) {
 	var this1 *C.GKeyFile
 	var length1 C.uint64_t
@@ -2021,6 +2126,7 @@ func (this0 *KeyFile) ToData() (uint64, string, error) {
 	}
 	return length2, ret2, err2
 }
+
 func KeyFileErrorQuark() uint32 {
 	ret1 := C.g_key_file_error_quark()
 	var ret2 uint32
@@ -2130,18 +2236,22 @@ const (
 type Mutex struct {
 	_data [8]byte
 }
+
 func (this0 *Mutex) Clear() {
 	var this1 *C.GMutex
 	C.g_mutex_clear(this1)
 }
+
 func (this0 *Mutex) Init() {
 	var this1 *C.GMutex
 	C.g_mutex_init(this1)
 }
+
 func (this0 *Mutex) Lock() {
 	var this1 *C.GMutex
 	C.g_mutex_lock(this1)
 }
+
 func (this0 *Mutex) Trylock() bool {
 	var this1 *C.GMutex
 	ret1 := C.g_mutex_trylock(this1)
@@ -2151,6 +2261,7 @@ func (this0 *Mutex) Trylock() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Mutex) Unlock() {
 	var this1 *C.GMutex
 	C.g_mutex_unlock(this1)
@@ -2516,6 +2627,7 @@ type TimeVal struct {
 	TvSec int64
 	TvUsec int64
 }
+
 func (this0 *TimeVal) Add(microseconds0 int64) {
 	var this1 *C.GTimeVal
 	var microseconds1 C.int64_t
@@ -2523,6 +2635,7 @@ func (this0 *TimeVal) Add(microseconds0 int64) {
 	microseconds1 = C.int64_t(microseconds0)
 	C.g_time_val_add(this1, microseconds1)
 }
+
 func (this0 *TimeVal) ToIso8601() string {
 	var this1 *C.GTimeVal
 	this1 = (*C.GTimeVal)(unsafe.Pointer(this0))
@@ -2534,6 +2647,7 @@ func (this0 *TimeVal) ToIso8601() string {
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func TimeValFromIso8601(iso_date0 string) (TimeVal, bool) {
 	var iso_date1 *C.char
 	var time_1 C.GTimeVal
@@ -2551,6 +2665,7 @@ func TimeValFromIso8601(iso_date0 string) (TimeVal, bool) {
 	return time_2, ret2
 }
 type TimeZone struct {}
+
 func NewTimeZone(identifier0 string) *TimeZone {
 	var identifier1 *C.char
 	identifier1 = _GoStringToGString(identifier0)
@@ -2562,6 +2677,7 @@ func NewTimeZone(identifier0 string) *TimeZone {
 	ret2 = (*TimeZone)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewTimeZoneIdentifier(identifier0 string) *TimeZone {
 	var identifier1 *C.char
 	identifier1 = _GoStringToGString(identifier0)
@@ -2573,6 +2689,7 @@ func NewTimeZoneIdentifier(identifier0 string) *TimeZone {
 	ret2 = (*TimeZone)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewTimeZoneLocal() *TimeZone {
 	ret1 := C.g_time_zone_new_local()
 	var ret2 *TimeZone
@@ -2581,6 +2698,7 @@ func NewTimeZoneLocal() *TimeZone {
 	ret2 = (*TimeZone)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewTimeZoneOffset(seconds0 int32) *TimeZone {
 	var seconds1 C.int32_t
 	seconds1 = C.int32_t(seconds0)
@@ -2591,6 +2709,7 @@ func NewTimeZoneOffset(seconds0 int32) *TimeZone {
 	ret2 = (*TimeZone)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewTimeZoneUtc() *TimeZone {
 	ret1 := C.g_time_zone_new_utc()
 	var ret2 *TimeZone
@@ -2599,6 +2718,7 @@ func NewTimeZoneUtc() *TimeZone {
 	ret2 = (*TimeZone)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *TimeZone) AdjustTime(type0 TimeType, time_0 int64) (int64, int32) {
 	var this1 *C.GTimeZone
 	var type1 C.GTimeType
@@ -2617,6 +2737,7 @@ func (this0 *TimeZone) AdjustTime(type0 TimeType, time_0 int64) (int64, int32) {
 	ret2 = int32(ret1)
 	return time_2, ret2
 }
+
 func (this0 *TimeZone) FindInterval(type0 TimeType, time_0 int64) int32 {
 	var this1 *C.GTimeZone
 	var type1 C.GTimeType
@@ -2631,6 +2752,7 @@ func (this0 *TimeZone) FindInterval(type0 TimeType, time_0 int64) int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *TimeZone) GetAbbreviation(interval0 int32) string {
 	var this1 *C.GTimeZone
 	var interval1 C.int32_t
@@ -2643,6 +2765,7 @@ func (this0 *TimeZone) GetAbbreviation(interval0 int32) string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *TimeZone) GetIdentifier() string {
 	var this1 *C.GTimeZone
 	this1 = (*C.GTimeZone)(unsafe.Pointer(this0))
@@ -2653,6 +2776,7 @@ func (this0 *TimeZone) GetIdentifier() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *TimeZone) GetOffset(interval0 int32) int32 {
 	var this1 *C.GTimeZone
 	var interval1 C.int32_t
@@ -2665,6 +2789,7 @@ func (this0 *TimeZone) GetOffset(interval0 int32) int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *TimeZone) IsDst(interval0 int32) bool {
 	var this1 *C.GTimeZone
 	var interval1 C.int32_t
@@ -3041,6 +3166,7 @@ const (
 )
 const VersionMinRequired = 2
 type Variant struct {}
+
 func NewVariantArray(child_type0 *VariantType, children0 []*Variant) *Variant {
 	var child_type1 *C.GVariantType
 	var children1 **C.GVariant
@@ -3059,6 +3185,7 @@ func NewVariantArray(child_type0 *VariantType, children0 []*Variant) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantBoolean(value0 bool) *Variant {
 	var value1 C.int
 	value1 = _GoBoolToCBool(value0)
@@ -3069,6 +3196,7 @@ func NewVariantBoolean(value0 bool) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantByte(value0 uint8) *Variant {
 	var value1 C.uint8_t
 	value1 = C.uint8_t(value0)
@@ -3079,6 +3207,7 @@ func NewVariantByte(value0 uint8) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantBytestringArray(strv0 []string) *Variant {
 	var strv1 **C.char
 	var length1 C.int64_t
@@ -3096,6 +3225,7 @@ func NewVariantBytestringArray(strv0 []string) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantDictEntry(key0 *Variant, value0 *Variant) *Variant {
 	var key1 *C.GVariant
 	var value1 *C.GVariant
@@ -3108,6 +3238,7 @@ func NewVariantDictEntry(key0 *Variant, value0 *Variant) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantDouble(value0 float64) *Variant {
 	var value1 C.double
 	value1 = C.double(value0)
@@ -3118,6 +3249,7 @@ func NewVariantDouble(value0 float64) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantFixedArray(element_type0 *VariantType, elements0 unsafe.Pointer, n_elements0 uint64, element_size0 uint64) *Variant {
 	var element_type1 *C.GVariantType
 	var elements1 unsafe.Pointer
@@ -3134,6 +3266,7 @@ func NewVariantFixedArray(element_type0 *VariantType, elements0 unsafe.Pointer, 
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantHandle(value0 int32) *Variant {
 	var value1 C.int32_t
 	value1 = C.int32_t(value0)
@@ -3144,6 +3277,7 @@ func NewVariantHandle(value0 int32) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantInt16(value0 int16) *Variant {
 	var value1 C.int16_t
 	value1 = C.int16_t(value0)
@@ -3154,6 +3288,7 @@ func NewVariantInt16(value0 int16) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantInt32(value0 int32) *Variant {
 	var value1 C.int32_t
 	value1 = C.int32_t(value0)
@@ -3164,6 +3299,7 @@ func NewVariantInt32(value0 int32) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantInt64(value0 int64) *Variant {
 	var value1 C.int64_t
 	value1 = C.int64_t(value0)
@@ -3174,6 +3310,7 @@ func NewVariantInt64(value0 int64) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantMaybe(child_type0 *VariantType, child0 *Variant) *Variant {
 	var child_type1 *C.GVariantType
 	var child1 *C.GVariant
@@ -3186,6 +3323,7 @@ func NewVariantMaybe(child_type0 *VariantType, child0 *Variant) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantObjectPath(object_path0 string) *Variant {
 	var object_path1 *C.char
 	object_path1 = _GoStringToGString(object_path0)
@@ -3197,6 +3335,7 @@ func NewVariantObjectPath(object_path0 string) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantObjv(strv0 []string) *Variant {
 	var strv1 **C.char
 	var length1 C.int64_t
@@ -3214,6 +3353,7 @@ func NewVariantObjv(strv0 []string) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantSignature(signature0 string) *Variant {
 	var signature1 *C.char
 	signature1 = _GoStringToGString(signature0)
@@ -3225,6 +3365,7 @@ func NewVariantSignature(signature0 string) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantString(string0 string) *Variant {
 	var string1 *C.char
 	string1 = _GoStringToGString(string0)
@@ -3236,6 +3377,7 @@ func NewVariantString(string0 string) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantStrv(strv0 []string) *Variant {
 	var strv1 **C.char
 	var length1 C.int64_t
@@ -3253,6 +3395,7 @@ func NewVariantStrv(strv0 []string) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantTuple(children0 []*Variant) *Variant {
 	var children1 **C.GVariant
 	var n_children1 C.uint64_t
@@ -3269,6 +3412,7 @@ func NewVariantTuple(children0 []*Variant) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantUint16(value0 uint16) *Variant {
 	var value1 C.uint16_t
 	value1 = C.uint16_t(value0)
@@ -3279,6 +3423,7 @@ func NewVariantUint16(value0 uint16) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantUint32(value0 uint32) *Variant {
 	var value1 C.uint32_t
 	value1 = C.uint32_t(value0)
@@ -3289,6 +3434,7 @@ func NewVariantUint32(value0 uint32) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantUint64(value0 uint64) *Variant {
 	var value1 C.uint64_t
 	value1 = C.uint64_t(value0)
@@ -3299,6 +3445,7 @@ func NewVariantUint64(value0 uint64) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantVariant(value0 *Variant) *Variant {
 	var value1 *C.GVariant
 	value1 = (*C.GVariant)(unsafe.Pointer(value0))
@@ -3309,6 +3456,7 @@ func NewVariantVariant(value0 *Variant) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) Byteswap() *Variant {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3319,6 +3467,7 @@ func (this0 *Variant) Byteswap() *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) CheckFormatString(format_string0 string, copy_only0 bool) bool {
 	var this1 *C.GVariant
 	var format_string1 *C.char
@@ -3334,6 +3483,7 @@ func (this0 *Variant) CheckFormatString(format_string0 string, copy_only0 bool) 
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) Classify() VariantClass {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3344,6 +3494,7 @@ func (this0 *Variant) Classify() VariantClass {
 	ret2 = VariantClass(ret1)
 	return ret2
 }
+
 func (this0 *Variant) Compare(two0 *Variant) int32 {
 	var this1 *C.GVariant
 	var two1 *C.GVariant
@@ -3356,6 +3507,7 @@ func (this0 *Variant) Compare(two0 *Variant) int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Variant) DupBytestring() (uint64, []uint8) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3376,6 +3528,7 @@ func (this0 *Variant) DupBytestring() (uint64, []uint8) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) DupBytestringArray() (uint64, []string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3396,6 +3549,7 @@ func (this0 *Variant) DupBytestringArray() (uint64, []string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) DupObjv() (uint64, []string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3417,6 +3571,7 @@ func (this0 *Variant) DupObjv() (uint64, []string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) DupString() (uint64, string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3433,6 +3588,7 @@ func (this0 *Variant) DupString() (uint64, string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) DupStrv() (uint64, []string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3454,6 +3610,7 @@ func (this0 *Variant) DupStrv() (uint64, []string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) Equal(two0 *Variant) bool {
 	var this1 *C.GVariant
 	var two1 *C.GVariant
@@ -3466,6 +3623,7 @@ func (this0 *Variant) Equal(two0 *Variant) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) GetBoolean() bool {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3476,6 +3634,7 @@ func (this0 *Variant) GetBoolean() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) GetByte() uint8 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3486,6 +3645,7 @@ func (this0 *Variant) GetByte() uint8 {
 	ret2 = uint8(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetBytestring() []uint8 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3499,6 +3659,7 @@ func (this0 *Variant) GetBytestring() []uint8 {
 	}
 	return ret2
 }
+
 func (this0 *Variant) GetBytestringArray() (uint64, []string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3518,6 +3679,7 @@ func (this0 *Variant) GetBytestringArray() (uint64, []string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) GetChildValue(index_0 uint64) *Variant {
 	var this1 *C.GVariant
 	var index_1 C.uint64_t
@@ -3530,11 +3692,13 @@ func (this0 *Variant) GetChildValue(index_0 uint64) *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) GetData() {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	C.g_variant_get_data(this1)
 }
+
 func (this0 *Variant) GetDouble() float64 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3545,6 +3709,7 @@ func (this0 *Variant) GetDouble() float64 {
 	ret2 = float64(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetHandle() int32 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3555,6 +3720,7 @@ func (this0 *Variant) GetHandle() int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetInt16() int16 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3565,6 +3731,7 @@ func (this0 *Variant) GetInt16() int16 {
 	ret2 = int16(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetInt32() int32 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3575,6 +3742,7 @@ func (this0 *Variant) GetInt32() int32 {
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetInt64() int64 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3585,6 +3753,7 @@ func (this0 *Variant) GetInt64() int64 {
 	ret2 = int64(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetMaybe() *Variant {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3595,6 +3764,7 @@ func (this0 *Variant) GetMaybe() *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) GetNormalForm() *Variant {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3605,6 +3775,7 @@ func (this0 *Variant) GetNormalForm() *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) GetObjv() (uint64, []string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3625,6 +3796,7 @@ func (this0 *Variant) GetObjv() (uint64, []string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) GetSize() uint64 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3635,6 +3807,7 @@ func (this0 *Variant) GetSize() uint64 {
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetString() (uint64, string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3650,6 +3823,7 @@ func (this0 *Variant) GetString() (uint64, string) {
 	ret2 = C.GoString(ret1)
 	return length2, ret2
 }
+
 func (this0 *Variant) GetStrv() (uint64, []string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3670,6 +3844,7 @@ func (this0 *Variant) GetStrv() (uint64, []string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) GetType() *VariantType {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3680,6 +3855,7 @@ func (this0 *Variant) GetType() *VariantType {
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) GetTypeString() string {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3690,6 +3866,7 @@ func (this0 *Variant) GetTypeString() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetUint16() uint16 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3700,6 +3877,7 @@ func (this0 *Variant) GetUint16() uint16 {
 	ret2 = uint16(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetUint32() uint32 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3710,6 +3888,7 @@ func (this0 *Variant) GetUint32() uint32 {
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetUint64() uint64 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3720,6 +3899,7 @@ func (this0 *Variant) GetUint64() uint64 {
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetVariant() *Variant {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3730,6 +3910,7 @@ func (this0 *Variant) GetVariant() *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) Hash() uint32 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3740,6 +3921,7 @@ func (this0 *Variant) Hash() uint32 {
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 func (this0 *Variant) IsContainer() bool {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3750,6 +3932,7 @@ func (this0 *Variant) IsContainer() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) IsFloating() bool {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3760,6 +3943,7 @@ func (this0 *Variant) IsFloating() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) IsNormalForm() bool {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3770,6 +3954,7 @@ func (this0 *Variant) IsNormalForm() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) IsOfType(type0 *VariantType) bool {
 	var this1 *C.GVariant
 	var type1 *C.GVariantType
@@ -3782,6 +3967,7 @@ func (this0 *Variant) IsOfType(type0 *VariantType) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) LookupValue(key0 string, expected_type0 *VariantType) *Variant {
 	var this1 *C.GVariant
 	var key1 *C.char
@@ -3797,6 +3983,7 @@ func (this0 *Variant) LookupValue(key0 string, expected_type0 *VariantType) *Var
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) NChildren() uint64 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3807,6 +3994,7 @@ func (this0 *Variant) NChildren() uint64 {
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Variant) Print(type_annotate0 bool) string {
 	var this1 *C.GVariant
 	var type_annotate1 C.int
@@ -3820,6 +4008,7 @@ func (this0 *Variant) Print(type_annotate0 bool) string {
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) RefSink() *Variant {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3830,6 +4019,7 @@ func (this0 *Variant) RefSink() *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) Store(data0 unsafe.Pointer) {
 	var this1 *C.GVariant
 	var data1 unsafe.Pointer
@@ -3837,6 +4027,7 @@ func (this0 *Variant) Store(data0 unsafe.Pointer) {
 	data1 = unsafe.Pointer(data0)
 	C.g_variant_store(this1, data1)
 }
+
 func (this0 *Variant) TakeRef() *Variant {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3847,6 +4038,7 @@ func (this0 *Variant) TakeRef() *Variant {
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func VariantIsObjectPath(string0 string) bool {
 	var string1 *C.char
 	string1 = _GoStringToGString(string0)
@@ -3858,6 +4050,7 @@ func VariantIsObjectPath(string0 string) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func VariantIsSignature(string0 string) bool {
 	var string1 *C.char
 	string1 = _GoStringToGString(string0)
@@ -3869,6 +4062,7 @@ func VariantIsSignature(string0 string) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func VariantParse(type0 *VariantType, text0 string, limit0 string, endptr0 string) (*Variant, error) {
 	var type1 *C.GVariantType
 	var text1 *C.char
@@ -3894,6 +4088,7 @@ func VariantParse(type0 *VariantType, text0 string, limit0 string, endptr0 strin
 	}
 	return ret2, err2
 }
+
 func VariantParseErrorQuark() uint32 {
 	ret1 := C.g_variant_parse_error_quark()
 	var ret2 uint32
@@ -3902,6 +4097,7 @@ func VariantParseErrorQuark() uint32 {
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 func VariantParserGetErrorQuark() uint32 {
 	ret1 := C.g_variant_parser_get_error_quark()
 	var ret2 uint32
@@ -3956,6 +4152,7 @@ const (
 	VariantParseErrorRecursion VariantParseError = 18
 )
 type VariantType struct {}
+
 func NewVariantType(type_string0 string) *VariantType {
 	var type_string1 *C.char
 	type_string1 = _GoStringToGString(type_string0)
@@ -3967,6 +4164,7 @@ func NewVariantType(type_string0 string) *VariantType {
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantTypeArray(element0 *VariantType) *VariantType {
 	var element1 *C.GVariantType
 	element1 = (*C.GVariantType)(unsafe.Pointer(element0))
@@ -3977,6 +4175,7 @@ func NewVariantTypeArray(element0 *VariantType) *VariantType {
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantTypeDictEntry(key0 *VariantType, value0 *VariantType) *VariantType {
 	var key1 *C.GVariantType
 	var value1 *C.GVariantType
@@ -3989,6 +4188,7 @@ func NewVariantTypeDictEntry(key0 *VariantType, value0 *VariantType) *VariantTyp
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantTypeMaybe(element0 *VariantType) *VariantType {
 	var element1 *C.GVariantType
 	element1 = (*C.GVariantType)(unsafe.Pointer(element0))
@@ -3999,6 +4199,7 @@ func NewVariantTypeMaybe(element0 *VariantType) *VariantType {
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantTypeTuple(items0 []*VariantType) *VariantType {
 	var items1 **C.GVariantType
 	var length1 C.int32_t
@@ -4015,6 +4216,7 @@ func NewVariantTypeTuple(items0 []*VariantType) *VariantType {
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) Copy() *VariantType {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4025,6 +4227,7 @@ func (this0 *VariantType) Copy() *VariantType {
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) DupString() string {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4036,6 +4239,7 @@ func (this0 *VariantType) DupString() string {
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) Element() *VariantType {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4046,6 +4250,7 @@ func (this0 *VariantType) Element() *VariantType {
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) Equal(type20 *VariantType) bool {
 	var this1 *C.GVariantType
 	var type21 *C.GVariantType
@@ -4058,6 +4263,7 @@ func (this0 *VariantType) Equal(type20 *VariantType) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) First() *VariantType {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4068,11 +4274,13 @@ func (this0 *VariantType) First() *VariantType {
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) Free() {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	C.g_variant_type_free(this1)
 }
+
 func (this0 *VariantType) GetStringLength() uint64 {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4083,6 +4291,7 @@ func (this0 *VariantType) GetStringLength() uint64 {
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *VariantType) Hash() uint32 {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4093,6 +4302,7 @@ func (this0 *VariantType) Hash() uint32 {
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 func (this0 *VariantType) IsArray() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4103,6 +4313,7 @@ func (this0 *VariantType) IsArray() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsBasic() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4113,6 +4324,7 @@ func (this0 *VariantType) IsBasic() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsContainer() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4123,6 +4335,7 @@ func (this0 *VariantType) IsContainer() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsDefinite() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4133,6 +4346,7 @@ func (this0 *VariantType) IsDefinite() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsDictEntry() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4143,6 +4357,7 @@ func (this0 *VariantType) IsDictEntry() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsMaybe() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4153,6 +4368,7 @@ func (this0 *VariantType) IsMaybe() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsSubtypeOf(supertype0 *VariantType) bool {
 	var this1 *C.GVariantType
 	var supertype1 *C.GVariantType
@@ -4165,6 +4381,7 @@ func (this0 *VariantType) IsSubtypeOf(supertype0 *VariantType) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsTuple() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4175,6 +4392,7 @@ func (this0 *VariantType) IsTuple() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsVariant() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4185,6 +4403,7 @@ func (this0 *VariantType) IsVariant() bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) Key() *VariantType {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4195,6 +4414,7 @@ func (this0 *VariantType) Key() *VariantType {
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) NItems() uint64 {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4205,6 +4425,7 @@ func (this0 *VariantType) NItems() uint64 {
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *VariantType) Next() *VariantType {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4215,6 +4436,7 @@ func (this0 *VariantType) Next() *VariantType {
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) Value() *VariantType {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4225,6 +4447,7 @@ func (this0 *VariantType) Value() *VariantType {
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func VariantTypeChecked_(arg00 string) *VariantType {
 	var arg01 *C.char
 	arg01 = _GoStringToGString(arg00)
@@ -4236,6 +4459,7 @@ func VariantTypeChecked_(arg00 string) *VariantType {
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func VariantTypeStringGetDepth_(type_string0 string) uint64 {
 	var type_string1 *C.char
 	type_string1 = _GoStringToGString(type_string0)
@@ -4247,6 +4471,7 @@ func VariantTypeStringGetDepth_(type_string0 string) uint64 {
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func VariantTypeStringIsValid(type_string0 string) bool {
 	var type_string1 *C.char
 	type_string1 = _GoStringToGString(type_string0)
@@ -4258,6 +4483,7 @@ func VariantTypeStringIsValid(type_string0 string) bool {
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func VariantTypeStringScan(string0 string, limit0 string) (string, bool) {
 	var string1 *C.char
 	var limit1 *C.char
@@ -4475,6 +4701,7 @@ func GetSystemConfigDirs() []string {
 	}
 	return ret2
 }
+
 func GetSystemDataDirs() []string {
 	ret1 := C.g_get_system_data_dirs()
 	var ret2 []string
@@ -4486,6 +4713,7 @@ func GetSystemDataDirs() []string {
 	}
 	return ret2
 }
+
 func GetTmpDir() string {
 	ret1 := C.g_get_tmp_dir()
 	var ret2 string
@@ -4494,6 +4722,7 @@ func GetTmpDir() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func GetUserCacheDir() string {
 	ret1 := C.g_get_user_cache_dir()
 	var ret2 string
@@ -4502,6 +4731,7 @@ func GetUserCacheDir() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func GetUserConfigDir() string {
 	ret1 := C.g_get_user_config_dir()
 	var ret2 string
@@ -4510,6 +4740,7 @@ func GetUserConfigDir() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func GetUserDataDir() string {
 	ret1 := C.g_get_user_data_dir()
 	var ret2 string
@@ -4527,6 +4758,7 @@ func GetUserRuntimeDir() string {
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func GetUserSpecialDir(directory0 UserDirectory) string {
 	var directory1 C.GUserDirectory
 	directory1 = C.GUserDirectory(directory0)
