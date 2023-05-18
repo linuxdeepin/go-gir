@@ -111,6 +111,11 @@ func (this0 *Client) GetStaticType() gobject.Type {
 func ClientGetType() gobject.Type {
 	return (*Client)(nil).GetStaticType()
 }
+
+func _EnsureSafeTransToClientPointer(c unsafe.Pointer) *Client {
+	ptr := uintptr(c)
+	return *(**Client)(unsafe.Pointer(&ptr))
+}
 func NewClient(subsystems0 []string) *Client {
 	var subsystems1 **C.char
 	subsystems1 = (**C.char)(C.malloc(C.size_t(int(unsafe.Sizeof(*subsystems1)) * (len(subsystems0) + 1))))
@@ -123,10 +128,11 @@ func NewClient(subsystems0 []string) *Client {
 	ret1 := C.g_udev_client_new(subsystems1)
 	var ret2 *Client
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
-	ret2 = (*Client)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
+	ret2 = _EnsureSafeTransToClientPointer(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Client) QueryByDeviceFile(device_file0 string) *Device {
 	var this1 *C.GUdevClient
 	var device_file1 *C.char
@@ -138,10 +144,11 @@ func (this0 *Client) QueryByDeviceFile(device_file0 string) *Device {
 	ret1 := C.g_udev_client_query_by_device_file(this1, device_file1)
 	var ret2 *Device
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
-	ret2 = (*Device)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
+	ret2 = _EnsureSafeTransToDevicePointer(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Client) QueryByDeviceNumber(type0 DeviceType, number0 uint64) *Device {
 	var this1 *C.GUdevClient
 	var type1 C.GUdevDeviceType
@@ -154,10 +161,11 @@ func (this0 *Client) QueryByDeviceNumber(type0 DeviceType, number0 uint64) *Devi
 	ret1 := C.g_udev_client_query_by_device_number(this1, type1, number1)
 	var ret2 *Device
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
-	ret2 = (*Device)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
+	ret2 = _EnsureSafeTransToDevicePointer(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Client) QueryBySubsystem(subsystem0 string) []*Device {
 	var this1 *C.GUdevClient
 	var subsystem1 *C.char
@@ -169,15 +177,16 @@ func (this0 *Client) QueryBySubsystem(subsystem0 string) []*Device {
 	ret1 := C.g_udev_client_query_by_subsystem(this1, subsystem1)
 	var ret2 []*Device
 
-//DEBUG: ret1(glist):flags = " conv_own_everything"
+	//DEBUG: ret1(glist):flags = " conv_own_everything"
 	for iter := (*_GList)(unsafe.Pointer(ret1)); iter != nil; iter = iter.next {
 		var elt *Device
-		elt = (*Device)(gobject.ObjectWrap(unsafe.Pointer((*C.GUdevDevice)(iter.data)), false))
+		elt = _EnsureSafeTransToDevicePointer(gobject.ObjectWrap(unsafe.Pointer((*C.GUdevDevice)(iter.data)), false))
 		ret2 = append(ret2, elt)
 	}
 	C.g_list_free(ret1)
 	return ret2
 }
+
 func (this0 *Client) QueryBySubsystemAndName(subsystem0 string, name0 string) *Device {
 	var this1 *C.GUdevClient
 	var subsystem1 *C.char
@@ -192,10 +201,11 @@ func (this0 *Client) QueryBySubsystemAndName(subsystem0 string, name0 string) *D
 	ret1 := C.g_udev_client_query_by_subsystem_and_name(this1, subsystem1, name1)
 	var ret2 *Device
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
-	ret2 = (*Device)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
+	ret2 = _EnsureSafeTransToDevicePointer(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Client) QueryBySysfsPath(sysfs_path0 string) *Device {
 	var this1 *C.GUdevClient
 	var sysfs_path1 *C.char
@@ -207,10 +217,11 @@ func (this0 *Client) QueryBySysfsPath(sysfs_path0 string) *Device {
 	ret1 := C.g_udev_client_query_by_sysfs_path(this1, sysfs_path1)
 	var ret2 *Device
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
-	ret2 = (*Device)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
+	ret2 = _EnsureSafeTransToDevicePointer(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 type DeviceLike interface {
 	gobject.ObjectLike
 	InheritedFromGUdevDevice() *C.GUdevDevice
@@ -248,6 +259,11 @@ func (this0 *Device) GetStaticType() gobject.Type {
 func DeviceGetType() gobject.Type {
 	return (*Device)(nil).GetStaticType()
 }
+
+func _EnsureSafeTransToDevicePointer(c unsafe.Pointer) *Device {
+	ptr := uintptr(c)
+	return *(**Device)(unsafe.Pointer(&ptr))
+}
 func (this0 *Device) GetAction() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -256,10 +272,11 @@ func (this0 *Device) GetAction() string {
 	ret1 := C.g_udev_device_get_action(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetDeviceFile() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -268,10 +285,11 @@ func (this0 *Device) GetDeviceFile() string {
 	ret1 := C.g_udev_device_get_device_file(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetDeviceFileSymlinks() []string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -280,13 +298,14 @@ func (this0 *Device) GetDeviceFileSymlinks() []string {
 	ret1 := C.g_udev_device_get_device_file_symlinks(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
 	}
 	return ret2
 }
+
 func (this0 *Device) GetDeviceNumber() uint64 {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -295,10 +314,11 @@ func (this0 *Device) GetDeviceNumber() uint64 {
 	ret1 := C.g_udev_device_get_device_number(this1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetDeviceType() DeviceType {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -307,10 +327,11 @@ func (this0 *Device) GetDeviceType() DeviceType {
 	ret1 := C.g_udev_device_get_device_type(this1)
 	var ret2 DeviceType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = DeviceType(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetDevtype() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -319,10 +340,11 @@ func (this0 *Device) GetDevtype() string {
 	ret1 := C.g_udev_device_get_devtype(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetDriver() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -331,10 +353,11 @@ func (this0 *Device) GetDriver() string {
 	ret1 := C.g_udev_device_get_driver(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetIsInitialized() bool {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -343,10 +366,11 @@ func (this0 *Device) GetIsInitialized() bool {
 	ret1 := C.g_udev_device_get_is_initialized(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Device) GetName() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -355,10 +379,11 @@ func (this0 *Device) GetName() string {
 	ret1 := C.g_udev_device_get_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetNumber() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -367,10 +392,11 @@ func (this0 *Device) GetNumber() string {
 	ret1 := C.g_udev_device_get_number(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetParent() *Device {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -379,10 +405,11 @@ func (this0 *Device) GetParent() *Device {
 	ret1 := C.g_udev_device_get_parent(this1)
 	var ret2 *Device
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
-	ret2 = (*Device)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
+	ret2 = _EnsureSafeTransToDevicePointer(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Device) GetParentWithSubsystem(subsystem0 string, devtype0 string) *Device {
 	var this1 *C.GUdevDevice
 	var subsystem1 *C.char
@@ -397,10 +424,11 @@ func (this0 *Device) GetParentWithSubsystem(subsystem0 string, devtype0 string) 
 	ret1 := C.g_udev_device_get_parent_with_subsystem(this1, subsystem1, devtype1)
 	var ret2 *Device
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
-	ret2 = (*Device)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
+	ret2 = _EnsureSafeTransToDevicePointer(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Device) GetProperty(key0 string) string {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -412,10 +440,11 @@ func (this0 *Device) GetProperty(key0 string) string {
 	ret1 := C.g_udev_device_get_property(this1, key1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetPropertyAsBoolean(key0 string) bool {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -427,10 +456,11 @@ func (this0 *Device) GetPropertyAsBoolean(key0 string) bool {
 	ret1 := C.g_udev_device_get_property_as_boolean(this1, key1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Device) GetPropertyAsDouble(key0 string) float64 {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -442,10 +472,11 @@ func (this0 *Device) GetPropertyAsDouble(key0 string) float64 {
 	ret1 := C.g_udev_device_get_property_as_double(this1, key1)
 	var ret2 float64
 
-//DEBUG: ret1(gdouble):flags = " conv_own_none"
+	//DEBUG: ret1(gdouble):flags = " conv_own_none"
 	ret2 = float64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetPropertyAsInt(key0 string) int32 {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -457,10 +488,11 @@ func (this0 *Device) GetPropertyAsInt(key0 string) int32 {
 	ret1 := C.g_udev_device_get_property_as_int(this1, key1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetPropertyAsStrv(key0 string) []string {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -472,13 +504,14 @@ func (this0 *Device) GetPropertyAsStrv(key0 string) []string {
 	ret1 := C.g_udev_device_get_property_as_strv(this1, key1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
 	}
 	return ret2
 }
+
 func (this0 *Device) GetPropertyAsUint64(key0 string) uint64 {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -490,10 +523,11 @@ func (this0 *Device) GetPropertyAsUint64(key0 string) uint64 {
 	ret1 := C.g_udev_device_get_property_as_uint64(this1, key1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetPropertyKeys() []string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -502,13 +536,14 @@ func (this0 *Device) GetPropertyKeys() []string {
 	ret1 := C.g_udev_device_get_property_keys(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
 	}
 	return ret2
 }
+
 func (this0 *Device) GetSeqnum() uint64 {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -517,10 +552,11 @@ func (this0 *Device) GetSeqnum() uint64 {
 	ret1 := C.g_udev_device_get_seqnum(this1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSubsystem() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -529,10 +565,11 @@ func (this0 *Device) GetSubsystem() string {
 	ret1 := C.g_udev_device_get_subsystem(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttr(name0 string) string {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -544,10 +581,11 @@ func (this0 *Device) GetSysfsAttr(name0 string) string {
 	ret1 := C.g_udev_device_get_sysfs_attr(this1, name1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsBoolean(name0 string) bool {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -559,10 +597,11 @@ func (this0 *Device) GetSysfsAttrAsBoolean(name0 string) bool {
 	ret1 := C.g_udev_device_get_sysfs_attr_as_boolean(this1, name1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsBooleanUncached(name0 string) bool {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -574,10 +613,11 @@ func (this0 *Device) GetSysfsAttrAsBooleanUncached(name0 string) bool {
 	ret1 := C.g_udev_device_get_sysfs_attr_as_boolean_uncached(this1, name1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsDouble(name0 string) float64 {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -589,10 +629,11 @@ func (this0 *Device) GetSysfsAttrAsDouble(name0 string) float64 {
 	ret1 := C.g_udev_device_get_sysfs_attr_as_double(this1, name1)
 	var ret2 float64
 
-//DEBUG: ret1(gdouble):flags = " conv_own_none"
+	//DEBUG: ret1(gdouble):flags = " conv_own_none"
 	ret2 = float64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsDoubleUncached(name0 string) float64 {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -604,10 +645,11 @@ func (this0 *Device) GetSysfsAttrAsDoubleUncached(name0 string) float64 {
 	ret1 := C.g_udev_device_get_sysfs_attr_as_double_uncached(this1, name1)
 	var ret2 float64
 
-//DEBUG: ret1(gdouble):flags = " conv_own_none"
+	//DEBUG: ret1(gdouble):flags = " conv_own_none"
 	ret2 = float64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsInt(name0 string) int32 {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -619,10 +661,11 @@ func (this0 *Device) GetSysfsAttrAsInt(name0 string) int32 {
 	ret1 := C.g_udev_device_get_sysfs_attr_as_int(this1, name1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsIntUncached(name0 string) int32 {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -634,10 +677,11 @@ func (this0 *Device) GetSysfsAttrAsIntUncached(name0 string) int32 {
 	ret1 := C.g_udev_device_get_sysfs_attr_as_int_uncached(this1, name1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsStrv(name0 string) []string {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -649,13 +693,14 @@ func (this0 *Device) GetSysfsAttrAsStrv(name0 string) []string {
 	ret1 := C.g_udev_device_get_sysfs_attr_as_strv(this1, name1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
 	}
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsStrvUncached(name0 string) []string {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -667,13 +712,14 @@ func (this0 *Device) GetSysfsAttrAsStrvUncached(name0 string) []string {
 	ret1 := C.g_udev_device_get_sysfs_attr_as_strv_uncached(this1, name1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
 	}
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsUint64(name0 string) uint64 {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -685,10 +731,11 @@ func (this0 *Device) GetSysfsAttrAsUint64(name0 string) uint64 {
 	ret1 := C.g_udev_device_get_sysfs_attr_as_uint64(this1, name1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrAsUint64Uncached(name0 string) uint64 {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -700,10 +747,11 @@ func (this0 *Device) GetSysfsAttrAsUint64Uncached(name0 string) uint64 {
 	ret1 := C.g_udev_device_get_sysfs_attr_as_uint64_uncached(this1, name1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrKeys() []string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -712,13 +760,14 @@ func (this0 *Device) GetSysfsAttrKeys() []string {
 	ret1 := C.g_udev_device_get_sysfs_attr_keys(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
 	}
 	return ret2
 }
+
 func (this0 *Device) GetSysfsAttrUncached(name0 string) string {
 	var this1 *C.GUdevDevice
 	var name1 *C.char
@@ -730,10 +779,11 @@ func (this0 *Device) GetSysfsAttrUncached(name0 string) string {
 	ret1 := C.g_udev_device_get_sysfs_attr_uncached(this1, name1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetSysfsPath() string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -742,10 +792,11 @@ func (this0 *Device) GetSysfsPath() string {
 	ret1 := C.g_udev_device_get_sysfs_path(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Device) GetTags() []string {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -754,13 +805,14 @@ func (this0 *Device) GetTags() []string {
 	ret1 := C.g_udev_device_get_tags(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
 	}
 	return ret2
 }
+
 func (this0 *Device) GetUsecSinceInitialized() uint64 {
 	var this1 *C.GUdevDevice
 	if this0 != nil {
@@ -769,10 +821,11 @@ func (this0 *Device) GetUsecSinceInitialized() uint64 {
 	ret1 := C.g_udev_device_get_usec_since_initialized(this1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Device) HasProperty(key0 string) bool {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -784,10 +837,11 @@ func (this0 *Device) HasProperty(key0 string) bool {
 	ret1 := C.g_udev_device_has_property(this1, key1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Device) HasSysfsAttr(key0 string) bool {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -799,10 +853,11 @@ func (this0 *Device) HasSysfsAttr(key0 string) bool {
 	ret1 := C.g_udev_device_has_sysfs_attr(this1, key1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Device) HasSysfsAttrUncached(key0 string) bool {
 	var this1 *C.GUdevDevice
 	var key1 *C.char
@@ -814,10 +869,11 @@ func (this0 *Device) HasSysfsAttrUncached(key0 string) bool {
 	ret1 := C.g_udev_device_has_sysfs_attr_uncached(this1, key1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 type DeviceType C.uint32_t
 const (
 	DeviceTypeNone DeviceType = 0
@@ -861,6 +917,11 @@ func (this0 *Enumerator) GetStaticType() gobject.Type {
 func EnumeratorGetType() gobject.Type {
 	return (*Enumerator)(nil).GetStaticType()
 }
+
+func _EnsureSafeTransToEnumeratorPointer(c unsafe.Pointer) *Enumerator {
+	ptr := uintptr(c)
+	return *(**Enumerator)(unsafe.Pointer(&ptr))
+}
 func NewEnumerator(client0 ClientLike) *Enumerator {
 	var client1 *C.GUdevClient
 	if client0 != nil {
@@ -869,10 +930,11 @@ func NewEnumerator(client0 ClientLike) *Enumerator {
 	ret1 := C.g_udev_enumerator_new(client1)
 	var ret2 *Enumerator
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
-	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
+	ret2 = _EnsureSafeTransToEnumeratorPointer(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Enumerator) AddMatchIsInitialized() *Enumerator {
 	var this1 *C.GUdevEnumerator
 	if this0 != nil {
@@ -881,10 +943,11 @@ func (this0 *Enumerator) AddMatchIsInitialized() *Enumerator {
 	ret1 := C.g_udev_enumerator_add_match_is_initialized(this1)
 	var ret2 *Enumerator
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddMatchName(name0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var name1 *C.char
@@ -896,10 +959,11 @@ func (this0 *Enumerator) AddMatchName(name0 string) *Enumerator {
 	ret1 := C.g_udev_enumerator_add_match_name(this1, name1)
 	var ret2 *Enumerator
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddMatchProperty(name0 string, value0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var name1 *C.char
@@ -914,10 +978,11 @@ func (this0 *Enumerator) AddMatchProperty(name0 string, value0 string) *Enumerat
 	ret1 := C.g_udev_enumerator_add_match_property(this1, name1, value1)
 	var ret2 *Enumerator
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddMatchSubsystem(subsystem0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var subsystem1 *C.char
@@ -929,10 +994,11 @@ func (this0 *Enumerator) AddMatchSubsystem(subsystem0 string) *Enumerator {
 	ret1 := C.g_udev_enumerator_add_match_subsystem(this1, subsystem1)
 	var ret2 *Enumerator
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddMatchSysfsAttr(name0 string, value0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var name1 *C.char
@@ -947,10 +1013,11 @@ func (this0 *Enumerator) AddMatchSysfsAttr(name0 string, value0 string) *Enumera
 	ret1 := C.g_udev_enumerator_add_match_sysfs_attr(this1, name1, value1)
 	var ret2 *Enumerator
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddMatchTag(tag0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var tag1 *C.char
@@ -962,10 +1029,11 @@ func (this0 *Enumerator) AddMatchTag(tag0 string) *Enumerator {
 	ret1 := C.g_udev_enumerator_add_match_tag(this1, tag1)
 	var ret2 *Enumerator
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddNomatchSubsystem(subsystem0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var subsystem1 *C.char
@@ -977,10 +1045,11 @@ func (this0 *Enumerator) AddNomatchSubsystem(subsystem0 string) *Enumerator {
 	ret1 := C.g_udev_enumerator_add_nomatch_subsystem(this1, subsystem1)
 	var ret2 *Enumerator
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddNomatchSysfsAttr(name0 string, value0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var name1 *C.char
@@ -995,10 +1064,11 @@ func (this0 *Enumerator) AddNomatchSysfsAttr(name0 string, value0 string) *Enume
 	ret1 := C.g_udev_enumerator_add_nomatch_sysfs_attr(this1, name1, value1)
 	var ret2 *Enumerator
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) AddSysfsPath(sysfs_path0 string) *Enumerator {
 	var this1 *C.GUdevEnumerator
 	var sysfs_path1 *C.char
@@ -1010,10 +1080,11 @@ func (this0 *Enumerator) AddSysfsPath(sysfs_path0 string) *Enumerator {
 	ret1 := C.g_udev_enumerator_add_sysfs_path(this1, sysfs_path1)
 	var ret2 *Enumerator
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Enumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Enumerator) Execute() []*Device {
 	var this1 *C.GUdevEnumerator
 	if this0 != nil {
@@ -1022,12 +1093,13 @@ func (this0 *Enumerator) Execute() []*Device {
 	ret1 := C.g_udev_enumerator_execute(this1)
 	var ret2 []*Device
 
-//DEBUG: ret1(glist):flags = " conv_own_everything"
+	//DEBUG: ret1(glist):flags = " conv_own_everything"
 	for iter := (*_GList)(unsafe.Pointer(ret1)); iter != nil; iter = iter.next {
 		var elt *Device
-		elt = (*Device)(gobject.ObjectWrap(unsafe.Pointer((*C.GUdevDevice)(iter.data)), false))
+		elt = _EnsureSafeTransToDevicePointer(gobject.ObjectWrap(unsafe.Pointer((*C.GUdevDevice)(iter.data)), false))
 		ret2 = append(ret2, elt)
 	}
 	C.g_list_free(ret1)
 	return ret2
 }
+
