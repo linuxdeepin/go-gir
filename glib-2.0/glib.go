@@ -109,10 +109,11 @@ func NewBytes(data0 []uint8) *Bytes {
 	ret1 := C.g_bytes_new(data1, size1)
 	var ret2 *Bytes
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Bytes)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewBytesTake(data0 []uint8) *Bytes {
 	var data1 *C.uint8_t
 	var size1 C.uint64_t
@@ -125,10 +126,11 @@ func NewBytesTake(data0 []uint8) *Bytes {
 	ret1 := C.g_bytes_new_take(data1, size1)
 	var ret2 *Bytes
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Bytes)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Bytes) Compare(bytes20 *Bytes) int32 {
 	var this1 *C.GBytes
 	var bytes21 *C.GBytes
@@ -137,10 +139,11 @@ func (this0 *Bytes) Compare(bytes20 *Bytes) int32 {
 	ret1 := C.g_bytes_compare(this1, bytes21)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Bytes) Equal(bytes20 *Bytes) bool {
 	var this1 *C.GBytes
 	var bytes21 *C.GBytes
@@ -149,10 +152,11 @@ func (this0 *Bytes) Equal(bytes20 *Bytes) bool {
 	ret1 := C.g_bytes_equal(this1, bytes21)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Bytes) GetData() (uint64, []uint8) {
 	var this1 *C.GBytes
 	var size1 C.uint64_t
@@ -161,16 +165,17 @@ func (this0 *Bytes) GetData() (uint64, []uint8) {
 	var size2 uint64
 	var ret2 []uint8
 
-//DEBUG: size1(guint64):flags = " conv_own_everything"
+	//DEBUG: size1(guint64):flags = " conv_own_everything"
 	size2 = uint64(size1)
 	ret2 = make([]uint8, size1)
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	for i0 := range ret2 {
 		ret2[i0] = uint8((*(*[999999]C.uint8_t)(unsafe.Pointer(ret1)))[i0])
 	}
 	return size2, ret2
 }
+
 func (this0 *Bytes) GetRegion(element_size0 uint64, offset0 uint64, n_elements0 uint64) {
 	var this1 *C.GBytes
 	var element_size1 C.uint64_t
@@ -188,20 +193,22 @@ func (this0 *Bytes) GetSize() uint64 {
 	ret1 := C.g_bytes_get_size(this1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Bytes) Hash() uint32 {
 	var this1 *C.GBytes
 	this1 = (*C.GBytes)(unsafe.Pointer(this0))
 	ret1 := C.g_bytes_hash(this1)
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 func (this0 *Bytes) NewFromBytes(offset0 uint64, length0 uint64) *Bytes {
 	var this1 *C.GBytes
 	var offset1 C.uint64_t
@@ -212,10 +219,11 @@ func (this0 *Bytes) NewFromBytes(offset0 uint64, length0 uint64) *Bytes {
 	ret1 := C.g_bytes_new_from_bytes(this1, offset1, length1)
 	var ret2 *Bytes
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Bytes)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Bytes) UnrefToData() (uint64, []uint8) {
 	var this1 *C.GBytes
 	var size1 C.uint64_t
@@ -224,21 +232,21 @@ func (this0 *Bytes) UnrefToData() (uint64, []uint8) {
 	var size2 uint64
 	var ret2 []uint8
 
-//DEBUG: size1(guint64):flags = " conv_own_everything"
+	//DEBUG: size1(guint64):flags = " conv_own_everything"
 	size2 = uint64(size1)
 	ret2 = make([]uint8, size1)
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	for i0 := range ret2 {
 		ret2[i0] = uint8((*(*[999999]C.uint8_t)(unsafe.Pointer(ret1)))[i0])
 	}
 	C.g_free(unsafe.Pointer(ret1))
 	return size2, ret2
 }
+
 // blacklisted: CSET_A_2_Z (constant)
 const CsetDigits = "0123456789"
 // blacklisted: CSET_a_2_z (constant)
-const CStdVersion = 199000
 // blacklisted: Checksum (struct)
 type ChecksumType C.uint32_t
 const (
@@ -315,10 +323,11 @@ func NewDateTime(tz0 *TimeZone, year0 int32, month0 int32, day0 int32, hour0 int
 	ret1 := C.g_date_time_new(tz1, year1, month1, day1, hour1, minute1, seconds1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeFromIso8601(text0 string, default_tz0 *TimeZone) *DateTime {
 	var text1 *C.char
 	var default_tz1 *C.GTimeZone
@@ -328,50 +337,55 @@ func NewDateTimeFromIso8601(text0 string, default_tz0 *TimeZone) *DateTime {
 	ret1 := C.g_date_time_new_from_iso8601(text1, default_tz1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeFromTimevalLocal(tv0 *TimeVal) *DateTime {
 	var tv1 *C.GTimeVal
 	tv1 = (*C.GTimeVal)(unsafe.Pointer(tv0))
 	ret1 := C.g_date_time_new_from_timeval_local(tv1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeFromTimevalUtc(tv0 *TimeVal) *DateTime {
 	var tv1 *C.GTimeVal
 	tv1 = (*C.GTimeVal)(unsafe.Pointer(tv0))
 	ret1 := C.g_date_time_new_from_timeval_utc(tv1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeFromUnixLocal(t0 int64) *DateTime {
 	var t1 C.int64_t
 	t1 = C.int64_t(t0)
 	ret1 := C.g_date_time_new_from_unix_local(t1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeFromUnixUtc(t0 int64) *DateTime {
 	var t1 C.int64_t
 	t1 = C.int64_t(t0)
 	ret1 := C.g_date_time_new_from_unix_utc(t1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeLocal(year0 int32, month0 int32, day0 int32, hour0 int32, minute0 int32, seconds0 float64) *DateTime {
 	var year1 C.int32_t
 	var month1 C.int32_t
@@ -388,36 +402,40 @@ func NewDateTimeLocal(year0 int32, month0 int32, day0 int32, hour0 int32, minute
 	ret1 := C.g_date_time_new_local(year1, month1, day1, hour1, minute1, seconds1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeNow(tz0 *TimeZone) *DateTime {
 	var tz1 *C.GTimeZone
 	tz1 = (*C.GTimeZone)(unsafe.Pointer(tz0))
 	ret1 := C.g_date_time_new_now(tz1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeNowLocal() *DateTime {
 	ret1 := C.g_date_time_new_now_local()
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeNowUtc() *DateTime {
 	ret1 := C.g_date_time_new_now_utc()
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewDateTimeUtc(year0 int32, month0 int32, day0 int32, hour0 int32, minute0 int32, seconds0 float64) *DateTime {
 	var year1 C.int32_t
 	var month1 C.int32_t
@@ -434,10 +452,11 @@ func NewDateTimeUtc(year0 int32, month0 int32, day0 int32, hour0 int32, minute0 
 	ret1 := C.g_date_time_new_utc(year1, month1, day1, hour1, minute1, seconds1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) Add(timespan0 int64) *DateTime {
 	var this1 *C.GDateTime
 	var timespan1 C.int64_t
@@ -446,10 +465,11 @@ func (this0 *DateTime) Add(timespan0 int64) *DateTime {
 	ret1 := C.g_date_time_add(this1, timespan1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddDays(days0 int32) *DateTime {
 	var this1 *C.GDateTime
 	var days1 C.int32_t
@@ -458,10 +478,11 @@ func (this0 *DateTime) AddDays(days0 int32) *DateTime {
 	ret1 := C.g_date_time_add_days(this1, days1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddFull(years0 int32, months0 int32, days0 int32, hours0 int32, minutes0 int32, seconds0 float64) *DateTime {
 	var this1 *C.GDateTime
 	var years1 C.int32_t
@@ -480,10 +501,11 @@ func (this0 *DateTime) AddFull(years0 int32, months0 int32, days0 int32, hours0 
 	ret1 := C.g_date_time_add_full(this1, years1, months1, days1, hours1, minutes1, seconds1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddHours(hours0 int32) *DateTime {
 	var this1 *C.GDateTime
 	var hours1 C.int32_t
@@ -492,10 +514,11 @@ func (this0 *DateTime) AddHours(hours0 int32) *DateTime {
 	ret1 := C.g_date_time_add_hours(this1, hours1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddMinutes(minutes0 int32) *DateTime {
 	var this1 *C.GDateTime
 	var minutes1 C.int32_t
@@ -504,10 +527,11 @@ func (this0 *DateTime) AddMinutes(minutes0 int32) *DateTime {
 	ret1 := C.g_date_time_add_minutes(this1, minutes1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddMonths(months0 int32) *DateTime {
 	var this1 *C.GDateTime
 	var months1 C.int32_t
@@ -516,10 +540,11 @@ func (this0 *DateTime) AddMonths(months0 int32) *DateTime {
 	ret1 := C.g_date_time_add_months(this1, months1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddSeconds(seconds0 float64) *DateTime {
 	var this1 *C.GDateTime
 	var seconds1 C.double
@@ -528,10 +553,11 @@ func (this0 *DateTime) AddSeconds(seconds0 float64) *DateTime {
 	ret1 := C.g_date_time_add_seconds(this1, seconds1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddWeeks(weeks0 int32) *DateTime {
 	var this1 *C.GDateTime
 	var weeks1 C.int32_t
@@ -540,10 +566,11 @@ func (this0 *DateTime) AddWeeks(weeks0 int32) *DateTime {
 	ret1 := C.g_date_time_add_weeks(this1, weeks1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) AddYears(years0 int32) *DateTime {
 	var this1 *C.GDateTime
 	var years1 C.int32_t
@@ -552,10 +579,11 @@ func (this0 *DateTime) AddYears(years0 int32) *DateTime {
 	ret1 := C.g_date_time_add_years(this1, years1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) Compare(dt20 *DateTime) int32 {
 	var this1 *C.GDateTime
 	var dt21 *C.GDateTime
@@ -564,10 +592,11 @@ func (this0 *DateTime) Compare(dt20 *DateTime) int32 {
 	ret1 := C.g_date_time_compare(this1, dt21)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) Difference(begin0 *DateTime) int64 {
 	var this1 *C.GDateTime
 	var begin1 *C.GDateTime
@@ -576,10 +605,11 @@ func (this0 *DateTime) Difference(begin0 *DateTime) int64 {
 	ret1 := C.g_date_time_difference(this1, begin1)
 	var ret2 int64
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) Equal(dt20 *DateTime) bool {
 	var this1 *C.GDateTime
 	var dt21 *C.GDateTime
@@ -588,10 +618,11 @@ func (this0 *DateTime) Equal(dt20 *DateTime) bool {
 	ret1 := C.g_date_time_equal(this1, dt21)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *DateTime) Format(format0 string) string {
 	var this1 *C.GDateTime
 	var format1 *C.char
@@ -601,172 +632,189 @@ func (this0 *DateTime) Format(format0 string) string {
 	ret1 := C.g_date_time_format(this1, format1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) FormatIso8601() string {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_format_iso8601(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) GetDayOfMonth() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_day_of_month(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetDayOfWeek() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_day_of_week(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetDayOfYear() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_day_of_year(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetHour() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_hour(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetMicrosecond() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_microsecond(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetMinute() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_minute(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetMonth() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_month(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetSecond() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_second(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetSeconds() float64 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_seconds(this1)
 	var ret2 float64
 
-//DEBUG: ret1(gdouble):flags = " conv_own_none"
+	//DEBUG: ret1(gdouble):flags = " conv_own_none"
 	ret2 = float64(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetTimezone() *TimeZone {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_timezone(this1)
 	var ret2 *TimeZone
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*TimeZone)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) GetTimezoneAbbreviation() string {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_timezone_abbreviation(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetUtcOffset() int64 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_utc_offset(this1)
 	var ret2 int64
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetWeekNumberingYear() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_week_numbering_year(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetWeekOfYear() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_week_of_year(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetYear() int32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_get_year(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) GetYmd() (int32, int32, int32) {
 	var this1 *C.GDateTime
 	var year1 C.int32_t
@@ -778,46 +826,50 @@ func (this0 *DateTime) GetYmd() (int32, int32, int32) {
 	var month2 int32
 	var day2 int32
 
-//DEBUG: year1(gint32):flags = " conv_own_everything"
+	//DEBUG: year1(gint32):flags = " conv_own_everything"
 	year2 = int32(year1)
 
-//DEBUG: month1(gint32):flags = " conv_own_everything"
+	//DEBUG: month1(gint32):flags = " conv_own_everything"
 	month2 = int32(month1)
 
-//DEBUG: day1(gint32):flags = " conv_own_everything"
+	//DEBUG: day1(gint32):flags = " conv_own_everything"
 	day2 = int32(day1)
 	return year2, month2, day2
 }
+
 func (this0 *DateTime) Hash() uint32 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_hash(this1)
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) IsDaylightSavings() bool {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_is_daylight_savings(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *DateTime) ToLocal() *DateTime {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_to_local(this1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) ToTimeval(tv0 *TimeVal) bool {
 	var this1 *C.GDateTime
 	var tv1 *C.GTimeVal
@@ -826,10 +878,11 @@ func (this0 *DateTime) ToTimeval(tv0 *TimeVal) bool {
 	ret1 := C.g_date_time_to_timeval(this1, tv1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *DateTime) ToTimezone(tz0 *TimeZone) *DateTime {
 	var this1 *C.GDateTime
 	var tz1 *C.GTimeZone
@@ -838,30 +891,33 @@ func (this0 *DateTime) ToTimezone(tz0 *TimeZone) *DateTime {
 	ret1 := C.g_date_time_to_timezone(this1, tz1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *DateTime) ToUnix() int64 {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_to_unix(this1)
 	var ret2 int64
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	return ret2
 }
+
 func (this0 *DateTime) ToUtc() *DateTime {
 	var this1 *C.GDateTime
 	this1 = (*C.GDateTime)(unsafe.Pointer(this0))
 	ret1 := C.g_date_time_to_utc(this1)
 	var ret2 *DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 type DateWeekday C.uint32_t
 const (
 	DateWeekdayBadWeekday DateWeekday = 0
@@ -882,7 +938,6 @@ type DoubleIEEE754 struct {
 // blacklisted: DuplicateFunc (callback)
 const E = 2.718282
 // blacklisted: EqualFunc (callback)
-// blacklisted: EqualFuncFull (callback)
 // blacklisted: Error (struct)
 // blacklisted: ErrorClearFunc (callback)
 // blacklisted: ErrorCopyFunc (callback)
@@ -950,8 +1005,6 @@ const (
 	FormatSizeFlagsLongFormat FormatSizeFlags = 1
 	FormatSizeFlagsIecUnits FormatSizeFlags = 2
 	FormatSizeFlagsBits FormatSizeFlags = 4
-	FormatSizeFlagsOnlyValue FormatSizeFlags = 8
-	FormatSizeFlagsOnlyUnit FormatSizeFlags = 16
 )
 // blacklisted: FreeFunc (callback)
 // blacklisted: Func (callback)
@@ -1033,7 +1086,6 @@ const (
 )
 type IOFlags C.uint32_t
 const (
-	IOFlagsNone IOFlags = 0
 	IOFlagsAppend IOFlags = 1
 	IOFlagsNonblock IOFlags = 2
 	IOFlagsIsReadable IOFlags = 4
@@ -1083,10 +1135,11 @@ func NewKeyFile() *KeyFile {
 	ret1 := C.g_key_file_new()
 	var ret2 *KeyFile
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*KeyFile)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *KeyFile) GetBoolean(group_name0 string, key0 string) (bool, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1101,7 +1154,7 @@ func (this0 *KeyFile) GetBoolean(group_name0 string, key0 string) (bool, error) 
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1109,6 +1162,7 @@ func (this0 *KeyFile) GetBoolean(group_name0 string, key0 string) (bool, error) 
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetBooleanList(group_name0 string, key0 string) (uint64, []bool, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1125,11 +1179,11 @@ func (this0 *KeyFile) GetBooleanList(group_name0 string, key0 string) (uint64, [
 	var ret2 []bool
 	var err2 error
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 	ret2 = make([]bool, length1)
 
-//DEBUG: ret1(array):flags = " conv_own_container"
+	//DEBUG: ret1(array):flags = " conv_own_container"
 	for i0 := range ret2 {
 		ret2[i0] = (*(*[999999]C.int)(unsafe.Pointer(ret1)))[i0] != 0
 	}
@@ -1140,6 +1194,7 @@ func (this0 *KeyFile) GetBooleanList(group_name0 string, key0 string) (uint64, [
 	}
 	return length2, ret2, err2
 }
+
 func (this0 *KeyFile) GetComment(group_name0 string, key0 string) (string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1154,7 +1209,7 @@ func (this0 *KeyFile) GetComment(group_name0 string, key0 string) (string, error
 	var ret2 string
 	var err2 error
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	if err1 != nil {
@@ -1163,6 +1218,7 @@ func (this0 *KeyFile) GetComment(group_name0 string, key0 string) (string, error
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetDouble(group_name0 string, key0 string) (float64, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1177,7 +1233,7 @@ func (this0 *KeyFile) GetDouble(group_name0 string, key0 string) (float64, error
 	var ret2 float64
 	var err2 error
 
-//DEBUG: ret1(gdouble):flags = " conv_own_none"
+	//DEBUG: ret1(gdouble):flags = " conv_own_none"
 	ret2 = float64(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1185,6 +1241,7 @@ func (this0 *KeyFile) GetDouble(group_name0 string, key0 string) (float64, error
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetDoubleList(group_name0 string, key0 string) (uint64, []float64, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1201,11 +1258,11 @@ func (this0 *KeyFile) GetDoubleList(group_name0 string, key0 string) (uint64, []
 	var ret2 []float64
 	var err2 error
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 	ret2 = make([]float64, length1)
 
-//DEBUG: ret1(array):flags = " conv_own_container"
+	//DEBUG: ret1(array):flags = " conv_own_container"
 	for i0 := range ret2 {
 		ret2[i0] = float64((*(*[999999]C.double)(unsafe.Pointer(ret1)))[i0])
 	}
@@ -1216,6 +1273,7 @@ func (this0 *KeyFile) GetDoubleList(group_name0 string, key0 string) (uint64, []
 	}
 	return length2, ret2, err2
 }
+
 func (this0 *KeyFile) GetGroups() (uint64, []string) {
 	var this1 *C.GKeyFile
 	var length1 C.uint64_t
@@ -1224,10 +1282,10 @@ func (this0 *KeyFile) GetGroups() (uint64, []string) {
 	var length2 uint64
 	var ret2 []string
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -1236,6 +1294,7 @@ func (this0 *KeyFile) GetGroups() (uint64, []string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *KeyFile) GetInt64(group_name0 string, key0 string) (int64, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1250,7 +1309,7 @@ func (this0 *KeyFile) GetInt64(group_name0 string, key0 string) (int64, error) {
 	var ret2 int64
 	var err2 error
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1258,6 +1317,7 @@ func (this0 *KeyFile) GetInt64(group_name0 string, key0 string) (int64, error) {
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetInteger(group_name0 string, key0 string) (int32, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1272,7 +1332,7 @@ func (this0 *KeyFile) GetInteger(group_name0 string, key0 string) (int32, error)
 	var ret2 int32
 	var err2 error
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1280,6 +1340,7 @@ func (this0 *KeyFile) GetInteger(group_name0 string, key0 string) (int32, error)
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetIntegerList(group_name0 string, key0 string) (uint64, []int32, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1296,11 +1357,11 @@ func (this0 *KeyFile) GetIntegerList(group_name0 string, key0 string) (uint64, [
 	var ret2 []int32
 	var err2 error
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 	ret2 = make([]int32, length1)
 
-//DEBUG: ret1(array):flags = " conv_own_container"
+	//DEBUG: ret1(array):flags = " conv_own_container"
 	for i0 := range ret2 {
 		ret2[i0] = int32((*(*[999999]C.int32_t)(unsafe.Pointer(ret1)))[i0])
 	}
@@ -1311,6 +1372,7 @@ func (this0 *KeyFile) GetIntegerList(group_name0 string, key0 string) (uint64, [
 	}
 	return length2, ret2, err2
 }
+
 func (this0 *KeyFile) GetKeys(group_name0 string) (uint64, []string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1324,10 +1386,10 @@ func (this0 *KeyFile) GetKeys(group_name0 string) (uint64, []string, error) {
 	var ret2 []string
 	var err2 error
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -1340,6 +1402,7 @@ func (this0 *KeyFile) GetKeys(group_name0 string) (uint64, []string, error) {
 	}
 	return length2, ret2, err2
 }
+
 func (this0 *KeyFile) GetLocaleForKey(group_name0 string, key0 string, locale0 string) string {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1355,11 +1418,12 @@ func (this0 *KeyFile) GetLocaleForKey(group_name0 string, key0 string, locale0 s
 	ret1 := C.g_key_file_get_locale_for_key(this1, group_name1, key1, locale1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *KeyFile) GetLocaleString(group_name0 string, key0 string, locale0 string) (string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1377,7 +1441,7 @@ func (this0 *KeyFile) GetLocaleString(group_name0 string, key0 string, locale0 s
 	var ret2 string
 	var err2 error
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	if err1 != nil {
@@ -1386,6 +1450,7 @@ func (this0 *KeyFile) GetLocaleString(group_name0 string, key0 string, locale0 s
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetLocaleStringList(group_name0 string, key0 string, locale0 string) (uint64, []string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1405,11 +1470,11 @@ func (this0 *KeyFile) GetLocaleStringList(group_name0 string, key0 string, local
 	var ret2 []string
 	var err2 error
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 	ret2 = make([]string, length1)
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -1422,17 +1487,19 @@ func (this0 *KeyFile) GetLocaleStringList(group_name0 string, key0 string, local
 	}
 	return length2, ret2, err2
 }
+
 func (this0 *KeyFile) GetStartGroup() string {
 	var this1 *C.GKeyFile
 	this1 = (*C.GKeyFile)(unsafe.Pointer(this0))
 	ret1 := C.g_key_file_get_start_group(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *KeyFile) GetString(group_name0 string, key0 string) (string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1447,7 +1514,7 @@ func (this0 *KeyFile) GetString(group_name0 string, key0 string) (string, error)
 	var ret2 string
 	var err2 error
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	if err1 != nil {
@@ -1456,6 +1523,7 @@ func (this0 *KeyFile) GetString(group_name0 string, key0 string) (string, error)
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetStringList(group_name0 string, key0 string) (uint64, []string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1472,11 +1540,11 @@ func (this0 *KeyFile) GetStringList(group_name0 string, key0 string) (uint64, []
 	var ret2 []string
 	var err2 error
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 	ret2 = make([]string, length1)
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -1489,6 +1557,7 @@ func (this0 *KeyFile) GetStringList(group_name0 string, key0 string) (uint64, []
 	}
 	return length2, ret2, err2
 }
+
 func (this0 *KeyFile) GetUint64(group_name0 string, key0 string) (uint64, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1503,7 +1572,7 @@ func (this0 *KeyFile) GetUint64(group_name0 string, key0 string) (uint64, error)
 	var ret2 uint64
 	var err2 error
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1511,6 +1580,7 @@ func (this0 *KeyFile) GetUint64(group_name0 string, key0 string) (uint64, error)
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) GetValue(group_name0 string, key0 string) (string, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1525,7 +1595,7 @@ func (this0 *KeyFile) GetValue(group_name0 string, key0 string) (string, error) 
 	var ret2 string
 	var err2 error
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	if err1 != nil {
@@ -1534,6 +1604,7 @@ func (this0 *KeyFile) GetValue(group_name0 string, key0 string) (string, error) 
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) HasGroup(group_name0 string) bool {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1543,10 +1614,11 @@ func (this0 *KeyFile) HasGroup(group_name0 string) bool {
 	ret1 := C.g_key_file_has_group(this1, group_name1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *KeyFile) LoadFromBytes(bytes0 *Bytes, flags0 KeyFileFlags) (bool, error) {
 	var this1 *C.GKeyFile
 	var bytes1 *C.GBytes
@@ -1559,7 +1631,7 @@ func (this0 *KeyFile) LoadFromBytes(bytes0 *Bytes, flags0 KeyFileFlags) (bool, e
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1567,6 +1639,7 @@ func (this0 *KeyFile) LoadFromBytes(bytes0 *Bytes, flags0 KeyFileFlags) (bool, e
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) LoadFromData(data0 string, length0 uint64, flags0 KeyFileFlags) (bool, error) {
 	var this1 *C.GKeyFile
 	var data1 *C.char
@@ -1582,7 +1655,7 @@ func (this0 *KeyFile) LoadFromData(data0 string, length0 uint64, flags0 KeyFileF
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1590,6 +1663,7 @@ func (this0 *KeyFile) LoadFromData(data0 string, length0 uint64, flags0 KeyFileF
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) LoadFromDataDirs(file0 string, flags0 KeyFileFlags) (string, bool, error) {
 	var this1 *C.GKeyFile
 	var file1 *C.char
@@ -1605,11 +1679,11 @@ func (this0 *KeyFile) LoadFromDataDirs(file0 string, flags0 KeyFileFlags) (strin
 	var ret2 bool
 	var err2 error
 
-//DEBUG: full_path1(filename):flags = " conv_own_everything"
+	//DEBUG: full_path1(filename):flags = " conv_own_everything"
 	full_path2 = C.GoString(full_path1)
 	C.g_free(unsafe.Pointer(full_path1))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1617,6 +1691,7 @@ func (this0 *KeyFile) LoadFromDataDirs(file0 string, flags0 KeyFileFlags) (strin
 	}
 	return full_path2, ret2, err2
 }
+
 func (this0 *KeyFile) LoadFromDirs(file0 string, search_dirs0 []string, flags0 KeyFileFlags) (string, bool, error) {
 	var this1 *C.GKeyFile
 	var file1 *C.char
@@ -1640,11 +1715,11 @@ func (this0 *KeyFile) LoadFromDirs(file0 string, search_dirs0 []string, flags0 K
 	var ret2 bool
 	var err2 error
 
-//DEBUG: full_path1(filename):flags = " conv_own_everything"
+	//DEBUG: full_path1(filename):flags = " conv_own_everything"
 	full_path2 = C.GoString(full_path1)
 	C.g_free(unsafe.Pointer(full_path1))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1652,6 +1727,7 @@ func (this0 *KeyFile) LoadFromDirs(file0 string, search_dirs0 []string, flags0 K
 	}
 	return full_path2, ret2, err2
 }
+
 func (this0 *KeyFile) LoadFromFile(file0 string, flags0 KeyFileFlags) (bool, error) {
 	var this1 *C.GKeyFile
 	var file1 *C.char
@@ -1665,7 +1741,7 @@ func (this0 *KeyFile) LoadFromFile(file0 string, flags0 KeyFileFlags) (bool, err
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1673,6 +1749,7 @@ func (this0 *KeyFile) LoadFromFile(file0 string, flags0 KeyFileFlags) (bool, err
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) RemoveComment(group_name0 string, key0 string) (bool, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1687,7 +1764,7 @@ func (this0 *KeyFile) RemoveComment(group_name0 string, key0 string) (bool, erro
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1695,6 +1772,7 @@ func (this0 *KeyFile) RemoveComment(group_name0 string, key0 string) (bool, erro
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) RemoveGroup(group_name0 string) (bool, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1706,7 +1784,7 @@ func (this0 *KeyFile) RemoveGroup(group_name0 string) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1714,6 +1792,7 @@ func (this0 *KeyFile) RemoveGroup(group_name0 string) (bool, error) {
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) RemoveKey(group_name0 string, key0 string) (bool, error) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1728,7 +1807,7 @@ func (this0 *KeyFile) RemoveKey(group_name0 string, key0 string) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1736,6 +1815,7 @@ func (this0 *KeyFile) RemoveKey(group_name0 string, key0 string) (bool, error) {
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) SaveToFile(filename0 string) (bool, error) {
 	var this1 *C.GKeyFile
 	var filename1 *C.char
@@ -1747,7 +1827,7 @@ func (this0 *KeyFile) SaveToFile(filename0 string) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1755,6 +1835,7 @@ func (this0 *KeyFile) SaveToFile(filename0 string) (bool, error) {
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) SetBoolean(group_name0 string, key0 string, value0 bool) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -1804,7 +1885,7 @@ func (this0 *KeyFile) SetComment(group_name0 string, key0 string, comment0 strin
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1812,6 +1893,7 @@ func (this0 *KeyFile) SetComment(group_name0 string, key0 string, comment0 strin
 	}
 	return ret2, err2
 }
+
 func (this0 *KeyFile) SetDouble(group_name0 string, key0 string, value0 float64) {
 	var this1 *C.GKeyFile
 	var group_name1 *C.char
@@ -2009,10 +2091,10 @@ func (this0 *KeyFile) ToData() (uint64, string, error) {
 	var ret2 string
 	var err2 error
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	if err1 != nil {
@@ -2021,14 +2103,16 @@ func (this0 *KeyFile) ToData() (uint64, string, error) {
 	}
 	return length2, ret2, err2
 }
+
 func KeyFileErrorQuark() uint32 {
 	ret1 := C.g_key_file_error_quark()
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 type KeyFileError C.uint32_t
 const (
 	KeyFileErrorUnknownEncoding KeyFileError = 0
@@ -2086,7 +2170,7 @@ const Minint16 = -32768
 const Minint32 = -2147483648
 const Minint64 = -9223372036854775808
 const Minint8 = -128
-const MinorVersion = 76
+const MinorVersion = 72
 const ModuleSuffix = "so"
 // blacklisted: MainContext (struct)
 type MainContextFlags C.uint32_t
@@ -2118,7 +2202,6 @@ const (
 // blacklisted: MarkupParseContext (struct)
 type MarkupParseFlags C.uint32_t
 const (
-	MarkupParseFlagsDefaultFlags MarkupParseFlags = 0
 	MarkupParseFlagsDoNotUseThisUnsupportedFlag MarkupParseFlags = 1
 	MarkupParseFlagsTreatCdataAsText MarkupParseFlags = 2
 	MarkupParseFlagsPrefixErrorPosition MarkupParseFlags = 4
@@ -2147,10 +2230,11 @@ func (this0 *Mutex) Trylock() bool {
 	ret1 := C.g_mutex_trylock(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Mutex) Unlock() {
 	var this1 *C.GMutex
 	C.g_mutex_unlock(this1)
@@ -2228,7 +2312,6 @@ const PriorityDefaultIdle = 200
 const PriorityHigh = -100
 const PriorityHighIdle = 100
 const PriorityLow = 300
-// blacklisted: PathBuf (struct)
 // blacklisted: PatternSpec (struct)
 type PollFD struct {
 	Fd int32
@@ -2246,7 +2329,6 @@ type PollFD struct {
 // blacklisted: Regex (struct)
 type RegexCompileFlags C.uint32_t
 const (
-	RegexCompileFlagsDefault RegexCompileFlags = 0
 	RegexCompileFlagsCaseless RegexCompileFlags = 1
 	RegexCompileFlagsMultiline RegexCompileFlags = 2
 	RegexCompileFlagsDotall RegexCompileFlags = 4
@@ -2329,7 +2411,6 @@ const (
 // blacklisted: RegexEvalCallback (callback)
 type RegexMatchFlags C.uint32_t
 const (
-	RegexMatchFlagsDefault RegexMatchFlags = 0
 	RegexMatchFlagsAnchored RegexMatchFlags = 16
 	RegexMatchFlagsNotbol RegexMatchFlags = 128
 	RegexMatchFlagsNoteol RegexMatchFlags = 256
@@ -2396,7 +2477,6 @@ const (
 // blacklisted: SourceDummyMarshal (callback)
 // blacklisted: SourceFunc (callback)
 // blacklisted: SourceFuncs (struct)
-// blacklisted: SourceOnceFunc (callback)
 // blacklisted: SourcePrivate (struct)
 // blacklisted: SpawnChildSetupFunc (callback)
 type SpawnError C.uint32_t
@@ -2435,9 +2515,6 @@ const (
 	SpawnFlagsFileAndArgvZero SpawnFlags = 64
 	SpawnFlagsSearchPathFromEnvp SpawnFlags = 128
 	SpawnFlagsCloexecPipes SpawnFlags = 256
-	SpawnFlagsChildInheritsStdout SpawnFlags = 512
-	SpawnFlagsChildInheritsStderr SpawnFlags = 1024
-	SpawnFlagsStdinFromDevNull SpawnFlags = 2048
 )
 // blacklisted: StatBuf (struct)
 // blacklisted: String (struct)
@@ -2486,15 +2563,13 @@ const (
 )
 type TestSubprocessFlags C.uint32_t
 const (
-	TestSubprocessFlagsDefault TestSubprocessFlags = 0
-	TestSubprocessFlagsInheritStdin TestSubprocessFlags = 1
-	TestSubprocessFlagsInheritStdout TestSubprocessFlags = 2
-	TestSubprocessFlagsInheritStderr TestSubprocessFlags = 4
+	TestSubprocessFlagsStdin TestSubprocessFlags = 1
+	TestSubprocessFlagsStdout TestSubprocessFlags = 2
+	TestSubprocessFlagsStderr TestSubprocessFlags = 4
 )
 // blacklisted: TestSuite (struct)
 type TestTrapFlags C.uint32_t
 const (
-	TestTrapFlagsDefault TestTrapFlags = 0
 	TestTrapFlagsSilenceStdout TestTrapFlags = 128
 	TestTrapFlagsSilenceStderr TestTrapFlags = 256
 	TestTrapFlagsInheritStdin TestTrapFlags = 512
@@ -2529,11 +2604,12 @@ func (this0 *TimeVal) ToIso8601() string {
 	ret1 := C.g_time_val_to_iso8601(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func TimeValFromIso8601(iso_date0 string) (TimeVal, bool) {
 	var iso_date1 *C.char
 	var time_1 C.GTimeVal
@@ -2543,13 +2619,14 @@ func TimeValFromIso8601(iso_date0 string) (TimeVal, bool) {
 	var time_2 TimeVal
 	var ret2 bool
 
-//DEBUG: time_1(interface):flags = " conv_own_none"
+	//DEBUG: time_1(interface):flags = " conv_own_none"
 	time_2 = *(*TimeVal)(unsafe.Pointer(&time_1))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return time_2, ret2
 }
+
 type TimeZone struct {}
 func NewTimeZone(identifier0 string) *TimeZone {
 	var identifier1 *C.char
@@ -2558,10 +2635,11 @@ func NewTimeZone(identifier0 string) *TimeZone {
 	ret1 := C.g_time_zone_new(identifier1)
 	var ret2 *TimeZone
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*TimeZone)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewTimeZoneIdentifier(identifier0 string) *TimeZone {
 	var identifier1 *C.char
 	identifier1 = _GoStringToGString(identifier0)
@@ -2569,54 +2647,55 @@ func NewTimeZoneIdentifier(identifier0 string) *TimeZone {
 	ret1 := C.g_time_zone_new_identifier(identifier1)
 	var ret2 *TimeZone
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*TimeZone)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewTimeZoneLocal() *TimeZone {
 	ret1 := C.g_time_zone_new_local()
 	var ret2 *TimeZone
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*TimeZone)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewTimeZoneOffset(seconds0 int32) *TimeZone {
 	var seconds1 C.int32_t
 	seconds1 = C.int32_t(seconds0)
 	ret1 := C.g_time_zone_new_offset(seconds1)
 	var ret2 *TimeZone
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*TimeZone)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewTimeZoneUtc() *TimeZone {
 	ret1 := C.g_time_zone_new_utc()
 	var ret2 *TimeZone
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*TimeZone)(unsafe.Pointer(ret1))
 	return ret2
 }
-func (this0 *TimeZone) AdjustTime(type0 TimeType, time_0 int64) (int64, int32) {
+
+func (this0 *TimeZone) AdjustTime(type0 TimeType, time_0 *int64) int32 {
 	var this1 *C.GTimeZone
 	var type1 C.GTimeType
-	var time_1 C.int64_t
+	var time_1 *C.int64_t
 	this1 = (*C.GTimeZone)(unsafe.Pointer(this0))
 	type1 = C.GTimeType(type0)
-	time_1 = C.int64_t(time_0)
-	ret1 := C.g_time_zone_adjust_time(this1, type1, &time_1)
-	var time_2 int64
+	time_1 = (*C.int64_t)(unsafe.Pointer(time_0))
+	ret1 := C.g_time_zone_adjust_time(this1, type1, time_1)
 	var ret2 int32
 
-//DEBUG: time_1(gint64):flags = " conv_own_none"
-	time_2 = int64(time_1)
-
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
-	return time_2, ret2
+	return ret2
 }
+
 func (this0 *TimeZone) FindInterval(type0 TimeType, time_0 int64) int32 {
 	var this1 *C.GTimeZone
 	var type1 C.GTimeType
@@ -2627,10 +2706,11 @@ func (this0 *TimeZone) FindInterval(type0 TimeType, time_0 int64) int32 {
 	ret1 := C.g_time_zone_find_interval(this1, type1, time_1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *TimeZone) GetAbbreviation(interval0 int32) string {
 	var this1 *C.GTimeZone
 	var interval1 C.int32_t
@@ -2639,20 +2719,22 @@ func (this0 *TimeZone) GetAbbreviation(interval0 int32) string {
 	ret1 := C.g_time_zone_get_abbreviation(this1, interval1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *TimeZone) GetIdentifier() string {
 	var this1 *C.GTimeZone
 	this1 = (*C.GTimeZone)(unsafe.Pointer(this0))
 	ret1 := C.g_time_zone_get_identifier(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *TimeZone) GetOffset(interval0 int32) int32 {
 	var this1 *C.GTimeZone
 	var interval1 C.int32_t
@@ -2661,10 +2743,11 @@ func (this0 *TimeZone) GetOffset(interval0 int32) int32 {
 	ret1 := C.g_time_zone_get_offset(this1, interval1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *TimeZone) IsDst(interval0 int32) bool {
 	var this1 *C.GTimeZone
 	var interval1 C.int32_t
@@ -2673,10 +2756,11 @@ func (this0 *TimeZone) IsDst(interval0 int32) bool {
 	ret1 := C.g_time_zone_is_dst(this1, interval1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 // blacklisted: Timer (struct)
 type TokenType C.uint32_t
 const (
@@ -2946,8 +3030,6 @@ const (
 	UnicodeScriptToto UnicodeScript = 160
 	UnicodeScriptVithkuqi UnicodeScript = 161
 	UnicodeScriptMath UnicodeScript = 162
-	UnicodeScriptKawi UnicodeScript = 163
-	UnicodeScriptNagMundari UnicodeScript = 164
 )
 type UnicodeType C.uint32_t
 const (
@@ -3039,6 +3121,7 @@ const (
 	UserDirectoryDirectoryVideos UserDirectory = 7
 	UserDirectoryNDirectories UserDirectory = 8
 )
+const VaCopyAsArray = 1
 const VersionMinRequired = 2
 type Variant struct {}
 func NewVariantArray(child_type0 *VariantType, children0 []*Variant) *Variant {
@@ -3055,30 +3138,33 @@ func NewVariantArray(child_type0 *VariantType, children0 []*Variant) *Variant {
 	ret1 := C.g_variant_new_array(child_type1, children1, n_children1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantBoolean(value0 bool) *Variant {
 	var value1 C.int
 	value1 = _GoBoolToCBool(value0)
 	ret1 := C.g_variant_new_boolean(value1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantByte(value0 uint8) *Variant {
 	var value1 C.uint8_t
 	value1 = C.uint8_t(value0)
 	ret1 := C.g_variant_new_byte(value1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantBytestringArray(strv0 []string) *Variant {
 	var strv1 **C.char
 	var length1 C.int64_t
@@ -3092,10 +3178,11 @@ func NewVariantBytestringArray(strv0 []string) *Variant {
 	ret1 := C.g_variant_new_bytestring_array(strv1, length1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantDictEntry(key0 *Variant, value0 *Variant) *Variant {
 	var key1 *C.GVariant
 	var value1 *C.GVariant
@@ -3104,20 +3191,22 @@ func NewVariantDictEntry(key0 *Variant, value0 *Variant) *Variant {
 	ret1 := C.g_variant_new_dict_entry(key1, value1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantDouble(value0 float64) *Variant {
 	var value1 C.double
 	value1 = C.double(value0)
 	ret1 := C.g_variant_new_double(value1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantFixedArray(element_type0 *VariantType, elements0 unsafe.Pointer, n_elements0 uint64, element_size0 uint64) *Variant {
 	var element_type1 *C.GVariantType
 	var elements1 unsafe.Pointer
@@ -3130,50 +3219,55 @@ func NewVariantFixedArray(element_type0 *VariantType, elements0 unsafe.Pointer, 
 	ret1 := C.g_variant_new_fixed_array(element_type1, elements1, n_elements1, element_size1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantHandle(value0 int32) *Variant {
 	var value1 C.int32_t
 	value1 = C.int32_t(value0)
 	ret1 := C.g_variant_new_handle(value1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantInt16(value0 int16) *Variant {
 	var value1 C.int16_t
 	value1 = C.int16_t(value0)
 	ret1 := C.g_variant_new_int16(value1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantInt32(value0 int32) *Variant {
 	var value1 C.int32_t
 	value1 = C.int32_t(value0)
 	ret1 := C.g_variant_new_int32(value1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantInt64(value0 int64) *Variant {
 	var value1 C.int64_t
 	value1 = C.int64_t(value0)
 	ret1 := C.g_variant_new_int64(value1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantMaybe(child_type0 *VariantType, child0 *Variant) *Variant {
 	var child_type1 *C.GVariantType
 	var child1 *C.GVariant
@@ -3182,10 +3276,11 @@ func NewVariantMaybe(child_type0 *VariantType, child0 *Variant) *Variant {
 	ret1 := C.g_variant_new_maybe(child_type1, child1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantObjectPath(object_path0 string) *Variant {
 	var object_path1 *C.char
 	object_path1 = _GoStringToGString(object_path0)
@@ -3193,10 +3288,11 @@ func NewVariantObjectPath(object_path0 string) *Variant {
 	ret1 := C.g_variant_new_object_path(object_path1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantObjv(strv0 []string) *Variant {
 	var strv1 **C.char
 	var length1 C.int64_t
@@ -3210,10 +3306,11 @@ func NewVariantObjv(strv0 []string) *Variant {
 	ret1 := C.g_variant_new_objv(strv1, length1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantSignature(signature0 string) *Variant {
 	var signature1 *C.char
 	signature1 = _GoStringToGString(signature0)
@@ -3221,10 +3318,11 @@ func NewVariantSignature(signature0 string) *Variant {
 	ret1 := C.g_variant_new_signature(signature1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantString(string0 string) *Variant {
 	var string1 *C.char
 	string1 = _GoStringToGString(string0)
@@ -3232,10 +3330,11 @@ func NewVariantString(string0 string) *Variant {
 	ret1 := C.g_variant_new_string(string1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantStrv(strv0 []string) *Variant {
 	var strv1 **C.char
 	var length1 C.int64_t
@@ -3249,10 +3348,11 @@ func NewVariantStrv(strv0 []string) *Variant {
 	ret1 := C.g_variant_new_strv(strv1, length1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantTuple(children0 []*Variant) *Variant {
 	var children1 **C.GVariant
 	var n_children1 C.uint64_t
@@ -3265,60 +3365,66 @@ func NewVariantTuple(children0 []*Variant) *Variant {
 	ret1 := C.g_variant_new_tuple(children1, n_children1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantUint16(value0 uint16) *Variant {
 	var value1 C.uint16_t
 	value1 = C.uint16_t(value0)
 	ret1 := C.g_variant_new_uint16(value1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantUint32(value0 uint32) *Variant {
 	var value1 C.uint32_t
 	value1 = C.uint32_t(value0)
 	ret1 := C.g_variant_new_uint32(value1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantUint64(value0 uint64) *Variant {
 	var value1 C.uint64_t
 	value1 = C.uint64_t(value0)
 	ret1 := C.g_variant_new_uint64(value1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantVariant(value0 *Variant) *Variant {
 	var value1 *C.GVariant
 	value1 = (*C.GVariant)(unsafe.Pointer(value0))
 	ret1 := C.g_variant_new_variant(value1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) Byteswap() *Variant {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_byteswap(this1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) CheckFormatString(format_string0 string, copy_only0 bool) bool {
 	var this1 *C.GVariant
 	var format_string1 *C.char
@@ -3330,20 +3436,22 @@ func (this0 *Variant) CheckFormatString(format_string0 string, copy_only0 bool) 
 	ret1 := C.g_variant_check_format_string(this1, format_string1, copy_only1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) Classify() VariantClass {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_classify(this1)
 	var ret2 VariantClass
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = VariantClass(ret1)
 	return ret2
 }
+
 func (this0 *Variant) Compare(two0 *Variant) int32 {
 	var this1 *C.GVariant
 	var two1 *C.GVariant
@@ -3352,10 +3460,11 @@ func (this0 *Variant) Compare(two0 *Variant) int32 {
 	ret1 := C.g_variant_compare(this1, two1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Variant) DupBytestring() (uint64, []uint8) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3364,11 +3473,11 @@ func (this0 *Variant) DupBytestring() (uint64, []uint8) {
 	var length2 uint64
 	var ret2 []uint8
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 	ret2 = make([]uint8, length1)
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]uint8, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = uint8((*(*[999999]C.uint8_t)(unsafe.Pointer(ret1)))[i0])
@@ -3376,6 +3485,7 @@ func (this0 *Variant) DupBytestring() (uint64, []uint8) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) DupBytestringArray() (uint64, []string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3384,11 +3494,11 @@ func (this0 *Variant) DupBytestringArray() (uint64, []string) {
 	var length2 uint64
 	var ret2 []string
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 	ret2 = make([]string, length1)
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
 		C.g_free(unsafe.Pointer((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0]))
@@ -3396,6 +3506,7 @@ func (this0 *Variant) DupBytestringArray() (uint64, []string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) DupObjv() (uint64, []string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3404,11 +3515,11 @@ func (this0 *Variant) DupObjv() (uint64, []string) {
 	var length2 uint64
 	var ret2 []string
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 	ret2 = make([]string, length1)
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -3417,6 +3528,7 @@ func (this0 *Variant) DupObjv() (uint64, []string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) DupString() (uint64, string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3425,14 +3537,15 @@ func (this0 *Variant) DupString() (uint64, string) {
 	var length2 uint64
 	var ret2 string
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) DupStrv() (uint64, []string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3441,11 +3554,11 @@ func (this0 *Variant) DupStrv() (uint64, []string) {
 	var length2 uint64
 	var ret2 []string
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 	ret2 = make([]string, length1)
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -3454,6 +3567,7 @@ func (this0 *Variant) DupStrv() (uint64, []string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) Equal(two0 *Variant) bool {
 	var this1 *C.GVariant
 	var two1 *C.GVariant
@@ -3462,43 +3576,47 @@ func (this0 *Variant) Equal(two0 *Variant) bool {
 	ret1 := C.g_variant_equal(this1, two1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) GetBoolean() bool {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_boolean(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) GetByte() uint8 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_byte(this1)
 	var ret2 uint8
 
-//DEBUG: ret1(guint8):flags = " conv_own_none"
+	//DEBUG: ret1(guint8):flags = " conv_own_none"
 	ret2 = uint8(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetBytestring() []uint8 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_bytestring(this1)
 	var ret2 []uint8
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]uint8, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = uint8((*(*[999999]C.uint8_t)(unsafe.Pointer(ret1)))[i0])
 	}
 	return ret2
 }
+
 func (this0 *Variant) GetBytestringArray() (uint64, []string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3507,17 +3625,18 @@ func (this0 *Variant) GetBytestringArray() (uint64, []string) {
 	var length2 uint64
 	var ret2 []string
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 	ret2 = make([]string, length1)
 
-//DEBUG: ret1(array):flags = " conv_own_container"
+	//DEBUG: ret1(array):flags = " conv_own_container"
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
 	}
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) GetChildValue(index_0 uint64) *Variant {
 	var this1 *C.GVariant
 	var index_1 C.uint64_t
@@ -3526,10 +3645,11 @@ func (this0 *Variant) GetChildValue(index_0 uint64) *Variant {
 	ret1 := C.g_variant_get_child_value(this1, index_1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) GetData() {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
@@ -3541,70 +3661,77 @@ func (this0 *Variant) GetDouble() float64 {
 	ret1 := C.g_variant_get_double(this1)
 	var ret2 float64
 
-//DEBUG: ret1(gdouble):flags = " conv_own_none"
+	//DEBUG: ret1(gdouble):flags = " conv_own_none"
 	ret2 = float64(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetHandle() int32 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_handle(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetInt16() int16 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_int16(this1)
 	var ret2 int16
 
-//DEBUG: ret1(gint16):flags = " conv_own_none"
+	//DEBUG: ret1(gint16):flags = " conv_own_none"
 	ret2 = int16(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetInt32() int32 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_int32(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetInt64() int64 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_int64(this1)
 	var ret2 int64
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetMaybe() *Variant {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_maybe(this1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) GetNormalForm() *Variant {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_normal_form(this1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) GetObjv() (uint64, []string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3613,11 +3740,11 @@ func (this0 *Variant) GetObjv() (uint64, []string) {
 	var length2 uint64
 	var ret2 []string
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 	ret2 = make([]string, length1)
 
-//DEBUG: ret1(array):flags = " conv_own_container"
+	//DEBUG: ret1(array):flags = " conv_own_container"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -3625,16 +3752,18 @@ func (this0 *Variant) GetObjv() (uint64, []string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) GetSize() uint64 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_size(this1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetString() (uint64, string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3643,13 +3772,14 @@ func (this0 *Variant) GetString() (uint64, string) {
 	var length2 uint64
 	var ret2 string
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return length2, ret2
 }
+
 func (this0 *Variant) GetStrv() (uint64, []string) {
 	var this1 *C.GVariant
 	var length1 C.uint64_t
@@ -3658,11 +3788,11 @@ func (this0 *Variant) GetStrv() (uint64, []string) {
 	var length2 uint64
 	var ret2 []string
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 	ret2 = make([]string, length1)
 
-//DEBUG: ret1(array):flags = " conv_own_container"
+	//DEBUG: ret1(array):flags = " conv_own_container"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -3670,106 +3800,117 @@ func (this0 *Variant) GetStrv() (uint64, []string) {
 	C.g_free(unsafe.Pointer(ret1))
 	return length2, ret2
 }
+
 func (this0 *Variant) GetType() *VariantType {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_type(this1)
 	var ret2 *VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) GetTypeString() string {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_type_string(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetUint16() uint16 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_uint16(this1)
 	var ret2 uint16
 
-//DEBUG: ret1(guint16):flags = " conv_own_none"
+	//DEBUG: ret1(guint16):flags = " conv_own_none"
 	ret2 = uint16(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetUint32() uint32 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_uint32(this1)
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetUint64() uint64 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_uint64(this1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Variant) GetVariant() *Variant {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_get_variant(this1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) Hash() uint32 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_hash(this1)
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 func (this0 *Variant) IsContainer() bool {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_is_container(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) IsFloating() bool {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_is_floating(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) IsNormalForm() bool {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_is_normal_form(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) IsOfType(type0 *VariantType) bool {
 	var this1 *C.GVariant
 	var type1 *C.GVariantType
@@ -3778,10 +3919,11 @@ func (this0 *Variant) IsOfType(type0 *VariantType) bool {
 	ret1 := C.g_variant_is_of_type(this1, type1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *Variant) LookupValue(key0 string, expected_type0 *VariantType) *Variant {
 	var this1 *C.GVariant
 	var key1 *C.char
@@ -3793,20 +3935,22 @@ func (this0 *Variant) LookupValue(key0 string, expected_type0 *VariantType) *Var
 	ret1 := C.g_variant_lookup_value(this1, key1, expected_type1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) NChildren() uint64 {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_n_children(this1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *Variant) Print(type_annotate0 bool) string {
 	var this1 *C.GVariant
 	var type_annotate1 C.int
@@ -3815,21 +3959,23 @@ func (this0 *Variant) Print(type_annotate0 bool) string {
 	ret1 := C.g_variant_print(this1, type_annotate1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) RefSink() *Variant {
 	var this1 *C.GVariant
 	this1 = (*C.GVariant)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_ref_sink(this1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Variant) Store(data0 unsafe.Pointer) {
 	var this1 *C.GVariant
 	var data1 unsafe.Pointer
@@ -3843,10 +3989,11 @@ func (this0 *Variant) TakeRef() *Variant {
 	ret1 := C.g_variant_take_ref(this1)
 	var ret2 *Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func VariantIsObjectPath(string0 string) bool {
 	var string1 *C.char
 	string1 = _GoStringToGString(string0)
@@ -3854,10 +4001,11 @@ func VariantIsObjectPath(string0 string) bool {
 	ret1 := C.g_variant_is_object_path(string1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func VariantIsSignature(string0 string) bool {
 	var string1 *C.char
 	string1 = _GoStringToGString(string0)
@@ -3865,10 +4013,11 @@ func VariantIsSignature(string0 string) bool {
 	ret1 := C.g_variant_is_signature(string1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func VariantParse(type0 *VariantType, text0 string, limit0 string, endptr0 string) (*Variant, error) {
 	var type1 *C.GVariantType
 	var text1 *C.char
@@ -3886,7 +4035,7 @@ func VariantParse(type0 *VariantType, text0 string, limit0 string, endptr0 strin
 	var ret2 *Variant
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Variant)(unsafe.Pointer(ret1))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3894,22 +4043,25 @@ func VariantParse(type0 *VariantType, text0 string, limit0 string, endptr0 strin
 	}
 	return ret2, err2
 }
+
 func VariantParseErrorQuark() uint32 {
 	ret1 := C.g_variant_parse_error_quark()
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 func VariantParserGetErrorQuark() uint32 {
 	ret1 := C.g_variant_parser_get_error_quark()
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 // blacklisted: VariantBuilder (struct)
 type VariantClass C.uint32_t
 const (
@@ -3963,20 +4115,22 @@ func NewVariantType(type_string0 string) *VariantType {
 	ret1 := C.g_variant_type_new(type_string1)
 	var ret2 *VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantTypeArray(element0 *VariantType) *VariantType {
 	var element1 *C.GVariantType
 	element1 = (*C.GVariantType)(unsafe.Pointer(element0))
 	ret1 := C.g_variant_type_new_array(element1)
 	var ret2 *VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantTypeDictEntry(key0 *VariantType, value0 *VariantType) *VariantType {
 	var key1 *C.GVariantType
 	var value1 *C.GVariantType
@@ -3985,20 +4139,22 @@ func NewVariantTypeDictEntry(key0 *VariantType, value0 *VariantType) *VariantTyp
 	ret1 := C.g_variant_type_new_dict_entry(key1, value1)
 	var ret2 *VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantTypeMaybe(element0 *VariantType) *VariantType {
 	var element1 *C.GVariantType
 	element1 = (*C.GVariantType)(unsafe.Pointer(element0))
 	ret1 := C.g_variant_type_new_maybe(element1)
 	var ret2 *VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewVariantTypeTuple(items0 []*VariantType) *VariantType {
 	var items1 **C.GVariantType
 	var length1 C.int32_t
@@ -4011,41 +4167,45 @@ func NewVariantTypeTuple(items0 []*VariantType) *VariantType {
 	ret1 := C.g_variant_type_new_tuple(items1, length1)
 	var ret2 *VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) Copy() *VariantType {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_copy(this1)
 	var ret2 *VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) DupString() string {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_dup_string(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) Element() *VariantType {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_element(this1)
 	var ret2 *VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) Equal(type20 *VariantType) bool {
 	var this1 *C.GVariantType
 	var type21 *C.GVariantType
@@ -4054,20 +4214,22 @@ func (this0 *VariantType) Equal(type20 *VariantType) bool {
 	ret1 := C.g_variant_type_equal(this1, type21)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) First() *VariantType {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_first(this1)
 	var ret2 *VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) Free() {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
@@ -4079,80 +4241,88 @@ func (this0 *VariantType) GetStringLength() uint64 {
 	ret1 := C.g_variant_type_get_string_length(this1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *VariantType) Hash() uint32 {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_hash(this1)
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
+
 func (this0 *VariantType) IsArray() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_is_array(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsBasic() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_is_basic(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsContainer() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_is_container(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsDefinite() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_is_definite(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsDictEntry() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_is_dict_entry(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsMaybe() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_is_maybe(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsSubtypeOf(supertype0 *VariantType) bool {
 	var this1 *C.GVariantType
 	var supertype1 *C.GVariantType
@@ -4161,70 +4331,77 @@ func (this0 *VariantType) IsSubtypeOf(supertype0 *VariantType) bool {
 	ret1 := C.g_variant_type_is_subtype_of(this1, supertype1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsTuple() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_is_tuple(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) IsVariant() bool {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_is_variant(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func (this0 *VariantType) Key() *VariantType {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_key(this1)
 	var ret2 *VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) NItems() uint64 {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_n_items(this1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func (this0 *VariantType) Next() *VariantType {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_next(this1)
 	var ret2 *VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *VariantType) Value() *VariantType {
 	var this1 *C.GVariantType
 	this1 = (*C.GVariantType)(unsafe.Pointer(this0))
 	ret1 := C.g_variant_type_value(this1)
 	var ret2 *VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func VariantTypeChecked_(arg00 string) *VariantType {
 	var arg01 *C.char
 	arg01 = _GoStringToGString(arg00)
@@ -4232,10 +4409,11 @@ func VariantTypeChecked_(arg00 string) *VariantType {
 	ret1 := C.g_variant_type_checked_(arg01)
 	var ret2 *VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func VariantTypeStringGetDepth_(type_string0 string) uint64 {
 	var type_string1 *C.char
 	type_string1 = _GoStringToGString(type_string0)
@@ -4243,10 +4421,11 @@ func VariantTypeStringGetDepth_(type_string0 string) uint64 {
 	ret1 := C.g_variant_type_string_get_depth_(type_string1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
+
 func VariantTypeStringIsValid(type_string0 string) bool {
 	var type_string1 *C.char
 	type_string1 = _GoStringToGString(type_string0)
@@ -4254,10 +4433,11 @@ func VariantTypeStringIsValid(type_string0 string) bool {
 	ret1 := C.g_variant_type_string_is_valid(type_string1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 func VariantTypeStringScan(string0 string, limit0 string) (string, bool) {
 	var string1 *C.char
 	var limit1 *C.char
@@ -4270,21 +4450,21 @@ func VariantTypeStringScan(string0 string, limit0 string) (string, bool) {
 	var endptr2 string
 	var ret2 bool
 
-//DEBUG: endptr1(utf8):flags = " conv_own_everything"
+	//DEBUG: endptr1(utf8):flags = " conv_own_everything"
 	endptr2 = C.GoString(endptr1)
 	C.g_free(unsafe.Pointer(endptr1))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return endptr2, ret2
 }
+
 // blacklisted: VoidFunc (callback)
 const Win32MsgHandle = 19981206
 // blacklisted: access (function)
 // blacklisted: aligned_alloc (function)
 // blacklisted: aligned_alloc0 (function)
 // blacklisted: aligned_free (function)
-// blacklisted: aligned_free_sized (function)
 // blacklisted: ascii_digit_value (function)
 // blacklisted: ascii_dtostr (function)
 // blacklisted: ascii_formatd (function)
@@ -4309,9 +4489,7 @@ const Win32MsgHandle = 19981206
 // blacklisted: atomic_int_add (function)
 // blacklisted: atomic_int_and (function)
 // blacklisted: atomic_int_compare_and_exchange (function)
-// blacklisted: atomic_int_compare_and_exchange_full (function)
 // blacklisted: atomic_int_dec_and_test (function)
-// blacklisted: atomic_int_exchange (function)
 // blacklisted: atomic_int_exchange_and_add (function)
 // blacklisted: atomic_int_get (function)
 // blacklisted: atomic_int_inc (function)
@@ -4321,8 +4499,6 @@ const Win32MsgHandle = 19981206
 // blacklisted: atomic_pointer_add (function)
 // blacklisted: atomic_pointer_and (function)
 // blacklisted: atomic_pointer_compare_and_exchange (function)
-// blacklisted: atomic_pointer_compare_and_exchange_full (function)
-// blacklisted: atomic_pointer_exchange (function)
 // blacklisted: atomic_pointer_get (function)
 // blacklisted: atomic_pointer_or (function)
 // blacklisted: atomic_pointer_set (function)
@@ -4380,7 +4556,6 @@ const Win32MsgHandle = 19981206
 // blacklisted: datalist_get_data (function)
 // blacklisted: datalist_get_flags (function)
 // blacklisted: datalist_id_get_data (function)
-// blacklisted: datalist_id_remove_multiple (function)
 // blacklisted: datalist_set_flags (function)
 // blacklisted: datalist_unset_flags (function)
 // blacklisted: dataset_destroy (function)
@@ -4429,7 +4604,6 @@ const Win32MsgHandle = 19981206
 // blacklisted: format_size_for_display (function)
 // blacklisted: format_size_full (function)
 // blacklisted: free (function)
-// blacklisted: free_sized (function)
 // blacklisted: get_application_name (function)
 // blacklisted: get_charset (function)
 // blacklisted: get_codeset (function)
@@ -4438,11 +4612,12 @@ func GetCurrentDir() string {
 	ret1 := C.g_get_current_dir()
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_everything"
+	//DEBUG: ret1(filename):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 // blacklisted: get_current_time (function)
 // blacklisted: get_environ (function)
 // blacklisted: get_filename_charsets (function)
@@ -4450,10 +4625,11 @@ func GetHomeDir() string {
 	ret1 := C.g_get_home_dir()
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_none"
+	//DEBUG: ret1(filename):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 // blacklisted: get_host_name (function)
 // blacklisted: get_language_names (function)
 // blacklisted: get_language_names_with_category (function)
@@ -4468,75 +4644,83 @@ func GetSystemConfigDirs() []string {
 	ret1 := C.g_get_system_config_dirs()
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
 	}
 	return ret2
 }
+
 func GetSystemDataDirs() []string {
 	ret1 := C.g_get_system_data_dirs()
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
 	}
 	return ret2
 }
+
 func GetTmpDir() string {
 	ret1 := C.g_get_tmp_dir()
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_none"
+	//DEBUG: ret1(filename):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func GetUserCacheDir() string {
 	ret1 := C.g_get_user_cache_dir()
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_none"
+	//DEBUG: ret1(filename):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func GetUserConfigDir() string {
 	ret1 := C.g_get_user_config_dir()
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_none"
+	//DEBUG: ret1(filename):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func GetUserDataDir() string {
 	ret1 := C.g_get_user_data_dir()
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_none"
+	//DEBUG: ret1(filename):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 // blacklisted: get_user_name (function)
 func GetUserRuntimeDir() string {
 	ret1 := C.g_get_user_runtime_dir()
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_none"
+	//DEBUG: ret1(filename):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func GetUserSpecialDir(directory0 UserDirectory) string {
 	var directory1 C.GUserDirectory
 	directory1 = C.GUserDirectory(directory0)
 	ret1 := C.g_get_user_special_dir(directory1)
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_none"
+	//DEBUG: ret1(filename):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 // blacklisted: get_user_state_dir (function)
 // blacklisted: getenv (function)
 // blacklisted: hash_table_add (function)
@@ -4545,7 +4729,6 @@ func GetUserSpecialDir(directory0 UserDirectory) string {
 // blacklisted: hash_table_insert (function)
 // blacklisted: hash_table_lookup (function)
 // blacklisted: hash_table_lookup_extended (function)
-// blacklisted: hash_table_new_similar (function)
 // blacklisted: hash_table_remove (function)
 // blacklisted: hash_table_remove_all (function)
 // blacklisted: hash_table_replace (function)
@@ -4626,7 +4809,6 @@ const Macro_HasAttribute__Noreturn__ = 0
 // blacklisted: once_init_leave (function)
 // blacklisted: option_error_quark (function)
 // blacklisted: parse_debug_string (function)
-// blacklisted: path_buf_equal (function)
 // blacklisted: path_get_basename (function)
 // blacklisted: path_get_dirname (function)
 // blacklisted: path_is_absolute (function)

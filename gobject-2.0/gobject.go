@@ -122,6 +122,11 @@ func (this0 *Binding) GetStaticType() Type {
 func BindingGetType() Type {
 	return (*Binding)(nil).GetStaticType()
 }
+
+func _EnsureSafeTransToBindingPointer(c unsafe.Pointer) *Binding {
+	ptr := uintptr(c)
+	return *(**Binding)(unsafe.Pointer(&ptr))
+}
 func (this0 *Binding) DupSource() *Object {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -130,10 +135,11 @@ func (this0 *Binding) DupSource() *Object {
 	ret1 := C.g_binding_dup_source(this1)
 	var ret2 *Object
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
-	ret2 = (*Object)(ObjectWrap(unsafe.Pointer(ret1), false))
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
+	ret2 = _EnsureSafeTransToObjectPointer(ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Binding) DupTarget() *Object {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -142,10 +148,11 @@ func (this0 *Binding) DupTarget() *Object {
 	ret1 := C.g_binding_dup_target(this1)
 	var ret2 *Object
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
-	ret2 = (*Object)(ObjectWrap(unsafe.Pointer(ret1), false))
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
+	ret2 = _EnsureSafeTransToObjectPointer(ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 func (this0 *Binding) GetFlags() BindingFlags {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -154,10 +161,11 @@ func (this0 *Binding) GetFlags() BindingFlags {
 	ret1 := C.g_binding_get_flags(this1)
 	var ret2 BindingFlags
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = BindingFlags(ret1)
 	return ret2
 }
+
 func (this0 *Binding) GetSource() *Object {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -166,10 +174,11 @@ func (this0 *Binding) GetSource() *Object {
 	ret1 := C.g_binding_get_source(this1)
 	var ret2 *Object
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Object)(ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Binding) GetSourceProperty() string {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -178,10 +187,11 @@ func (this0 *Binding) GetSourceProperty() string {
 	ret1 := C.g_binding_get_source_property(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Binding) GetTarget() *Object {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -190,10 +200,11 @@ func (this0 *Binding) GetTarget() *Object {
 	ret1 := C.g_binding_get_target(this1)
 	var ret2 *Object
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Object)(ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func (this0 *Binding) GetTargetProperty() string {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -202,10 +213,11 @@ func (this0 *Binding) GetTargetProperty() string {
 	ret1 := C.g_binding_get_target_property(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
+
 func (this0 *Binding) Unbind() {
 	var this1 *C.GBinding
 	if this0 != nil {
@@ -601,10 +613,11 @@ func NewClosureObject(sizeof_closure0 uint32, object0 ObjectLike) *Closure {
 	ret1 := C.g_closure_new_object(sizeof_closure1, object1)
 	var ret2 *Closure
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Closure)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func NewClosureSimple(sizeof_closure0 uint32, data0 unsafe.Pointer) *Closure {
 	var sizeof_closure1 C.uint32_t
 	var data1 unsafe.Pointer
@@ -613,10 +626,11 @@ func NewClosureSimple(sizeof_closure0 uint32, data0 unsafe.Pointer) *Closure {
 	ret1 := C.g_closure_new_simple(sizeof_closure1, data1)
 	var ret2 *Closure
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Closure)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *Closure) Invalidate() {
 	var this1 *C.GClosure
 	this1 = (*C.GClosure)(unsafe.Pointer(this0))
@@ -639,10 +653,11 @@ func (this0 *Closure) Invoke(param_values0 []Value, invocation_hint0 unsafe.Poin
 	C.g_closure_invoke(this1, &return_value1, n_param_values1, param_values1, invocation_hint1)
 	var return_value2 Value
 
-//DEBUG: return_value1(interface):flags = " conv_own_none"
+	//DEBUG: return_value1(interface):flags = " conv_own_none"
 	return_value2 = *(*Value)(unsafe.Pointer(&return_value1))
 	return return_value2
 }
+
 func (this0 *Closure) Sink() {
 	var this1 *C.GClosure
 	this1 = (*C.GClosure)(unsafe.Pointer(this0))
@@ -656,7 +671,6 @@ type ClosureNotifyData struct {
 }
 type ConnectFlags C.uint32_t
 const (
-	ConnectFlagsDefault ConnectFlags = 0
 	ConnectFlagsAfter ConnectFlags = 1
 	ConnectFlagsSwapped ConnectFlags = 2
 )
@@ -743,6 +757,11 @@ func (this0 *InitiallyUnowned) GetStaticType() Type {
 func InitiallyUnownedGetType() Type {
 	return (*InitiallyUnowned)(nil).GetStaticType()
 }
+
+func _EnsureSafeTransToInitiallyUnownedPointer(c unsafe.Pointer) *InitiallyUnowned {
+	ptr := uintptr(c)
+	return *(**InitiallyUnowned)(unsafe.Pointer(&ptr))
+}
 // blacklisted: InstanceInitFunc (callback)
 // blacklisted: InterfaceFinalizeFunc (callback)
 type InterfaceInfo struct {
@@ -787,6 +806,11 @@ func (this0 *Object) GetStaticType() Type {
 
 func ObjectGetType() Type {
 	return (*Object)(nil).GetStaticType()
+}
+
+func _EnsureSafeTransToObjectPointer(c unsafe.Pointer) *Object {
+	ptr := uintptr(c)
+	return *(**Object)(unsafe.Pointer(&ptr))
 }
 // blacklisted: Object.newv (method)
 // blacklisted: Object.compat_control (method)
@@ -980,10 +1004,11 @@ func (this0 *TypeClass) PeekParent() *TypeClass {
 	ret1 := C.g_type_class_peek_parent(this1)
 	var ret2 *TypeClass
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*TypeClass)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func TypeClassAdjustPrivateOffset(g_class0 unsafe.Pointer, private_size_or_offset0 *int32) {
 	var g_class1 unsafe.Pointer
 	var private_size_or_offset1 *C.int32_t
@@ -997,20 +1022,22 @@ func TypeClassPeek(type0 Type) *TypeClass {
 	ret1 := C.g_type_class_peek(type1)
 	var ret2 *TypeClass
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*TypeClass)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func TypeClassPeekStatic(type0 Type) *TypeClass {
 	var type1 C.GType
 	type1 = C.GType(type0)
 	ret1 := C.g_type_class_peek_static(type1)
 	var ret2 *TypeClass
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*TypeClass)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 // blacklisted: TypeClassCacheFunc (callback)
 type TypeDebugFlags C.uint32_t
 const (
@@ -1022,11 +1049,9 @@ const (
 )
 type TypeFlags C.uint32_t
 const (
-	TypeFlagsNone TypeFlags = 0
 	TypeFlagsAbstract TypeFlags = 16
 	TypeFlagsValueAbstract TypeFlags = 32
 	TypeFlagsFinal TypeFlags = 64
-	TypeFlagsDeprecated TypeFlags = 128
 )
 type TypeFundamentalFlags C.uint32_t
 const (
@@ -1072,10 +1097,11 @@ func (this0 *TypeInterface) PeekParent() *TypeInterface {
 	ret1 := C.g_type_interface_peek_parent(this1)
 	var ret2 *TypeInterface
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*TypeInterface)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func TypeInterfaceAddPrerequisite(interface_type0 Type, prerequisite_type0 Type) {
 	var interface_type1 C.GType
 	var prerequisite_type1 C.GType
@@ -1091,20 +1117,22 @@ func TypeInterfaceGetPlugin(instance_type0 Type, interface_type0 Type) *TypePlug
 	ret1 := C.g_type_interface_get_plugin(instance_type1, interface_type1)
 	var ret2 *TypePlugin
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*TypePlugin)(ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 func TypeInterfaceInstantiatablePrerequisite(interface_type0 Type) Type {
 	var interface_type1 C.GType
 	interface_type1 = C.GType(interface_type0)
 	ret1 := C.g_type_interface_instantiatable_prerequisite(interface_type1)
 	var ret2 Type
 
-//DEBUG: ret1(GType):flags = " conv_own_none"
+	//DEBUG: ret1(GType):flags = " conv_own_none"
 	ret2 = Type(ret1)
 	return ret2
 }
+
 func TypeInterfacePeek(instance_class0 *TypeClass, iface_type0 Type) *TypeInterface {
 	var instance_class1 *C.GTypeClass
 	var iface_type1 C.GType
@@ -1113,10 +1141,11 @@ func TypeInterfacePeek(instance_class0 *TypeClass, iface_type0 Type) *TypeInterf
 	ret1 := C.g_type_interface_peek(instance_class1, iface_type1)
 	var ret2 *TypeInterface
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*TypeInterface)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func TypeInterfacePrerequisites(interface_type0 Type) (uint32, []Type) {
 	var interface_type1 C.GType
 	var n_prerequisites1 C.uint32_t
@@ -1125,17 +1154,18 @@ func TypeInterfacePrerequisites(interface_type0 Type) (uint32, []Type) {
 	var n_prerequisites2 uint32
 	var ret2 []Type
 
-//DEBUG: n_prerequisites1(guint32):flags = " conv_own_everything"
+	//DEBUG: n_prerequisites1(guint32):flags = " conv_own_everything"
 	n_prerequisites2 = uint32(n_prerequisites1)
 	ret2 = make([]Type, n_prerequisites1)
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	for i0 := range ret2 {
 		ret2[i0] = Type((*(*[999999]C.GType)(unsafe.Pointer(ret1)))[i0])
 	}
 	C.g_free(unsafe.Pointer(ret1))
 	return n_prerequisites2, ret2
 }
+
 // blacklisted: TypeInterfaceCheckFunc (callback)
 // blacklisted: TypeModule (object)
 type TypePluginLike interface {
@@ -1166,6 +1196,11 @@ func ToTypePlugin(objlike ObjectLike) *TypePlugin {
 func (this0 *TypePluginImpl) ImplementsGTypePlugin() *C.GTypePlugin {
 	base := unsafe.Pointer(uintptr(unsafe.Pointer(this0)) - unsafe.Sizeof(uintptr(0)))
 	return (*C.GTypePlugin)((*Object)(base).C)
+}
+
+func _EnsureSafeTransToTypePluginPointer(c unsafe.Pointer) *TypePlugin {
+	ptr := uintptr(c)
+	return *(**TypePlugin)(unsafe.Pointer(&ptr))
 }
 func (this0 *TypePluginImpl) CompleteInterfaceInfo(instance_type0 Type, interface_type0 Type, info0 *InterfaceInfo) {
 	var this1 *C.GTypePlugin
@@ -1268,10 +1303,11 @@ func NewValueArray(n_prealloced0 uint32) *ValueArray {
 	ret1 := C.g_value_array_new(n_prealloced1)
 	var ret2 *ValueArray
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*ValueArray)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *ValueArray) Append(value0 *Value) *ValueArray {
 	var this1 *C.GValueArray
 	var value1 *C.GValue
@@ -1280,20 +1316,22 @@ func (this0 *ValueArray) Append(value0 *Value) *ValueArray {
 	ret1 := C.g_value_array_append(this1, value1)
 	var ret2 *ValueArray
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*ValueArray)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *ValueArray) Copy() *ValueArray {
 	var this1 *C.GValueArray
 	this1 = (*C.GValueArray)(unsafe.Pointer(this0))
 	ret1 := C.g_value_array_copy(this1)
 	var ret2 *ValueArray
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*ValueArray)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *ValueArray) GetNth(index_0 uint32) *Value {
 	var this1 *C.GValueArray
 	var index_1 C.uint32_t
@@ -1302,10 +1340,11 @@ func (this0 *ValueArray) GetNth(index_0 uint32) *Value {
 	ret1 := C.g_value_array_get_nth(this1, index_1)
 	var ret2 *Value
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Value)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *ValueArray) Insert(index_0 uint32, value0 *Value) *ValueArray {
 	var this1 *C.GValueArray
 	var index_1 C.uint32_t
@@ -1316,10 +1355,11 @@ func (this0 *ValueArray) Insert(index_0 uint32, value0 *Value) *ValueArray {
 	ret1 := C.g_value_array_insert(this1, index_1, value1)
 	var ret2 *ValueArray
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*ValueArray)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *ValueArray) Prepend(value0 *Value) *ValueArray {
 	var this1 *C.GValueArray
 	var value1 *C.GValue
@@ -1328,10 +1368,11 @@ func (this0 *ValueArray) Prepend(value0 *Value) *ValueArray {
 	ret1 := C.g_value_array_prepend(this1, value1)
 	var ret2 *ValueArray
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*ValueArray)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 func (this0 *ValueArray) Remove(index_0 uint32) *ValueArray {
 	var this1 *C.GValueArray
 	var index_1 C.uint32_t
@@ -1340,10 +1381,11 @@ func (this0 *ValueArray) Remove(index_0 uint32) *ValueArray {
 	ret1 := C.g_value_array_remove(this1, index_1)
 	var ret2 *ValueArray
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*ValueArray)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 // blacklisted: ValueTransform (callback)
 // blacklisted: WeakNotify (callback)
 type WeakRef struct {}
@@ -1413,7 +1455,6 @@ type _Value__data__union struct {
 // blacklisted: param_type_register_static (function)
 // blacklisted: param_value_convert (function)
 // blacklisted: param_value_defaults (function)
-// blacklisted: param_value_is_valid (function)
 // blacklisted: param_value_set_default (function)
 // blacklisted: param_value_validate (function)
 // blacklisted: param_values_cmp (function)
