@@ -114,6 +114,11 @@ func (this0 *[<.name>]) GetStaticType() [<.gobjectns>]Type {
 func [<.name>]GetType() [<.gobjectns>]Type {
 	return (*[<.name>])(nil).GetStaticType()
 }
+
+func _EnsureSafeTransTo[<.name>]Pointer(c unsafe.Pointer) *[<.name>] {
+	ptr := uintptr(c)
+	return *(**[<.name>])(unsafe.Pointer(&ptr))
+}
 `)
 
 // XXX: uses gc specific hack, expect problems on gccgo and/or ask developers
@@ -147,6 +152,11 @@ func To[<.name>](objlike [<.gobjectns>]ObjectLike) *[<.name>] {
 func (this0 *[<.name>]Impl) Implements[<.cprefix>][<.name>]() [<.cgotype>] {
 	base := unsafe.Pointer(uintptr(unsafe.Pointer(this0)) - unsafe.Sizeof(uintptr(0)))
 	return ([<.cgotype>])((*[<.gobjectns>]Object)(base).C)
+}
+
+func _EnsureSafeTransTo[<.name>]Pointer(c unsafe.Pointer) *[<.name>] {
+	ptr := uintptr(c)
+	return *(**[<.name>])(unsafe.Pointer(&ptr))
 }
 
 `)

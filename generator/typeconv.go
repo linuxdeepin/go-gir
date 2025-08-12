@@ -229,8 +229,13 @@ func cgo_to_go_for_interface(bi *gi.BaseInfo, arg1, arg2 string, flags conv_flag
 	case gi.INFO_TYPE_OBJECT, gi.INFO_TYPE_INTERFACE:
 		gotype := go_type_for_interface(bi, type_return)
 		if flags&conv_own_everything != 0 {
-			printf("%s = (*%s)(%sObjectWrap(unsafe.Pointer(%s), false))",
-				arg2, gotype, config.gns, arg1)
+			if gotype == "gobject.Object" {
+				printf("%s = (*%s)(%sObjectWrap(unsafe.Pointer(%s), false))",
+					arg2, gotype, config.gns, arg1)
+			} else {
+				printf("%s = _EnsureSafeTransTo%sPointer(%sObjectWrap(unsafe.Pointer(%s), false))",
+					arg2, gotype, config.gns, arg1)
+			}
 		} else {
 			printf("%s = (*%s)(%sObjectWrap(unsafe.Pointer(%s), true))",
 				arg2, gotype, config.gns, arg1)

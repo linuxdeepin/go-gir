@@ -1014,7 +1014,7 @@ func (this *binding_generator) process_function_info(fi *gi.FunctionInfo) {
 			}
 		}
 
-		p("\n//DEBUG: %s1(%s):flags = %q\n", nm, ret.type_info.Tag(), ownership_to_conv_flags(ownership))
+		p("\n\t//DEBUG: %s1(%s):flags = %q\n", nm, ret.type_info.Tag(), ownership_to_conv_flags(ownership))
 
 		var conv string
 		if flags&gi.FUNCTION_IS_CONSTRUCTOR != 0 && ret.index == -1 {
@@ -1051,6 +1051,7 @@ func (this *binding_generator) process_function_info(fi *gi.FunctionInfo) {
 	}
 
 	p("\n}\n")
+	p("\n")
 }
 
 func (this *binding_generator) process_interface_info(ii *gi.InterfaceInfo) {
