@@ -18,11 +18,11 @@ extern void g_free(void*);
 #cgo pkg-config: gio-2.0
 */
 import "C"
-import "unsafe"
-
 import (
-	"github.com/linuxdeepin/go-gir/gobject-2.0"
+	"unsafe"
+
 	"github.com/linuxdeepin/go-gir/glib-2.0"
+	"github.com/linuxdeepin/go-gir/gobject-2.0"
 )
 
 const alot = 999999
@@ -39,19 +39,21 @@ type _GList struct {
 }
 
 type _GError struct {
-	domain uint32
-	code int32
+	domain  uint32
+	code    int32
 	message *C.char
 }
+
 func (e _GError) ToGError() GError {
 	return GError{e.domain, e.code, C.GoString(e.message)}
 }
 
 type GError struct {
-	Domain uint32
-	Code int32
+	Domain  uint32
+	Code    int32
 	Message string
 }
+
 func (e GError) Error() string {
 	return e.Message
 }
@@ -64,7 +66,9 @@ func _GoStringToGString(x string) *C.char {
 }
 
 func _GoBoolToCBool(x bool) C.int {
-	if x { return 1 }
+	if x {
+		return 1
+	}
 	return 0
 }
 
@@ -76,12 +80,10 @@ func _GoInterfaceToCInterface(iface interface{}) *unsafe.Pointer {
 	return (*unsafe.Pointer)(unsafe.Pointer(&iface))
 }
 
-
 //export _Gio_go_callback_cleanup
 func _Gio_go_callback_cleanup(gofunc unsafe.Pointer) {
 	gobject.Holder.Release(gofunc)
 }
-
 
 type ActionLike interface {
 	ImplementsGAction() *C.GAction
@@ -96,8 +98,7 @@ func (*Action) GetStaticType() gobject.Type {
 	return gobject.Type(C.g_action_get_type())
 }
 
-
-type ActionImpl struct {}
+type ActionImpl struct{}
 
 func ToAction(objlike gobject.ObjectLike) *Action {
 	c := objlike.InheritedFromGObject()
@@ -119,7 +120,7 @@ func ActionNameIsValid(action_name0 string) bool {
 	ret1 := C.g_action_name_is_valid(action_name1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -136,14 +137,14 @@ func ActionParseDetailedName(detailed_name0 string) (string, *glib.Variant, bool
 	var ret2 bool
 	var err2 error
 
-//DEBUG: action_name1(utf8):flags = " conv_own_everything"
+	//DEBUG: action_name1(utf8):flags = " conv_own_everything"
 	action_name2 = C.GoString(action_name1)
 	C.g_free(unsafe.Pointer(action_name1))
 
-//DEBUG: target_value1(interface):flags = " conv_own_everything"
+	//DEBUG: target_value1(interface):flags = " conv_own_everything"
 	target_value2 = (*glib.Variant)(unsafe.Pointer(target_value1))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -160,7 +161,7 @@ func ActionPrintDetailedName(action_name0 string, target_value0 *glib.Variant) s
 	ret1 := C.g_action_print_detailed_name(action_name1, target_value1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -191,7 +192,7 @@ func (this0 *ActionImpl) GetEnabled() bool {
 	ret1 := C.g_action_get_enabled(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -203,7 +204,7 @@ func (this0 *ActionImpl) GetName() string {
 	ret1 := C.g_action_get_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -215,7 +216,7 @@ func (this0 *ActionImpl) GetParameterType() *glib.VariantType {
 	ret1 := C.g_action_get_parameter_type(this1)
 	var ret2 *glib.VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*glib.VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -227,7 +228,7 @@ func (this0 *ActionImpl) GetState() *glib.Variant {
 	ret1 := C.g_action_get_state(this1)
 	var ret2 *glib.Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -239,7 +240,7 @@ func (this0 *ActionImpl) GetStateHint() *glib.Variant {
 	ret1 := C.g_action_get_state_hint(this1)
 	var ret2 *glib.Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -251,18 +252,20 @@ func (this0 *ActionImpl) GetStateType() *glib.VariantType {
 	ret1 := C.g_action_get_state_type(this1)
 	var ret2 *glib.VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*glib.VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 type ActionEntry struct {
-	name0 *C.char
-	Activate unsafe.Pointer
+	name0           *C.char
+	Activate        unsafe.Pointer
 	parameter_type0 *C.char
-	state0 *C.char
-	ChangeState unsafe.Pointer
-	Padding [3]uint64
+	state0          *C.char
+	ChangeState     unsafe.Pointer
+	Padding         [3]uint64
 }
+
 func (this0 *ActionEntry) Name() string {
 	var name1 string
 	name1 = C.GoString(this0.name0)
@@ -278,6 +281,7 @@ func (this0 *ActionEntry) State() string {
 	state1 = C.GoString(this0.state0)
 	return state1
 }
+
 type ActionGroupLike interface {
 	ImplementsGActionGroup() *C.GActionGroup
 }
@@ -291,8 +295,7 @@ func (*ActionGroup) GetStaticType() gobject.Type {
 	return gobject.Type(C.g_action_group_get_type())
 }
 
-
-type ActionGroupImpl struct {}
+type ActionGroupImpl struct{}
 
 func ToActionGroup(objlike gobject.ObjectLike) *ActionGroup {
 	c := objlike.InheritedFromGObject()
@@ -386,7 +389,7 @@ func (this0 *ActionGroupImpl) GetActionEnabled(action_name0 string) bool {
 	ret1 := C.g_action_group_get_action_enabled(this1, action_name1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -401,7 +404,7 @@ func (this0 *ActionGroupImpl) GetActionParameterType(action_name0 string) *glib.
 	ret1 := C.g_action_group_get_action_parameter_type(this1, action_name1)
 	var ret2 *glib.VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*glib.VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -416,7 +419,7 @@ func (this0 *ActionGroupImpl) GetActionState(action_name0 string) *glib.Variant 
 	ret1 := C.g_action_group_get_action_state(this1, action_name1)
 	var ret2 *glib.Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -431,7 +434,7 @@ func (this0 *ActionGroupImpl) GetActionStateHint(action_name0 string) *glib.Vari
 	ret1 := C.g_action_group_get_action_state_hint(this1, action_name1)
 	var ret2 *glib.Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -446,7 +449,7 @@ func (this0 *ActionGroupImpl) GetActionStateType(action_name0 string) *glib.Vari
 	ret1 := C.g_action_group_get_action_state_type(this1, action_name1)
 	var ret2 *glib.VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*glib.VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -461,7 +464,7 @@ func (this0 *ActionGroupImpl) HasAction(action_name0 string) bool {
 	ret1 := C.g_action_group_has_action(this1, action_name1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -473,7 +476,7 @@ func (this0 *ActionGroupImpl) ListActions() []string {
 	ret1 := C.g_action_group_list_actions(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -503,25 +506,26 @@ func (this0 *ActionGroupImpl) QueryAction(action_name0 string) (bool, *glib.Vari
 	var state2 *glib.Variant
 	var ret2 bool
 
-//DEBUG: enabled1(gboolean):flags = " conv_own_everything"
+	//DEBUG: enabled1(gboolean):flags = " conv_own_everything"
 	enabled2 = enabled1 != 0
 
-//DEBUG: parameter_type1(interface):flags = " conv_own_none"
+	//DEBUG: parameter_type1(interface):flags = " conv_own_none"
 	parameter_type2 = (*glib.VariantType)(unsafe.Pointer(parameter_type1))
 
-//DEBUG: state_type1(interface):flags = " conv_own_none"
+	//DEBUG: state_type1(interface):flags = " conv_own_none"
 	state_type2 = (*glib.VariantType)(unsafe.Pointer(state_type1))
 
-//DEBUG: state_hint1(interface):flags = " conv_own_everything"
+	//DEBUG: state_hint1(interface):flags = " conv_own_everything"
 	state_hint2 = (*glib.Variant)(unsafe.Pointer(state_hint1))
 
-//DEBUG: state1(interface):flags = " conv_own_everything"
+	//DEBUG: state1(interface):flags = " conv_own_everything"
 	state2 = (*glib.Variant)(unsafe.Pointer(state1))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return enabled2, parameter_type2, state_type2, state_hint2, state2, ret2
 }
+
 // blacklisted: ActionGroupInterface (struct)
 // blacklisted: ActionInterface (struct)
 type ActionMapLike interface {
@@ -537,8 +541,7 @@ func (*ActionMap) GetStaticType() gobject.Type {
 	return gobject.Type(C.g_action_map_get_type())
 }
 
-
-type ActionMapImpl struct {}
+type ActionMapImpl struct{}
 
 func ToActionMap(objlike gobject.ObjectLike) *ActionMap {
 	c := objlike.InheritedFromGObject()
@@ -592,7 +595,7 @@ func (this0 *ActionMapImpl) LookupAction(action_name0 string) *Action {
 	ret1 := C.g_action_map_lookup_action(this1, action_name1)
 	var ret2 *Action
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Action)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
@@ -606,6 +609,7 @@ func (this0 *ActionMapImpl) RemoveAction(action_name0 string) {
 	defer C.free(unsafe.Pointer(action_name1))
 	C.g_action_map_remove_action(this1, action_name1)
 }
+
 // blacklisted: ActionMapInterface (struct)
 type AppInfoLike interface {
 	ImplementsGAppInfo() *C.GAppInfo
@@ -620,8 +624,7 @@ func (*AppInfo) GetStaticType() gobject.Type {
 	return gobject.Type(C.g_app_info_get_type())
 }
 
-
-type AppInfoImpl struct {}
+type AppInfoImpl struct{}
 
 func ToAppInfo(objlike gobject.ObjectLike) *AppInfo {
 	c := objlike.InheritedFromGObject()
@@ -650,7 +653,7 @@ func AppInfoCreateFromCommandline(commandline0 string, application_name0 string,
 	var ret2 *AppInfo
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*AppInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -658,6 +661,7 @@ func AppInfoCreateFromCommandline(commandline0 string, application_name0 string,
 	}
 	return ret2, err2
 }
+
 // blacklisted: AppInfo.get_all (method)
 // blacklisted: AppInfo.get_all_for_type (method)
 // blacklisted: AppInfo.get_default_for_type (method)
@@ -685,7 +689,7 @@ func (this0 *AppInfoImpl) AddSupportsType(content_type0 string) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -701,7 +705,7 @@ func (this0 *AppInfoImpl) CanDelete() bool {
 	ret1 := C.g_app_info_can_delete(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -713,7 +717,7 @@ func (this0 *AppInfoImpl) CanRemoveSupportsType() bool {
 	ret1 := C.g_app_info_can_remove_supports_type(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -725,7 +729,7 @@ func (this0 *AppInfoImpl) Delete() bool {
 	ret1 := C.g_app_info_delete(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -737,7 +741,7 @@ func (this0 *AppInfoImpl) Dup() *AppInfo {
 	ret1 := C.g_app_info_dup(this1)
 	var ret2 *AppInfo
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*AppInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -753,7 +757,7 @@ func (this0 *AppInfoImpl) Equal(appinfo20 AppInfoLike) bool {
 	ret1 := C.g_app_info_equal(this1, appinfo21)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -765,7 +769,7 @@ func (this0 *AppInfoImpl) GetCommandline() string {
 	ret1 := C.g_app_info_get_commandline(this1)
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_none"
+	//DEBUG: ret1(filename):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -777,7 +781,7 @@ func (this0 *AppInfoImpl) GetDescription() string {
 	ret1 := C.g_app_info_get_description(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -789,7 +793,7 @@ func (this0 *AppInfoImpl) GetDisplayName() string {
 	ret1 := C.g_app_info_get_display_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -801,7 +805,7 @@ func (this0 *AppInfoImpl) GetExecutable() string {
 	ret1 := C.g_app_info_get_executable(this1)
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_none"
+	//DEBUG: ret1(filename):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -813,7 +817,7 @@ func (this0 *AppInfoImpl) GetIcon() *Icon {
 	ret1 := C.g_app_info_get_icon(this1)
 	var ret2 *Icon
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Icon)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
@@ -825,7 +829,7 @@ func (this0 *AppInfoImpl) GetId() string {
 	ret1 := C.g_app_info_get_id(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -837,7 +841,7 @@ func (this0 *AppInfoImpl) GetName() string {
 	ret1 := C.g_app_info_get_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -849,7 +853,7 @@ func (this0 *AppInfoImpl) GetSupportedTypes() []string {
 	ret1 := C.g_app_info_get_supported_types(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -879,7 +883,7 @@ func (this0 *AppInfoImpl) Launch(files0 []*File, context0 AppLaunchContextLike) 
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -909,7 +913,7 @@ func (this0 *AppInfoImpl) LaunchUris(uris0 []string, context0 AppLaunchContextLi
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -917,6 +921,7 @@ func (this0 *AppInfoImpl) LaunchUris(uris0 []string, context0 AppLaunchContextLi
 	}
 	return ret2, err2
 }
+
 // blacklisted: AppInfo.launch_uris_async (method)
 // blacklisted: AppInfo.launch_uris_finish (method)
 func (this0 *AppInfoImpl) RemoveSupportsType(content_type0 string) (bool, error) {
@@ -932,7 +937,7 @@ func (this0 *AppInfoImpl) RemoveSupportsType(content_type0 string) (bool, error)
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -953,7 +958,7 @@ func (this0 *AppInfoImpl) SetAsDefaultForExtension(extension0 string) (bool, err
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -974,7 +979,7 @@ func (this0 *AppInfoImpl) SetAsDefaultForType(content_type0 string) (bool, error
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -995,7 +1000,7 @@ func (this0 *AppInfoImpl) SetAsLastUsedForType(content_type0 string) (bool, erro
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1011,7 +1016,7 @@ func (this0 *AppInfoImpl) ShouldShow() bool {
 	ret1 := C.g_app_info_should_show(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -1023,7 +1028,7 @@ func (this0 *AppInfoImpl) SupportsFiles() bool {
 	ret1 := C.g_app_info_supports_files(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -1035,17 +1040,20 @@ func (this0 *AppInfoImpl) SupportsUris() bool {
 	ret1 := C.g_app_info_supports_uris(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 type AppInfoCreateFlags C.uint32_t
+
 const (
-	AppInfoCreateFlagsNone AppInfoCreateFlags = 0
-	AppInfoCreateFlagsNeedsTerminal AppInfoCreateFlags = 1
-	AppInfoCreateFlagsSupportsUris AppInfoCreateFlags = 2
+	AppInfoCreateFlagsNone                        AppInfoCreateFlags = 0
+	AppInfoCreateFlagsNeedsTerminal               AppInfoCreateFlags = 1
+	AppInfoCreateFlagsSupportsUris                AppInfoCreateFlags = 2
 	AppInfoCreateFlagsSupportsStartupNotification AppInfoCreateFlags = 4
 )
+
 // blacklisted: AppInfoIface (struct)
 // blacklisted: AppInfoMonitor (object)
 type AppLaunchContextLike interface {
@@ -1055,7 +1063,6 @@ type AppLaunchContextLike interface {
 
 type AppLaunchContext struct {
 	gobject.Object
-	
 }
 
 func ToAppLaunchContext(objlike gobject.ObjectLike) *AppLaunchContext {
@@ -1089,7 +1096,7 @@ func NewAppLaunchContext() *AppLaunchContext {
 	ret1 := C.g_app_launch_context_new()
 	var ret2 *AppLaunchContext
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*AppLaunchContext)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -1114,7 +1121,7 @@ func (this0 *AppLaunchContext) GetDisplay(info0 AppInfoLike, files0 []*File) str
 	ret1 := C.g_app_launch_context_get_display(this1, info1, files1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -1127,7 +1134,7 @@ func (this0 *AppLaunchContext) GetEnvironment() []string {
 	ret1 := C.g_app_launch_context_get_environment(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -1157,7 +1164,7 @@ func (this0 *AppLaunchContext) GetStartupNotifyId(info0 AppInfoLike, files0 []*F
 	ret1 := C.g_app_launch_context_get_startup_notify_id(this1, info1, files1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -1195,6 +1202,7 @@ func (this0 *AppLaunchContext) Unsetenv(variable0 string) {
 	defer C.free(unsafe.Pointer(variable1))
 	C.g_app_launch_context_unsetenv(this1, variable1)
 }
+
 // blacklisted: AppLaunchContextClass (struct)
 // blacklisted: AppLaunchContextPrivate (struct)
 // blacklisted: Application (object)
@@ -1203,32 +1211,37 @@ func (this0 *AppLaunchContext) Unsetenv(variable0 string) {
 // blacklisted: ApplicationCommandLineClass (struct)
 // blacklisted: ApplicationCommandLinePrivate (struct)
 type ApplicationFlags C.uint32_t
+
 const (
-	ApplicationFlagsFlagsNone ApplicationFlags = 0
-	ApplicationFlagsDefaultFlags ApplicationFlags = 0
-	ApplicationFlagsIsService ApplicationFlags = 1
-	ApplicationFlagsIsLauncher ApplicationFlags = 2
-	ApplicationFlagsHandlesOpen ApplicationFlags = 4
+	ApplicationFlagsFlagsNone          ApplicationFlags = 0
+	ApplicationFlagsDefaultFlags       ApplicationFlags = 0
+	ApplicationFlagsIsService          ApplicationFlags = 1
+	ApplicationFlagsIsLauncher         ApplicationFlags = 2
+	ApplicationFlagsHandlesOpen        ApplicationFlags = 4
 	ApplicationFlagsHandlesCommandLine ApplicationFlags = 8
-	ApplicationFlagsSendEnvironment ApplicationFlags = 16
-	ApplicationFlagsNonUnique ApplicationFlags = 32
-	ApplicationFlagsCanOverrideAppId ApplicationFlags = 64
-	ApplicationFlagsAllowReplacement ApplicationFlags = 128
-	ApplicationFlagsReplace ApplicationFlags = 256
+	ApplicationFlagsSendEnvironment    ApplicationFlags = 16
+	ApplicationFlagsNonUnique          ApplicationFlags = 32
+	ApplicationFlagsCanOverrideAppId   ApplicationFlags = 64
+	ApplicationFlagsAllowReplacement   ApplicationFlags = 128
+	ApplicationFlagsReplace            ApplicationFlags = 256
 )
+
 // blacklisted: ApplicationPrivate (struct)
 type AskPasswordFlags C.uint32_t
+
 const (
-	AskPasswordFlagsNeedPassword AskPasswordFlags = 1
-	AskPasswordFlagsNeedUsername AskPasswordFlags = 2
-	AskPasswordFlagsNeedDomain AskPasswordFlags = 4
-	AskPasswordFlagsSavingSupported AskPasswordFlags = 8
+	AskPasswordFlagsNeedPassword       AskPasswordFlags = 1
+	AskPasswordFlagsNeedUsername       AskPasswordFlags = 2
+	AskPasswordFlagsNeedDomain         AskPasswordFlags = 4
+	AskPasswordFlagsSavingSupported    AskPasswordFlags = 8
 	AskPasswordFlagsAnonymousSupported AskPasswordFlags = 16
-	AskPasswordFlagsTcrypt AskPasswordFlags = 32
+	AskPasswordFlagsTcrypt             AskPasswordFlags = 32
 )
+
 // blacklisted: AsyncInitable (interface)
 // blacklisted: AsyncInitableIface (struct)
 type AsyncReadyCallback func(source_object *gobject.Object, res *AsyncResult)
+
 //export _GAsyncReadyCallback_c_wrapper
 func _GAsyncReadyCallback_c_wrapper(source_object0 unsafe.Pointer, res0 unsafe.Pointer, data0 unsafe.Pointer) {
 	var source_object1 *gobject.Object
@@ -1239,11 +1252,13 @@ func _GAsyncReadyCallback_c_wrapper(source_object0 unsafe.Pointer, res0 unsafe.P
 	data1 = *(*AsyncReadyCallback)(data0)
 	data1(source_object1, res1)
 }
+
 //export _GAsyncReadyCallback_c_wrapper_once
 func _GAsyncReadyCallback_c_wrapper_once(source_object0 unsafe.Pointer, res0 unsafe.Pointer, data0 unsafe.Pointer) {
 	_GAsyncReadyCallback_c_wrapper(source_object0, res0, data0)
 	gobject.Holder.Release(data0)
 }
+
 type AsyncResultLike interface {
 	ImplementsGAsyncResult() *C.GAsyncResult
 }
@@ -1257,8 +1272,7 @@ func (*AsyncResult) GetStaticType() gobject.Type {
 	return gobject.Type(C.g_async_result_get_type())
 }
 
-
-type AsyncResultImpl struct {}
+type AsyncResultImpl struct{}
 
 func ToAsyncResult(objlike gobject.ObjectLike) *AsyncResult {
 	c := objlike.InheritedFromGObject()
@@ -1281,7 +1295,7 @@ func (this0 *AsyncResultImpl) GetSourceObject() *gobject.Object {
 	ret1 := C.g_async_result_get_source_object(this1)
 	var ret2 *gobject.Object
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*gobject.Object)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -1302,7 +1316,7 @@ func (this0 *AsyncResultImpl) IsTagged(source_tag0 unsafe.Pointer) bool {
 	ret1 := C.g_async_result_is_tagged(this1, source_tag1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -1316,7 +1330,7 @@ func (this0 *AsyncResultImpl) LegacyPropagateError() (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1324,6 +1338,7 @@ func (this0 *AsyncResultImpl) LegacyPropagateError() (bool, error) {
 	}
 	return ret2, err2
 }
+
 // blacklisted: AsyncResultIface (struct)
 // blacklisted: BufferedInputStream (object)
 // blacklisted: BufferedInputStreamClass (struct)
@@ -1336,25 +1351,31 @@ func (this0 *AsyncResultImpl) LegacyPropagateError() (bool, error) {
 // blacklisted: BusNameAppearedCallback (callback)
 // blacklisted: BusNameLostCallback (callback)
 type BusNameOwnerFlags C.uint32_t
+
 const (
-	BusNameOwnerFlagsNone BusNameOwnerFlags = 0
+	BusNameOwnerFlagsNone             BusNameOwnerFlags = 0
 	BusNameOwnerFlagsAllowReplacement BusNameOwnerFlags = 1
-	BusNameOwnerFlagsReplace BusNameOwnerFlags = 2
-	BusNameOwnerFlagsDoNotQueue BusNameOwnerFlags = 4
+	BusNameOwnerFlagsReplace          BusNameOwnerFlags = 2
+	BusNameOwnerFlagsDoNotQueue       BusNameOwnerFlags = 4
 )
+
 // blacklisted: BusNameVanishedCallback (callback)
 type BusNameWatcherFlags C.uint32_t
+
 const (
-	BusNameWatcherFlagsNone BusNameWatcherFlags = 0
+	BusNameWatcherFlagsNone      BusNameWatcherFlags = 0
 	BusNameWatcherFlagsAutoStart BusNameWatcherFlags = 1
 )
+
 type BusType C.int32_t
+
 const (
 	BusTypeStarter BusType = -1
-	BusTypeNone BusType = 0
-	BusTypeSystem BusType = 1
+	BusTypeNone    BusType = 0
+	BusTypeSystem  BusType = 1
 	BusTypeSession BusType = 2
 )
+
 // blacklisted: BytesIcon (object)
 type CancellableLike interface {
 	gobject.ObjectLike
@@ -1363,7 +1384,6 @@ type CancellableLike interface {
 
 type Cancellable struct {
 	gobject.Object
-	
 }
 
 func ToCancellable(objlike gobject.ObjectLike) *Cancellable {
@@ -1397,7 +1417,7 @@ func NewCancellable() *Cancellable {
 	ret1 := C.g_cancellable_new()
 	var ret2 *Cancellable
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Cancellable)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -1405,7 +1425,7 @@ func CancellableGetCurrent() *Cancellable {
 	ret1 := C.g_cancellable_get_current()
 	var ret2 *Cancellable
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Cancellable)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
@@ -1416,6 +1436,7 @@ func (this0 *Cancellable) Cancel() {
 	}
 	C.g_cancellable_cancel(this1)
 }
+
 // blacklisted: Cancellable.connect (method)
 func (this0 *Cancellable) Disconnect(handler_id0 uint64) {
 	var this1 *C.GCancellable
@@ -1434,7 +1455,7 @@ func (this0 *Cancellable) GetFd() int32 {
 	ret1 := C.g_cancellable_get_fd(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
@@ -1446,7 +1467,7 @@ func (this0 *Cancellable) IsCancelled() bool {
 	ret1 := C.g_cancellable_is_cancelled(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -1460,7 +1481,7 @@ func (this0 *Cancellable) MakePollfd(pollfd0 *glib.PollFD) bool {
 	ret1 := C.g_cancellable_make_pollfd(this1, pollfd1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -1502,7 +1523,7 @@ func (this0 *Cancellable) SetErrorIfCancelled() (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -1510,6 +1531,7 @@ func (this0 *Cancellable) SetErrorIfCancelled() (bool, error) {
 	}
 	return ret2, err2
 }
+
 // blacklisted: Cancellable.source_new (method)
 // blacklisted: CancellableClass (struct)
 // blacklisted: CancellablePrivate (struct)
@@ -1518,11 +1540,13 @@ func (this0 *Cancellable) SetErrorIfCancelled() (bool, error) {
 // blacklisted: CharsetConverterClass (struct)
 // blacklisted: Converter (interface)
 type ConverterFlags C.uint32_t
+
 const (
-	ConverterFlagsNone ConverterFlags = 0
+	ConverterFlagsNone       ConverterFlags = 0
 	ConverterFlagsInputAtEnd ConverterFlags = 1
-	ConverterFlagsFlush ConverterFlags = 2
+	ConverterFlagsFlush      ConverterFlags = 2
 )
+
 // blacklisted: ConverterIface (struct)
 // blacklisted: ConverterInputStream (object)
 // blacklisted: ConverterInputStreamClass (struct)
@@ -1531,102 +1555,114 @@ const (
 // blacklisted: ConverterOutputStreamClass (struct)
 // blacklisted: ConverterOutputStreamPrivate (struct)
 type ConverterResult C.uint32_t
+
 const (
-	ConverterResultError ConverterResult = 0
+	ConverterResultError     ConverterResult = 0
 	ConverterResultConverted ConverterResult = 1
-	ConverterResultFinished ConverterResult = 2
-	ConverterResultFlushed ConverterResult = 3
+	ConverterResultFinished  ConverterResult = 2
+	ConverterResultFlushed   ConverterResult = 3
 )
+
 // blacklisted: Credentials (object)
 // blacklisted: CredentialsClass (struct)
 type CredentialsType C.uint32_t
+
 const (
-	CredentialsTypeInvalid CredentialsType = 0
-	CredentialsTypeLinuxUcred CredentialsType = 1
-	CredentialsTypeFreebsdCmsgcred CredentialsType = 2
+	CredentialsTypeInvalid             CredentialsType = 0
+	CredentialsTypeLinuxUcred          CredentialsType = 1
+	CredentialsTypeFreebsdCmsgcred     CredentialsType = 2
 	CredentialsTypeOpenbsdSockpeercred CredentialsType = 3
-	CredentialsTypeSolarisUcred CredentialsType = 4
-	CredentialsTypeNetbsdUnpcbid CredentialsType = 5
-	CredentialsTypeAppleXucred CredentialsType = 6
-	CredentialsTypeWin32Pid CredentialsType = 7
+	CredentialsTypeSolarisUcred        CredentialsType = 4
+	CredentialsTypeNetbsdUnpcbid       CredentialsType = 5
+	CredentialsTypeAppleXucred         CredentialsType = 6
+	CredentialsTypeWin32Pid            CredentialsType = 7
 )
 const DbusMethodInvocationHandled = true
 const DbusMethodInvocationUnhandled = false
+
 // blacklisted: DBusActionGroup (object)
 // blacklisted: DBusAnnotationInfo (struct)
 // blacklisted: DBusArgInfo (struct)
 // blacklisted: DBusAuthObserver (object)
 type DBusCallFlags C.uint32_t
+
 const (
-	DBusCallFlagsNone DBusCallFlags = 0
-	DBusCallFlagsNoAutoStart DBusCallFlags = 1
+	DBusCallFlagsNone                          DBusCallFlags = 0
+	DBusCallFlagsNoAutoStart                   DBusCallFlags = 1
 	DBusCallFlagsAllowInteractiveAuthorization DBusCallFlags = 2
 )
+
 type DBusCapabilityFlags C.uint32_t
+
 const (
-	DBusCapabilityFlagsNone DBusCapabilityFlags = 0
+	DBusCapabilityFlagsNone          DBusCapabilityFlags = 0
 	DBusCapabilityFlagsUnixFdPassing DBusCapabilityFlags = 1
 )
+
 // blacklisted: DBusConnection (object)
 type DBusConnectionFlags C.uint32_t
+
 const (
-	DBusConnectionFlagsNone DBusConnectionFlags = 0
-	DBusConnectionFlagsAuthenticationClient DBusConnectionFlags = 1
-	DBusConnectionFlagsAuthenticationServer DBusConnectionFlags = 2
-	DBusConnectionFlagsAuthenticationAllowAnonymous DBusConnectionFlags = 4
-	DBusConnectionFlagsMessageBusConnection DBusConnectionFlags = 8
-	DBusConnectionFlagsDelayMessageProcessing DBusConnectionFlags = 16
+	DBusConnectionFlagsNone                          DBusConnectionFlags = 0
+	DBusConnectionFlagsAuthenticationClient          DBusConnectionFlags = 1
+	DBusConnectionFlagsAuthenticationServer          DBusConnectionFlags = 2
+	DBusConnectionFlagsAuthenticationAllowAnonymous  DBusConnectionFlags = 4
+	DBusConnectionFlagsMessageBusConnection          DBusConnectionFlags = 8
+	DBusConnectionFlagsDelayMessageProcessing        DBusConnectionFlags = 16
 	DBusConnectionFlagsAuthenticationRequireSameUser DBusConnectionFlags = 32
-	DBusConnectionFlagsCrossNamespace DBusConnectionFlags = 64
+	DBusConnectionFlagsCrossNamespace                DBusConnectionFlags = 64
 )
+
 type DBusError C.uint32_t
+
 const (
-	DBusErrorFailed DBusError = 0
-	DBusErrorNoMemory DBusError = 1
-	DBusErrorServiceUnknown DBusError = 2
-	DBusErrorNameHasNoOwner DBusError = 3
-	DBusErrorNoReply DBusError = 4
-	DBusErrorIoError DBusError = 5
-	DBusErrorBadAddress DBusError = 6
-	DBusErrorNotSupported DBusError = 7
-	DBusErrorLimitsExceeded DBusError = 8
-	DBusErrorAccessDenied DBusError = 9
-	DBusErrorAuthFailed DBusError = 10
-	DBusErrorNoServer DBusError = 11
-	DBusErrorTimeout DBusError = 12
-	DBusErrorNoNetwork DBusError = 13
-	DBusErrorAddressInUse DBusError = 14
-	DBusErrorDisconnected DBusError = 15
-	DBusErrorInvalidArgs DBusError = 16
-	DBusErrorFileNotFound DBusError = 17
-	DBusErrorFileExists DBusError = 18
-	DBusErrorUnknownMethod DBusError = 19
-	DBusErrorTimedOut DBusError = 20
-	DBusErrorMatchRuleNotFound DBusError = 21
-	DBusErrorMatchRuleInvalid DBusError = 22
-	DBusErrorSpawnExecFailed DBusError = 23
-	DBusErrorSpawnForkFailed DBusError = 24
-	DBusErrorSpawnChildExited DBusError = 25
-	DBusErrorSpawnChildSignaled DBusError = 26
-	DBusErrorSpawnFailed DBusError = 27
-	DBusErrorSpawnSetupFailed DBusError = 28
-	DBusErrorSpawnConfigInvalid DBusError = 29
-	DBusErrorSpawnServiceInvalid DBusError = 30
-	DBusErrorSpawnServiceNotFound DBusError = 31
-	DBusErrorSpawnPermissionsInvalid DBusError = 32
-	DBusErrorSpawnFileInvalid DBusError = 33
-	DBusErrorSpawnNoMemory DBusError = 34
-	DBusErrorUnixProcessIdUnknown DBusError = 35
-	DBusErrorInvalidSignature DBusError = 36
-	DBusErrorInvalidFileContent DBusError = 37
+	DBusErrorFailed                        DBusError = 0
+	DBusErrorNoMemory                      DBusError = 1
+	DBusErrorServiceUnknown                DBusError = 2
+	DBusErrorNameHasNoOwner                DBusError = 3
+	DBusErrorNoReply                       DBusError = 4
+	DBusErrorIoError                       DBusError = 5
+	DBusErrorBadAddress                    DBusError = 6
+	DBusErrorNotSupported                  DBusError = 7
+	DBusErrorLimitsExceeded                DBusError = 8
+	DBusErrorAccessDenied                  DBusError = 9
+	DBusErrorAuthFailed                    DBusError = 10
+	DBusErrorNoServer                      DBusError = 11
+	DBusErrorTimeout                       DBusError = 12
+	DBusErrorNoNetwork                     DBusError = 13
+	DBusErrorAddressInUse                  DBusError = 14
+	DBusErrorDisconnected                  DBusError = 15
+	DBusErrorInvalidArgs                   DBusError = 16
+	DBusErrorFileNotFound                  DBusError = 17
+	DBusErrorFileExists                    DBusError = 18
+	DBusErrorUnknownMethod                 DBusError = 19
+	DBusErrorTimedOut                      DBusError = 20
+	DBusErrorMatchRuleNotFound             DBusError = 21
+	DBusErrorMatchRuleInvalid              DBusError = 22
+	DBusErrorSpawnExecFailed               DBusError = 23
+	DBusErrorSpawnForkFailed               DBusError = 24
+	DBusErrorSpawnChildExited              DBusError = 25
+	DBusErrorSpawnChildSignaled            DBusError = 26
+	DBusErrorSpawnFailed                   DBusError = 27
+	DBusErrorSpawnSetupFailed              DBusError = 28
+	DBusErrorSpawnConfigInvalid            DBusError = 29
+	DBusErrorSpawnServiceInvalid           DBusError = 30
+	DBusErrorSpawnServiceNotFound          DBusError = 31
+	DBusErrorSpawnPermissionsInvalid       DBusError = 32
+	DBusErrorSpawnFileInvalid              DBusError = 33
+	DBusErrorSpawnNoMemory                 DBusError = 34
+	DBusErrorUnixProcessIdUnknown          DBusError = 35
+	DBusErrorInvalidSignature              DBusError = 36
+	DBusErrorInvalidFileContent            DBusError = 37
 	DBusErrorSelinuxSecurityContextUnknown DBusError = 38
-	DBusErrorAdtAuditDataUnknown DBusError = 39
-	DBusErrorObjectPathInUse DBusError = 40
-	DBusErrorUnknownObject DBusError = 41
-	DBusErrorUnknownInterface DBusError = 42
-	DBusErrorUnknownProperty DBusError = 43
-	DBusErrorPropertyReadOnly DBusError = 44
+	DBusErrorAdtAuditDataUnknown           DBusError = 39
+	DBusErrorObjectPathInUse               DBusError = 40
+	DBusErrorUnknownObject                 DBusError = 41
+	DBusErrorUnknownInterface              DBusError = 42
+	DBusErrorUnknownProperty               DBusError = 43
+	DBusErrorPropertyReadOnly              DBusError = 44
 )
+
 // blacklisted: DBusErrorEntry (struct)
 // blacklisted: DBusInterface (interface)
 // blacklisted: DBusInterfaceGetPropertyFunc (callback)
@@ -1637,48 +1673,58 @@ const (
 // blacklisted: DBusInterfaceSkeleton (object)
 // blacklisted: DBusInterfaceSkeletonClass (struct)
 type DBusInterfaceSkeletonFlags C.uint32_t
+
 const (
-	DBusInterfaceSkeletonFlagsNone DBusInterfaceSkeletonFlags = 0
+	DBusInterfaceSkeletonFlagsNone                            DBusInterfaceSkeletonFlags = 0
 	DBusInterfaceSkeletonFlagsHandleMethodInvocationsInThread DBusInterfaceSkeletonFlags = 1
 )
+
 // blacklisted: DBusInterfaceSkeletonPrivate (struct)
 // blacklisted: DBusInterfaceVTable (struct)
 // blacklisted: DBusMenuModel (object)
 // blacklisted: DBusMessage (object)
 type DBusMessageByteOrder C.uint32_t
+
 const (
-	DBusMessageByteOrderBigEndian DBusMessageByteOrder = 66
+	DBusMessageByteOrderBigEndian    DBusMessageByteOrder = 66
 	DBusMessageByteOrderLittleEndian DBusMessageByteOrder = 108
 )
+
 // blacklisted: DBusMessageFilterFunction (callback)
 type DBusMessageFlags C.uint32_t
+
 const (
-	DBusMessageFlagsNone DBusMessageFlags = 0
-	DBusMessageFlagsNoReplyExpected DBusMessageFlags = 1
-	DBusMessageFlagsNoAutoStart DBusMessageFlags = 2
+	DBusMessageFlagsNone                          DBusMessageFlags = 0
+	DBusMessageFlagsNoReplyExpected               DBusMessageFlags = 1
+	DBusMessageFlagsNoAutoStart                   DBusMessageFlags = 2
 	DBusMessageFlagsAllowInteractiveAuthorization DBusMessageFlags = 4
 )
+
 type DBusMessageHeaderField C.uint32_t
+
 const (
-	DBusMessageHeaderFieldInvalid DBusMessageHeaderField = 0
-	DBusMessageHeaderFieldPath DBusMessageHeaderField = 1
-	DBusMessageHeaderFieldInterface DBusMessageHeaderField = 2
-	DBusMessageHeaderFieldMember DBusMessageHeaderField = 3
-	DBusMessageHeaderFieldErrorName DBusMessageHeaderField = 4
+	DBusMessageHeaderFieldInvalid     DBusMessageHeaderField = 0
+	DBusMessageHeaderFieldPath        DBusMessageHeaderField = 1
+	DBusMessageHeaderFieldInterface   DBusMessageHeaderField = 2
+	DBusMessageHeaderFieldMember      DBusMessageHeaderField = 3
+	DBusMessageHeaderFieldErrorName   DBusMessageHeaderField = 4
 	DBusMessageHeaderFieldReplySerial DBusMessageHeaderField = 5
 	DBusMessageHeaderFieldDestination DBusMessageHeaderField = 6
-	DBusMessageHeaderFieldSender DBusMessageHeaderField = 7
-	DBusMessageHeaderFieldSignature DBusMessageHeaderField = 8
-	DBusMessageHeaderFieldNumUnixFds DBusMessageHeaderField = 9
+	DBusMessageHeaderFieldSender      DBusMessageHeaderField = 7
+	DBusMessageHeaderFieldSignature   DBusMessageHeaderField = 8
+	DBusMessageHeaderFieldNumUnixFds  DBusMessageHeaderField = 9
 )
+
 type DBusMessageType C.uint32_t
+
 const (
-	DBusMessageTypeInvalid DBusMessageType = 0
-	DBusMessageTypeMethodCall DBusMessageType = 1
+	DBusMessageTypeInvalid      DBusMessageType = 0
+	DBusMessageTypeMethodCall   DBusMessageType = 1
 	DBusMessageTypeMethodReturn DBusMessageType = 2
-	DBusMessageTypeError DBusMessageType = 3
-	DBusMessageTypeSignal DBusMessageType = 4
+	DBusMessageTypeError        DBusMessageType = 3
+	DBusMessageTypeSignal       DBusMessageType = 4
 )
+
 // blacklisted: DBusMethodInfo (struct)
 // blacklisted: DBusMethodInvocation (object)
 // blacklisted: DBusNodeInfo (struct)
@@ -1688,10 +1734,12 @@ const (
 // blacklisted: DBusObjectManagerClient (object)
 // blacklisted: DBusObjectManagerClientClass (struct)
 type DBusObjectManagerClientFlags C.uint32_t
+
 const (
-	DBusObjectManagerClientFlagsNone DBusObjectManagerClientFlags = 0
+	DBusObjectManagerClientFlagsNone           DBusObjectManagerClientFlags = 0
 	DBusObjectManagerClientFlagsDoNotAutoStart DBusObjectManagerClientFlags = 1
 )
+
 // blacklisted: DBusObjectManagerClientPrivate (struct)
 // blacklisted: DBusObjectManagerIface (struct)
 // blacklisted: DBusObjectManagerServer (object)
@@ -1705,59 +1753,72 @@ const (
 // blacklisted: DBusObjectSkeletonPrivate (struct)
 // blacklisted: DBusPropertyInfo (struct)
 type DBusPropertyInfoFlags C.uint32_t
+
 const (
-	DBusPropertyInfoFlagsNone DBusPropertyInfoFlags = 0
+	DBusPropertyInfoFlagsNone     DBusPropertyInfoFlags = 0
 	DBusPropertyInfoFlagsReadable DBusPropertyInfoFlags = 1
 	DBusPropertyInfoFlagsWritable DBusPropertyInfoFlags = 2
 )
+
 // blacklisted: DBusProxy (object)
 // blacklisted: DBusProxyClass (struct)
 type DBusProxyFlags C.uint32_t
+
 const (
-	DBusProxyFlagsNone DBusProxyFlags = 0
-	DBusProxyFlagsDoNotLoadProperties DBusProxyFlags = 1
-	DBusProxyFlagsDoNotConnectSignals DBusProxyFlags = 2
-	DBusProxyFlagsDoNotAutoStart DBusProxyFlags = 4
-	DBusProxyFlagsGetInvalidatedProperties DBusProxyFlags = 8
+	DBusProxyFlagsNone                         DBusProxyFlags = 0
+	DBusProxyFlagsDoNotLoadProperties          DBusProxyFlags = 1
+	DBusProxyFlagsDoNotConnectSignals          DBusProxyFlags = 2
+	DBusProxyFlagsDoNotAutoStart               DBusProxyFlags = 4
+	DBusProxyFlagsGetInvalidatedProperties     DBusProxyFlags = 8
 	DBusProxyFlagsDoNotAutoStartAtConstruction DBusProxyFlags = 16
-	DBusProxyFlagsNoMatchRule DBusProxyFlags = 32
+	DBusProxyFlagsNoMatchRule                  DBusProxyFlags = 32
 )
+
 // blacklisted: DBusProxyPrivate (struct)
 // blacklisted: DBusProxyTypeFunc (callback)
 type DBusSendMessageFlags C.uint32_t
+
 const (
-	DBusSendMessageFlagsNone DBusSendMessageFlags = 0
+	DBusSendMessageFlagsNone           DBusSendMessageFlags = 0
 	DBusSendMessageFlagsPreserveSerial DBusSendMessageFlags = 1
 )
+
 // blacklisted: DBusServer (object)
 type DBusServerFlags C.uint32_t
+
 const (
-	DBusServerFlagsNone DBusServerFlags = 0
-	DBusServerFlagsRunInThread DBusServerFlags = 1
-	DBusServerFlagsAuthenticationAllowAnonymous DBusServerFlags = 2
+	DBusServerFlagsNone                          DBusServerFlags = 0
+	DBusServerFlagsRunInThread                   DBusServerFlags = 1
+	DBusServerFlagsAuthenticationAllowAnonymous  DBusServerFlags = 2
 	DBusServerFlagsAuthenticationRequireSameUser DBusServerFlags = 4
 )
+
 // blacklisted: DBusSignalCallback (callback)
 type DBusSignalFlags C.uint32_t
+
 const (
-	DBusSignalFlagsNone DBusSignalFlags = 0
-	DBusSignalFlagsNoMatchRule DBusSignalFlags = 1
+	DBusSignalFlagsNone               DBusSignalFlags = 0
+	DBusSignalFlagsNoMatchRule        DBusSignalFlags = 1
 	DBusSignalFlagsMatchArg0Namespace DBusSignalFlags = 2
-	DBusSignalFlagsMatchArg0Path DBusSignalFlags = 4
+	DBusSignalFlagsMatchArg0Path      DBusSignalFlags = 4
 )
+
 // blacklisted: DBusSignalInfo (struct)
 // blacklisted: DBusSubtreeDispatchFunc (callback)
 // blacklisted: DBusSubtreeEnumerateFunc (callback)
 type DBusSubtreeFlags C.uint32_t
+
 const (
-	DBusSubtreeFlagsNone DBusSubtreeFlags = 0
+	DBusSubtreeFlagsNone                        DBusSubtreeFlags = 0
 	DBusSubtreeFlagsDispatchToUnenumeratedNodes DBusSubtreeFlags = 1
 )
+
 // blacklisted: DBusSubtreeIntrospectFunc (callback)
 // blacklisted: DBusSubtreeVTable (struct)
 const DebugControllerExtensionPointName = "gio-debug-controller"
 const DesktopAppInfoLookupExtensionPointName = "gio-desktop-app-info-lookup"
 const DriveIdentifierKindUnixDevice = "unix-device"
+
 // blacklisted: DataInputStream (object)
 // blacklisted: DataInputStreamClass (struct)
 // blacklisted: DataInputStreamPrivate (struct)
@@ -1765,18 +1826,22 @@ const DriveIdentifierKindUnixDevice = "unix-device"
 // blacklisted: DataOutputStreamClass (struct)
 // blacklisted: DataOutputStreamPrivate (struct)
 type DataStreamByteOrder C.uint32_t
+
 const (
-	DataStreamByteOrderBigEndian DataStreamByteOrder = 0
+	DataStreamByteOrderBigEndian    DataStreamByteOrder = 0
 	DataStreamByteOrderLittleEndian DataStreamByteOrder = 1
-	DataStreamByteOrderHostEndian DataStreamByteOrder = 2
+	DataStreamByteOrderHostEndian   DataStreamByteOrder = 2
 )
+
 type DataStreamNewlineType C.uint32_t
+
 const (
-	DataStreamNewlineTypeLf DataStreamNewlineType = 0
-	DataStreamNewlineTypeCr DataStreamNewlineType = 1
+	DataStreamNewlineTypeLf   DataStreamNewlineType = 0
+	DataStreamNewlineTypeCr   DataStreamNewlineType = 1
 	DataStreamNewlineTypeCrLf DataStreamNewlineType = 2
-	DataStreamNewlineTypeAny DataStreamNewlineType = 3
+	DataStreamNewlineTypeAny  DataStreamNewlineType = 3
 )
+
 // blacklisted: DatagramBased (interface)
 // blacklisted: DatagramBasedInterface (struct)
 // blacklisted: DatagramBasedSourceFunc (callback)
@@ -1828,7 +1893,7 @@ func NewDesktopAppInfo(desktop_id0 string) *DesktopAppInfo {
 	ret1 := C.g_desktop_app_info_new(desktop_id1)
 	var ret2 *DesktopAppInfo
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DesktopAppInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -1839,7 +1904,7 @@ func NewDesktopAppInfoFromFilename(filename0 string) *DesktopAppInfo {
 	ret1 := C.g_desktop_app_info_new_from_filename(filename1)
 	var ret2 *DesktopAppInfo
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DesktopAppInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -1849,7 +1914,7 @@ func NewDesktopAppInfoFromKeyfile(key_file0 *glib.KeyFile) *DesktopAppInfo {
 	ret1 := C.g_desktop_app_info_new_from_keyfile(key_file1)
 	var ret2 *DesktopAppInfo
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*DesktopAppInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -1860,7 +1925,7 @@ func DesktopAppInfoGetImplementations(interface0 string) []*DesktopAppInfo {
 	ret1 := C.g_desktop_app_info_get_implementations(interface1)
 	var ret2 []*DesktopAppInfo
 
-//DEBUG: ret1(glist):flags = " conv_own_everything"
+	//DEBUG: ret1(glist):flags = " conv_own_everything"
 	for iter := (*_GList)(unsafe.Pointer(ret1)); iter != nil; iter = iter.next {
 		var elt *DesktopAppInfo
 		elt = (*DesktopAppInfo)(gobject.ObjectWrap(unsafe.Pointer((*C.GDesktopAppInfo)(iter.data)), false))
@@ -1876,7 +1941,7 @@ func DesktopAppInfoSearch(search_string0 string) [][]string {
 	ret1 := C.g_desktop_app_info_search(search_string1)
 	var ret2 [][]string
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([][]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = make([]string, C._array_length(unsafe.Pointer((*(*[999999]**C.char)(unsafe.Pointer(ret1)))[i0])))
@@ -1906,7 +1971,7 @@ func (this0 *DesktopAppInfo) GetActionName(action_name0 string) string {
 	ret1 := C.g_desktop_app_info_get_action_name(this1, action_name1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -1922,7 +1987,7 @@ func (this0 *DesktopAppInfo) GetBoolean(key0 string) bool {
 	ret1 := C.g_desktop_app_info_get_boolean(this1, key1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -1934,7 +1999,7 @@ func (this0 *DesktopAppInfo) GetCategories() string {
 	ret1 := C.g_desktop_app_info_get_categories(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -1946,7 +2011,7 @@ func (this0 *DesktopAppInfo) GetFilename() string {
 	ret1 := C.g_desktop_app_info_get_filename(this1)
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_none"
+	//DEBUG: ret1(filename):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -1958,7 +2023,7 @@ func (this0 *DesktopAppInfo) GetGenericName() string {
 	ret1 := C.g_desktop_app_info_get_generic_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -1970,7 +2035,7 @@ func (this0 *DesktopAppInfo) GetIsHidden() bool {
 	ret1 := C.g_desktop_app_info_get_is_hidden(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -1982,7 +2047,7 @@ func (this0 *DesktopAppInfo) GetKeywords() []string {
 	ret1 := C.g_desktop_app_info_get_keywords(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -2000,7 +2065,7 @@ func (this0 *DesktopAppInfo) GetLocaleString(key0 string) string {
 	ret1 := C.g_desktop_app_info_get_locale_string(this1, key1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -2013,7 +2078,7 @@ func (this0 *DesktopAppInfo) GetNodisplay() bool {
 	ret1 := C.g_desktop_app_info_get_nodisplay(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -2028,7 +2093,7 @@ func (this0 *DesktopAppInfo) GetShowIn(desktop_env0 string) bool {
 	ret1 := C.g_desktop_app_info_get_show_in(this1, desktop_env1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -2040,7 +2105,7 @@ func (this0 *DesktopAppInfo) GetStartupWmClass() string {
 	ret1 := C.g_desktop_app_info_get_startup_wm_class(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -2055,7 +2120,7 @@ func (this0 *DesktopAppInfo) GetString(key0 string) string {
 	ret1 := C.g_desktop_app_info_get_string(this1, key1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -2073,11 +2138,11 @@ func (this0 *DesktopAppInfo) GetStringList(key0 string) (uint64, []string) {
 	var length2 uint64
 	var ret2 []string
 
-//DEBUG: length1(guint64):flags = " conv_own_everything"
+	//DEBUG: length1(guint64):flags = " conv_own_everything"
 	length2 = uint64(length1)
 	ret2 = make([]string, length1)
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -2097,7 +2162,7 @@ func (this0 *DesktopAppInfo) HasKey(key0 string) bool {
 	ret1 := C.g_desktop_app_info_has_key(this1, key1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -2115,6 +2180,7 @@ func (this0 *DesktopAppInfo) LaunchAction(action_name0 string, launch_context0 A
 	}
 	C.g_desktop_app_info_launch_action(this1, action_name1, launch_context1)
 }
+
 // blacklisted: DesktopAppInfo.launch_uris_as_manager (method)
 // blacklisted: DesktopAppInfo.launch_uris_as_manager_with_fds (method)
 func (this0 *DesktopAppInfo) ListActions() []string {
@@ -2125,17 +2191,19 @@ func (this0 *DesktopAppInfo) ListActions() []string {
 	ret1 := C.g_desktop_app_info_list_actions(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
 	}
 	return ret2
 }
+
 // blacklisted: DesktopAppInfoClass (struct)
 // blacklisted: DesktopAppInfoLookup (interface)
 // blacklisted: DesktopAppInfoLookupIface (struct)
 type DesktopAppLaunchCallback func(appinfo *DesktopAppInfo, pid int32)
+
 //export _GDesktopAppLaunchCallback_c_wrapper
 func _GDesktopAppLaunchCallback_c_wrapper(appinfo0 unsafe.Pointer, pid0 int32, user_data0 unsafe.Pointer) {
 	var appinfo1 *DesktopAppInfo
@@ -2146,11 +2214,13 @@ func _GDesktopAppLaunchCallback_c_wrapper(appinfo0 unsafe.Pointer, pid0 int32, u
 	user_data1 = *(*DesktopAppLaunchCallback)(user_data0)
 	user_data1(appinfo1, pid1)
 }
+
 //export _GDesktopAppLaunchCallback_c_wrapper_once
 func _GDesktopAppLaunchCallback_c_wrapper_once(appinfo0 unsafe.Pointer, pid0 int32, user_data0 unsafe.Pointer) {
 	_GDesktopAppLaunchCallback_c_wrapper(appinfo0, pid0, user_data0)
 	gobject.Holder.Release(user_data0)
 }
+
 type DriveLike interface {
 	ImplementsGDrive() *C.GDrive
 }
@@ -2164,8 +2234,7 @@ func (*Drive) GetStaticType() gobject.Type {
 	return gobject.Type(C.g_drive_get_type())
 }
 
-
-type DriveImpl struct {}
+type DriveImpl struct{}
 
 func ToDrive(objlike gobject.ObjectLike) *Drive {
 	c := objlike.InheritedFromGObject()
@@ -2188,7 +2257,7 @@ func (this0 *DriveImpl) CanEject() bool {
 	ret1 := C.g_drive_can_eject(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -2200,7 +2269,7 @@ func (this0 *DriveImpl) CanPollForMedia() bool {
 	ret1 := C.g_drive_can_poll_for_media(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -2212,7 +2281,7 @@ func (this0 *DriveImpl) CanStart() bool {
 	ret1 := C.g_drive_can_start(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -2224,7 +2293,7 @@ func (this0 *DriveImpl) CanStartDegraded() bool {
 	ret1 := C.g_drive_can_start_degraded(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -2236,7 +2305,7 @@ func (this0 *DriveImpl) CanStop() bool {
 	ret1 := C.g_drive_can_stop(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -2253,7 +2322,8 @@ func (this0 *DriveImpl) Eject(flags0 MountUnmountFlags, cancellable0 Cancellable
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_drive_eject(this1, flags1, cancellable1, callback1)
 }
@@ -2271,7 +2341,7 @@ func (this0 *DriveImpl) EjectFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -2296,7 +2366,8 @@ func (this0 *DriveImpl) EjectWithOperation(flags0 MountUnmountFlags, mount_opera
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_drive_eject_with_operation(this1, flags1, mount_operation1, cancellable1, callback1)
 }
@@ -2314,7 +2385,7 @@ func (this0 *DriveImpl) EjectWithOperationFinish(result0 AsyncResultLike) (bool,
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -2330,7 +2401,7 @@ func (this0 *DriveImpl) EnumerateIdentifiers() []string {
 	ret1 := C.g_drive_enumerate_identifiers(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -2347,7 +2418,7 @@ func (this0 *DriveImpl) GetIcon() *Icon {
 	ret1 := C.g_drive_get_icon(this1)
 	var ret2 *Icon
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Icon)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -2362,7 +2433,7 @@ func (this0 *DriveImpl) GetIdentifier(kind0 string) string {
 	ret1 := C.g_drive_get_identifier(this1, kind1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -2375,7 +2446,7 @@ func (this0 *DriveImpl) GetName() string {
 	ret1 := C.g_drive_get_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -2388,7 +2459,7 @@ func (this0 *DriveImpl) GetSortKey() string {
 	ret1 := C.g_drive_get_sort_key(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -2400,7 +2471,7 @@ func (this0 *DriveImpl) GetStartStopType() DriveStartStopType {
 	ret1 := C.g_drive_get_start_stop_type(this1)
 	var ret2 DriveStartStopType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = DriveStartStopType(ret1)
 	return ret2
 }
@@ -2412,7 +2483,7 @@ func (this0 *DriveImpl) GetSymbolicIcon() *Icon {
 	ret1 := C.g_drive_get_symbolic_icon(this1)
 	var ret2 *Icon
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Icon)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -2424,7 +2495,7 @@ func (this0 *DriveImpl) GetVolumes() []*Volume {
 	ret1 := C.g_drive_get_volumes(this1)
 	var ret2 []*Volume
 
-//DEBUG: ret1(glist):flags = " conv_own_everything"
+	//DEBUG: ret1(glist):flags = " conv_own_everything"
 	for iter := (*_GList)(unsafe.Pointer(ret1)); iter != nil; iter = iter.next {
 		var elt *Volume
 		elt = (*Volume)(gobject.ObjectWrap(unsafe.Pointer((*C.GVolume)(iter.data)), false))
@@ -2441,7 +2512,7 @@ func (this0 *DriveImpl) HasMedia() bool {
 	ret1 := C.g_drive_has_media(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -2453,7 +2524,7 @@ func (this0 *DriveImpl) HasVolumes() bool {
 	ret1 := C.g_drive_has_volumes(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -2465,7 +2536,7 @@ func (this0 *DriveImpl) IsMediaCheckAutomatic() bool {
 	ret1 := C.g_drive_is_media_check_automatic(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -2477,7 +2548,7 @@ func (this0 *DriveImpl) IsMediaRemovable() bool {
 	ret1 := C.g_drive_is_media_removable(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -2489,7 +2560,7 @@ func (this0 *DriveImpl) IsRemovable() bool {
 	ret1 := C.g_drive_is_removable(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -2504,7 +2575,8 @@ func (this0 *DriveImpl) PollForMedia(cancellable0 CancellableLike, callback0 Asy
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_drive_poll_for_media(this1, cancellable1, callback1)
 }
@@ -2522,7 +2594,7 @@ func (this0 *DriveImpl) PollForMediaFinish(result0 AsyncResultLike) (bool, error
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -2547,7 +2619,8 @@ func (this0 *DriveImpl) Start(flags0 DriveStartFlags, mount_operation0 MountOper
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_drive_start(this1, flags1, mount_operation1, cancellable1, callback1)
 }
@@ -2565,7 +2638,7 @@ func (this0 *DriveImpl) StartFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -2590,7 +2663,8 @@ func (this0 *DriveImpl) Stop(flags0 MountUnmountFlags, mount_operation0 MountOpe
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_drive_stop(this1, flags1, mount_operation1, cancellable1, callback1)
 }
@@ -2608,7 +2682,7 @@ func (this0 *DriveImpl) StopFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -2616,19 +2690,24 @@ func (this0 *DriveImpl) StopFinish(result0 AsyncResultLike) (bool, error) {
 	}
 	return ret2, err2
 }
+
 // blacklisted: DriveIface (struct)
 type DriveStartFlags C.uint32_t
+
 const (
 	DriveStartFlagsNone DriveStartFlags = 0
 )
+
 type DriveStartStopType C.uint32_t
+
 const (
-	DriveStartStopTypeUnknown DriveStartStopType = 0
-	DriveStartStopTypeShutdown DriveStartStopType = 1
-	DriveStartStopTypeNetwork DriveStartStopType = 2
+	DriveStartStopTypeUnknown   DriveStartStopType = 0
+	DriveStartStopTypeShutdown  DriveStartStopType = 1
+	DriveStartStopTypeNetwork   DriveStartStopType = 2
 	DriveStartStopTypeMultidisk DriveStartStopType = 3
-	DriveStartStopTypePassword DriveStartStopType = 4
+	DriveStartStopTypePassword  DriveStartStopType = 4
 )
+
 // blacklisted: DtlsClientConnection (interface)
 // blacklisted: DtlsClientConnectionInterface (struct)
 // blacklisted: DtlsConnection (interface)
@@ -2680,7 +2759,7 @@ func NewEmblem(icon0 IconLike) *Emblem {
 	ret1 := C.g_emblem_new(icon1)
 	var ret2 *Emblem
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Emblem)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -2694,7 +2773,7 @@ func NewEmblemWithOrigin(icon0 IconLike, origin0 EmblemOrigin) *Emblem {
 	ret1 := C.g_emblem_new_with_origin(icon1, origin1)
 	var ret2 *Emblem
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Emblem)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -2706,7 +2785,7 @@ func (this0 *Emblem) GetIcon() *Icon {
 	ret1 := C.g_emblem_get_icon(this1)
 	var ret2 *Icon
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Icon)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
@@ -2718,18 +2797,21 @@ func (this0 *Emblem) GetOrigin() EmblemOrigin {
 	ret1 := C.g_emblem_get_origin(this1)
 	var ret2 EmblemOrigin
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = EmblemOrigin(ret1)
 	return ret2
 }
+
 // blacklisted: EmblemClass (struct)
 type EmblemOrigin C.uint32_t
+
 const (
-	EmblemOriginUnknown EmblemOrigin = 0
-	EmblemOriginDevice EmblemOrigin = 1
+	EmblemOriginUnknown      EmblemOrigin = 0
+	EmblemOriginDevice       EmblemOrigin = 1
 	EmblemOriginLivemetadata EmblemOrigin = 2
-	EmblemOriginTag EmblemOrigin = 3
+	EmblemOriginTag          EmblemOrigin = 3
 )
+
 type EmblemedIconLike interface {
 	gobject.ObjectLike
 	InheritedFromGEmblemedIcon() *C.GEmblemedIcon
@@ -2779,7 +2861,7 @@ func NewEmblemedIcon(icon0 IconLike, emblem0 EmblemLike) *EmblemedIcon {
 	ret1 := C.g_emblemed_icon_new(icon1, emblem1)
 	var ret2 *EmblemedIcon
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*EmblemedIcon)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -2809,7 +2891,7 @@ func (this0 *EmblemedIcon) GetEmblems() []*Emblem {
 	ret1 := C.g_emblemed_icon_get_emblems(this1)
 	var ret2 []*Emblem
 
-//DEBUG: ret1(glist):flags = " conv_own_none"
+	//DEBUG: ret1(glist):flags = " conv_own_none"
 	for iter := (*_GList)(unsafe.Pointer(ret1)); iter != nil; iter = iter.next {
 		var elt *Emblem
 		elt = (*Emblem)(gobject.ObjectWrap(unsafe.Pointer((*C.GEmblem)(iter.data)), true))
@@ -2825,10 +2907,11 @@ func (this0 *EmblemedIcon) GetIcon() *Icon {
 	ret1 := C.g_emblemed_icon_get_icon(this1)
 	var ret2 *Icon
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Icon)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
+
 // blacklisted: EmblemedIconClass (struct)
 // blacklisted: EmblemedIconPrivate (struct)
 const FileAttributeAccessCanDelete = "access::can-delete"
@@ -2930,6 +3013,7 @@ const FileAttributeUnixMode = "unix::mode"
 const FileAttributeUnixNlink = "unix::nlink"
 const FileAttributeUnixRdev = "unix::rdev"
 const FileAttributeUnixUid = "unix::uid"
+
 type FileLike interface {
 	ImplementsGFile() *C.GFile
 }
@@ -2943,8 +3027,7 @@ func (*File) GetStaticType() gobject.Type {
 	return gobject.Type(C.g_file_get_type())
 }
 
-
-type FileImpl struct {}
+type FileImpl struct{}
 
 func ToFile(objlike gobject.ObjectLike) *File {
 	c := objlike.InheritedFromGObject()
@@ -2959,6 +3042,7 @@ func (this0 *FileImpl) ImplementsGFile() *C.GFile {
 	base := unsafe.Pointer(uintptr(unsafe.Pointer(this0)) - unsafe.Sizeof(uintptr(0)))
 	return (*C.GFile)((*gobject.Object)(base).C)
 }
+
 // blacklisted: File.new_for_commandline_arg (method)
 // blacklisted: File.new_for_commandline_arg_and_cwd (method)
 // blacklisted: File.new_for_path (method)
@@ -2985,7 +3069,7 @@ func (this0 *FileImpl) AppendTo(flags0 FileCreateFlags, cancellable0 Cancellable
 	var ret2 *FileOutputStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileOutputStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3008,7 +3092,8 @@ func (this0 *FileImpl) AppendToAsync(flags0 FileCreateFlags, io_priority0 int32,
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_append_to_async(this1, flags1, io_priority1, cancellable1, callback1)
 }
@@ -3026,7 +3111,7 @@ func (this0 *FileImpl) AppendToFinish(res0 AsyncResultLike) (*FileOutputStream, 
 	var ret2 *FileOutputStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileOutputStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3034,6 +3119,7 @@ func (this0 *FileImpl) AppendToFinish(res0 AsyncResultLike) (*FileOutputStream, 
 	}
 	return ret2, err2
 }
+
 // blacklisted: File.build_attribute_list_for_copy (method)
 func (this0 *FileImpl) Copy(destination0 FileLike, flags0 FileCopyFlags, cancellable0 CancellableLike, progress_callback0 FileProgressCallback) (bool, error) {
 	var this1 *C.GFile
@@ -3053,12 +3139,13 @@ func (this0 *FileImpl) Copy(destination0 FileLike, flags0 FileCopyFlags, cancell
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if progress_callback0 != nil {
-		progress_callback1 = unsafe.Pointer(&progress_callback0)}
+		progress_callback1 = unsafe.Pointer(&progress_callback0)
+	}
 	ret1 := C._g_file_copy(this1, destination1, flags1, cancellable1, progress_callback1, &err1)
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3066,6 +3153,7 @@ func (this0 *FileImpl) Copy(destination0 FileLike, flags0 FileCopyFlags, cancell
 	}
 	return ret2, err2
 }
+
 // blacklisted: File.copy_async (method)
 func (this0 *FileImpl) CopyAttributes(destination0 FileLike, flags0 FileCopyFlags, cancellable0 CancellableLike) (bool, error) {
 	var this1 *C.GFile
@@ -3087,7 +3175,7 @@ func (this0 *FileImpl) CopyAttributes(destination0 FileLike, flags0 FileCopyFlag
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3109,7 +3197,7 @@ func (this0 *FileImpl) CopyFinish(res0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3133,7 +3221,7 @@ func (this0 *FileImpl) Create(flags0 FileCreateFlags, cancellable0 CancellableLi
 	var ret2 *FileOutputStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileOutputStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3156,7 +3244,8 @@ func (this0 *FileImpl) CreateAsync(flags0 FileCreateFlags, io_priority0 int32, c
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_create_async(this1, flags1, io_priority1, cancellable1, callback1)
 }
@@ -3174,7 +3263,7 @@ func (this0 *FileImpl) CreateFinish(res0 AsyncResultLike) (*FileOutputStream, er
 	var ret2 *FileOutputStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileOutputStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3198,7 +3287,7 @@ func (this0 *FileImpl) CreateReadwrite(flags0 FileCreateFlags, cancellable0 Canc
 	var ret2 *FileIOStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileIOStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3221,7 +3310,8 @@ func (this0 *FileImpl) CreateReadwriteAsync(flags0 FileCreateFlags, io_priority0
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_create_readwrite_async(this1, flags1, io_priority1, cancellable1, callback1)
 }
@@ -3239,7 +3329,7 @@ func (this0 *FileImpl) CreateReadwriteFinish(res0 AsyncResultLike) (*FileIOStrea
 	var ret2 *FileIOStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileIOStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3261,7 +3351,7 @@ func (this0 *FileImpl) Delete(cancellable0 CancellableLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3282,7 +3372,8 @@ func (this0 *FileImpl) DeleteAsync(io_priority0 int32, cancellable0 CancellableL
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_delete_async(this1, io_priority1, cancellable1, callback1)
 }
@@ -3300,7 +3391,7 @@ func (this0 *FileImpl) DeleteFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3316,7 +3407,7 @@ func (this0 *FileImpl) Dup() *File {
 	ret1 := C.g_file_dup(this1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -3333,7 +3424,8 @@ func (this0 *FileImpl) EjectMountable(flags0 MountUnmountFlags, cancellable0 Can
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_eject_mountable(this1, flags1, cancellable1, callback1)
 }
@@ -3351,7 +3443,7 @@ func (this0 *FileImpl) EjectMountableFinish(result0 AsyncResultLike) (bool, erro
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3376,7 +3468,8 @@ func (this0 *FileImpl) EjectMountableWithOperation(flags0 MountUnmountFlags, mou
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_eject_mountable_with_operation(this1, flags1, mount_operation1, cancellable1, callback1)
 }
@@ -3394,7 +3487,7 @@ func (this0 *FileImpl) EjectMountableWithOperationFinish(result0 AsyncResultLike
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3421,7 +3514,7 @@ func (this0 *FileImpl) EnumerateChildren(attributes0 string, flags0 FileQueryInf
 	var ret2 *FileEnumerator
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileEnumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3447,7 +3540,8 @@ func (this0 *FileImpl) EnumerateChildrenAsync(attributes0 string, flags0 FileQue
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_enumerate_children_async(this1, attributes1, flags1, io_priority1, cancellable1, callback1)
 }
@@ -3465,7 +3559,7 @@ func (this0 *FileImpl) EnumerateChildrenFinish(res0 AsyncResultLike) (*FileEnume
 	var ret2 *FileEnumerator
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileEnumerator)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3485,7 +3579,7 @@ func (this0 *FileImpl) Equal(file20 FileLike) bool {
 	ret1 := C.g_file_equal(this1, file21)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -3503,7 +3597,7 @@ func (this0 *FileImpl) FindEnclosingMount(cancellable0 CancellableLike) (*Mount,
 	var ret2 *Mount
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Mount)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3524,7 +3618,8 @@ func (this0 *FileImpl) FindEnclosingMountAsync(io_priority0 int32, cancellable0 
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_find_enclosing_mount_async(this1, io_priority1, cancellable1, callback1)
 }
@@ -3542,7 +3637,7 @@ func (this0 *FileImpl) FindEnclosingMountFinish(res0 AsyncResultLike) (*Mount, e
 	var ret2 *Mount
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Mount)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3558,7 +3653,7 @@ func (this0 *FileImpl) GetBasename() string {
 	ret1 := C.g_file_get_basename(this1)
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_everything"
+	//DEBUG: ret1(filename):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -3574,7 +3669,7 @@ func (this0 *FileImpl) GetChild(name0 string) *File {
 	ret1 := C.g_file_get_child(this1, name1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -3591,7 +3686,7 @@ func (this0 *FileImpl) GetChildForDisplayName(display_name0 string) (*File, erro
 	var ret2 *File
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3607,7 +3702,7 @@ func (this0 *FileImpl) GetParent() *File {
 	ret1 := C.g_file_get_parent(this1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -3619,7 +3714,7 @@ func (this0 *FileImpl) GetParseName() string {
 	ret1 := C.g_file_get_parse_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -3632,7 +3727,7 @@ func (this0 *FileImpl) GetPath() string {
 	ret1 := C.g_file_get_path(this1)
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_everything"
+	//DEBUG: ret1(filename):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -3649,7 +3744,7 @@ func (this0 *FileImpl) GetRelativePath(descendant0 FileLike) string {
 	ret1 := C.g_file_get_relative_path(this1, descendant1)
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_everything"
+	//DEBUG: ret1(filename):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -3662,7 +3757,7 @@ func (this0 *FileImpl) GetUri() string {
 	ret1 := C.g_file_get_uri(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -3675,7 +3770,7 @@ func (this0 *FileImpl) GetUriScheme() string {
 	ret1 := C.g_file_get_uri_scheme(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -3692,7 +3787,7 @@ func (this0 *FileImpl) HasParent(parent0 FileLike) bool {
 	ret1 := C.g_file_has_parent(this1, parent1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -3708,7 +3803,7 @@ func (this0 *FileImpl) HasPrefix(prefix0 FileLike) bool {
 	ret1 := C.g_file_has_prefix(this1, prefix1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -3723,7 +3818,7 @@ func (this0 *FileImpl) HasUriScheme(uri_scheme0 string) bool {
 	ret1 := C.g_file_has_uri_scheme(this1, uri_scheme1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -3735,7 +3830,7 @@ func (this0 *FileImpl) Hash() uint32 {
 	ret1 := C.g_file_hash(this1)
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
@@ -3747,10 +3842,11 @@ func (this0 *FileImpl) IsNative() bool {
 	ret1 := C.g_file_is_native(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 // blacklisted: File.load_bytes (method)
 // blacklisted: File.load_bytes_async (method)
 // blacklisted: File.load_bytes_finish (method)
@@ -3774,17 +3870,17 @@ func (this0 *FileImpl) LoadContents(cancellable0 CancellableLike) ([]uint8, stri
 	var err2 error
 	contents2 = make([]uint8, length1)
 
-//DEBUG: contents1(array):flags = " conv_own_everything"
+	//DEBUG: contents1(array):flags = " conv_own_everything"
 	for i0 := range contents2 {
 		contents2[i0] = uint8((*(*[999999]C.uint8_t)(unsafe.Pointer(contents1)))[i0])
 	}
 	C.g_free(unsafe.Pointer(contents1))
 
-//DEBUG: etag_out1(utf8):flags = " conv_own_everything"
+	//DEBUG: etag_out1(utf8):flags = " conv_own_everything"
 	etag_out2 = C.GoString(etag_out1)
 	C.g_free(unsafe.Pointer(etag_out1))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3803,7 +3899,8 @@ func (this0 *FileImpl) LoadContentsAsync(cancellable0 CancellableLike, callback0
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_load_contents_async(this1, cancellable1, callback1)
 }
@@ -3827,17 +3924,17 @@ func (this0 *FileImpl) LoadContentsFinish(res0 AsyncResultLike) ([]uint8, string
 	var err2 error
 	contents2 = make([]uint8, length1)
 
-//DEBUG: contents1(array):flags = " conv_own_everything"
+	//DEBUG: contents1(array):flags = " conv_own_everything"
 	for i0 := range contents2 {
 		contents2[i0] = uint8((*(*[999999]C.uint8_t)(unsafe.Pointer(contents1)))[i0])
 	}
 	C.g_free(unsafe.Pointer(contents1))
 
-//DEBUG: etag_out1(utf8):flags = " conv_own_everything"
+	//DEBUG: etag_out1(utf8):flags = " conv_own_everything"
 	etag_out2 = C.GoString(etag_out1)
 	C.g_free(unsafe.Pointer(etag_out1))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3865,17 +3962,17 @@ func (this0 *FileImpl) LoadPartialContentsFinish(res0 AsyncResultLike) ([]uint8,
 	var err2 error
 	contents2 = make([]uint8, length1)
 
-//DEBUG: contents1(array):flags = " conv_own_everything"
+	//DEBUG: contents1(array):flags = " conv_own_everything"
 	for i0 := range contents2 {
 		contents2[i0] = uint8((*(*[999999]C.uint8_t)(unsafe.Pointer(contents1)))[i0])
 	}
 	C.g_free(unsafe.Pointer(contents1))
 
-//DEBUG: etag_out1(utf8):flags = " conv_own_everything"
+	//DEBUG: etag_out1(utf8):flags = " conv_own_everything"
 	etag_out2 = C.GoString(etag_out1)
 	C.g_free(unsafe.Pointer(etag_out1))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3897,7 +3994,7 @@ func (this0 *FileImpl) MakeDirectory(cancellable0 CancellableLike) (bool, error)
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3918,7 +4015,8 @@ func (this0 *FileImpl) MakeDirectoryAsync(io_priority0 int32, cancellable0 Cance
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_make_directory_async(this1, io_priority1, cancellable1, callback1)
 }
@@ -3936,7 +4034,7 @@ func (this0 *FileImpl) MakeDirectoryFinish(result0 AsyncResultLike) (bool, error
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3958,7 +4056,7 @@ func (this0 *FileImpl) MakeDirectoryWithParents(cancellable0 CancellableLike) (b
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3983,7 +4081,7 @@ func (this0 *FileImpl) MakeSymbolicLink(symlink_value0 string, cancellable0 Canc
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -3991,6 +4089,7 @@ func (this0 *FileImpl) MakeSymbolicLink(symlink_value0 string, cancellable0 Canc
 	}
 	return ret2, err2
 }
+
 // blacklisted: File.make_symbolic_link_async (method)
 // blacklisted: File.make_symbolic_link_finish (method)
 func (this0 *FileImpl) MeasureDiskUsageFinish(result0 AsyncResultLike) (uint64, uint64, uint64, bool, error) {
@@ -4013,16 +4112,16 @@ func (this0 *FileImpl) MeasureDiskUsageFinish(result0 AsyncResultLike) (uint64, 
 	var ret2 bool
 	var err2 error
 
-//DEBUG: disk_usage1(guint64):flags = " conv_own_everything"
+	//DEBUG: disk_usage1(guint64):flags = " conv_own_everything"
 	disk_usage2 = uint64(disk_usage1)
 
-//DEBUG: num_dirs1(guint64):flags = " conv_own_everything"
+	//DEBUG: num_dirs1(guint64):flags = " conv_own_everything"
 	num_dirs2 = uint64(num_dirs1)
 
-//DEBUG: num_files1(guint64):flags = " conv_own_everything"
+	//DEBUG: num_files1(guint64):flags = " conv_own_everything"
 	num_files2 = uint64(num_files1)
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4046,7 +4145,7 @@ func (this0 *FileImpl) Monitor(flags0 FileMonitorFlags, cancellable0 Cancellable
 	var ret2 *FileMonitor
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileMonitor)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4070,7 +4169,7 @@ func (this0 *FileImpl) MonitorDirectory(flags0 FileMonitorFlags, cancellable0 Ca
 	var ret2 *FileMonitor
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileMonitor)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4094,7 +4193,7 @@ func (this0 *FileImpl) MonitorFile(flags0 FileMonitorFlags, cancellable0 Cancell
 	var ret2 *FileMonitor
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileMonitor)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4119,7 +4218,8 @@ func (this0 *FileImpl) MountEnclosingVolume(flags0 MountMountFlags, mount_operat
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_mount_enclosing_volume(this1, flags1, mount_operation1, cancellable1, callback1)
 }
@@ -4137,7 +4237,7 @@ func (this0 *FileImpl) MountEnclosingVolumeFinish(result0 AsyncResultLike) (bool
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4162,7 +4262,8 @@ func (this0 *FileImpl) MountMountable(flags0 MountMountFlags, mount_operation0 M
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_mount_mountable(this1, flags1, mount_operation1, cancellable1, callback1)
 }
@@ -4180,7 +4281,7 @@ func (this0 *FileImpl) MountMountableFinish(result0 AsyncResultLike) (*File, err
 	var ret2 *File
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4206,12 +4307,13 @@ func (this0 *FileImpl) Move(destination0 FileLike, flags0 FileCopyFlags, cancell
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if progress_callback0 != nil {
-		progress_callback1 = unsafe.Pointer(&progress_callback0)}
+		progress_callback1 = unsafe.Pointer(&progress_callback0)
+	}
 	ret1 := C._g_file_move(this1, destination1, flags1, cancellable1, progress_callback1, &err1)
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4219,6 +4321,7 @@ func (this0 *FileImpl) Move(destination0 FileLike, flags0 FileCopyFlags, cancell
 	}
 	return ret2, err2
 }
+
 // blacklisted: File.move_async (method)
 // blacklisted: File.move_finish (method)
 func (this0 *FileImpl) OpenReadwrite(cancellable0 CancellableLike) (*FileIOStream, error) {
@@ -4235,7 +4338,7 @@ func (this0 *FileImpl) OpenReadwrite(cancellable0 CancellableLike) (*FileIOStrea
 	var ret2 *FileIOStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileIOStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4256,7 +4359,8 @@ func (this0 *FileImpl) OpenReadwriteAsync(io_priority0 int32, cancellable0 Cance
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_open_readwrite_async(this1, io_priority1, cancellable1, callback1)
 }
@@ -4274,7 +4378,7 @@ func (this0 *FileImpl) OpenReadwriteFinish(res0 AsyncResultLike) (*FileIOStream,
 	var ret2 *FileIOStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileIOStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4282,6 +4386,7 @@ func (this0 *FileImpl) OpenReadwriteFinish(res0 AsyncResultLike) (*FileIOStream,
 	}
 	return ret2, err2
 }
+
 // blacklisted: File.peek_path (method)
 func (this0 *FileImpl) PollMountable(cancellable0 CancellableLike, callback0 AsyncReadyCallback) {
 	var this1 *C.GFile
@@ -4294,7 +4399,8 @@ func (this0 *FileImpl) PollMountable(cancellable0 CancellableLike, callback0 Asy
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_poll_mountable(this1, cancellable1, callback1)
 }
@@ -4312,7 +4418,7 @@ func (this0 *FileImpl) PollMountableFinish(result0 AsyncResultLike) (bool, error
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4334,7 +4440,7 @@ func (this0 *FileImpl) QueryDefaultHandler(cancellable0 CancellableLike) (*AppIn
 	var ret2 *AppInfo
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*AppInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4342,6 +4448,7 @@ func (this0 *FileImpl) QueryDefaultHandler(cancellable0 CancellableLike) (*AppIn
 	}
 	return ret2, err2
 }
+
 // blacklisted: File.query_default_handler_async (method)
 // blacklisted: File.query_default_handler_finish (method)
 func (this0 *FileImpl) QueryExists(cancellable0 CancellableLike) bool {
@@ -4356,7 +4463,7 @@ func (this0 *FileImpl) QueryExists(cancellable0 CancellableLike) bool {
 	ret1 := C.g_file_query_exists(this1, cancellable1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -4374,7 +4481,7 @@ func (this0 *FileImpl) QueryFileType(flags0 FileQueryInfoFlags, cancellable0 Can
 	ret1 := C.g_file_query_file_type(this1, flags1, cancellable1)
 	var ret2 FileType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = FileType(ret1)
 	return ret2
 }
@@ -4395,7 +4502,7 @@ func (this0 *FileImpl) QueryFilesystemInfo(attributes0 string, cancellable0 Canc
 	var ret2 *FileInfo
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4419,7 +4526,8 @@ func (this0 *FileImpl) QueryFilesystemInfoAsync(attributes0 string, io_priority0
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_query_filesystem_info_async(this1, attributes1, io_priority1, cancellable1, callback1)
 }
@@ -4437,7 +4545,7 @@ func (this0 *FileImpl) QueryFilesystemInfoFinish(res0 AsyncResultLike) (*FileInf
 	var ret2 *FileInfo
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4464,7 +4572,7 @@ func (this0 *FileImpl) QueryInfo(attributes0 string, flags0 FileQueryInfoFlags, 
 	var ret2 *FileInfo
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4490,7 +4598,8 @@ func (this0 *FileImpl) QueryInfoAsync(attributes0 string, flags0 FileQueryInfoFl
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_query_info_async(this1, attributes1, flags1, io_priority1, cancellable1, callback1)
 }
@@ -4508,7 +4617,7 @@ func (this0 *FileImpl) QueryInfoFinish(res0 AsyncResultLike) (*FileInfo, error) 
 	var ret2 *FileInfo
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4530,7 +4639,7 @@ func (this0 *FileImpl) QuerySettableAttributes(cancellable0 CancellableLike) (*F
 	var ret2 *FileAttributeInfoList
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileAttributeInfoList)(unsafe.Pointer(ret1))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4552,7 +4661,7 @@ func (this0 *FileImpl) QueryWritableNamespaces(cancellable0 CancellableLike) (*F
 	var ret2 *FileAttributeInfoList
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileAttributeInfoList)(unsafe.Pointer(ret1))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4574,7 +4683,7 @@ func (this0 *FileImpl) Read(cancellable0 CancellableLike) (*FileInputStream, err
 	var ret2 *FileInputStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInputStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4595,7 +4704,8 @@ func (this0 *FileImpl) ReadAsync(io_priority0 int32, cancellable0 CancellableLik
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_read_async(this1, io_priority1, cancellable1, callback1)
 }
@@ -4613,7 +4723,7 @@ func (this0 *FileImpl) ReadFinish(res0 AsyncResultLike) (*FileInputStream, error
 	var ret2 *FileInputStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInputStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4642,7 +4752,7 @@ func (this0 *FileImpl) Replace(etag0 string, make_backup0 bool, flags0 FileCreat
 	var ret2 *FileOutputStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileOutputStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4670,7 +4780,8 @@ func (this0 *FileImpl) ReplaceAsync(etag0 string, make_backup0 bool, flags0 File
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_replace_async(this1, etag1, make_backup1, flags1, io_priority1, cancellable1, callback1)
 }
@@ -4705,11 +4816,11 @@ func (this0 *FileImpl) ReplaceContents(contents0 []uint8, etag0 string, make_bac
 	var ret2 bool
 	var err2 error
 
-//DEBUG: new_etag1(utf8):flags = " conv_own_everything"
+	//DEBUG: new_etag1(utf8):flags = " conv_own_everything"
 	new_etag2 = C.GoString(new_etag1)
 	C.g_free(unsafe.Pointer(new_etag1))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4743,10 +4854,12 @@ func (this0 *FileImpl) ReplaceContentsAsync(contents0 []uint8, etag0 string, mak
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_replace_contents_async(this1, contents1, length1, etag1, make_backup1, flags1, cancellable1, callback1)
 }
+
 // blacklisted: File.replace_contents_bytes_async (method)
 func (this0 *FileImpl) ReplaceContentsFinish(res0 AsyncResultLike) (string, bool, error) {
 	var this1 *C.GFile
@@ -4764,11 +4877,11 @@ func (this0 *FileImpl) ReplaceContentsFinish(res0 AsyncResultLike) (string, bool
 	var ret2 bool
 	var err2 error
 
-//DEBUG: new_etag1(utf8):flags = " conv_own_everything"
+	//DEBUG: new_etag1(utf8):flags = " conv_own_everything"
 	new_etag2 = C.GoString(new_etag1)
 	C.g_free(unsafe.Pointer(new_etag1))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4790,7 +4903,7 @@ func (this0 *FileImpl) ReplaceFinish(res0 AsyncResultLike) (*FileOutputStream, e
 	var ret2 *FileOutputStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileOutputStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4819,7 +4932,7 @@ func (this0 *FileImpl) ReplaceReadwrite(etag0 string, make_backup0 bool, flags0 
 	var ret2 *FileIOStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileIOStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4847,7 +4960,8 @@ func (this0 *FileImpl) ReplaceReadwriteAsync(etag0 string, make_backup0 bool, fl
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_replace_readwrite_async(this1, etag1, make_backup1, flags1, io_priority1, cancellable1, callback1)
 }
@@ -4865,7 +4979,7 @@ func (this0 *FileImpl) ReplaceReadwriteFinish(res0 AsyncResultLike) (*FileIOStre
 	var ret2 *FileIOStream
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileIOStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4884,7 +4998,7 @@ func (this0 *FileImpl) ResolveRelativePath(relative_path0 string) *File {
 	ret1 := C.g_file_resolve_relative_path(this1, relative_path1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -4911,7 +5025,7 @@ func (this0 *FileImpl) SetAttribute(attribute0 string, type0 FileAttributeType, 
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4941,7 +5055,7 @@ func (this0 *FileImpl) SetAttributeByteString(attribute0 string, value0 string, 
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4970,7 +5084,7 @@ func (this0 *FileImpl) SetAttributeInt32(attribute0 string, value0 int32, flags0
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -4999,7 +5113,7 @@ func (this0 *FileImpl) SetAttributeInt64(attribute0 string, value0 int64, flags0
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5029,7 +5143,7 @@ func (this0 *FileImpl) SetAttributeString(attribute0 string, value0 string, flag
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5058,7 +5172,7 @@ func (this0 *FileImpl) SetAttributeUint32(attribute0 string, value0 uint32, flag
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5087,7 +5201,7 @@ func (this0 *FileImpl) SetAttributeUint64(attribute0 string, value0 uint64, flag
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5114,7 +5228,8 @@ func (this0 *FileImpl) SetAttributesAsync(info0 FileInfoLike, flags0 FileQueryIn
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_set_attributes_async(this1, info1, flags1, io_priority1, cancellable1, callback1)
 }
@@ -5134,10 +5249,10 @@ func (this0 *FileImpl) SetAttributesFinish(result0 AsyncResultLike) (*FileInfo, 
 	var ret2 bool
 	var err2 error
 
-//DEBUG: info1(interface):flags = " conv_own_everything"
+	//DEBUG: info1(interface):flags = " conv_own_everything"
 	info2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(info1), false))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5165,7 +5280,7 @@ func (this0 *FileImpl) SetAttributesFromInfo(info0 FileInfoLike, flags0 FileQuer
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5190,7 +5305,7 @@ func (this0 *FileImpl) SetDisplayName(display_name0 string, cancellable0 Cancell
 	var ret2 *File
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5214,7 +5329,8 @@ func (this0 *FileImpl) SetDisplayNameAsync(display_name0 string, io_priority0 in
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_set_display_name_async(this1, display_name1, io_priority1, cancellable1, callback1)
 }
@@ -5232,7 +5348,7 @@ func (this0 *FileImpl) SetDisplayNameFinish(res0 AsyncResultLike) (*File, error)
 	var ret2 *File
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5257,7 +5373,8 @@ func (this0 *FileImpl) StartMountable(flags0 DriveStartFlags, start_operation0 M
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_start_mountable(this1, flags1, start_operation1, cancellable1, callback1)
 }
@@ -5275,7 +5392,7 @@ func (this0 *FileImpl) StartMountableFinish(result0 AsyncResultLike) (bool, erro
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5300,7 +5417,8 @@ func (this0 *FileImpl) StopMountable(flags0 MountUnmountFlags, mount_operation0 
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_stop_mountable(this1, flags1, mount_operation1, cancellable1, callback1)
 }
@@ -5318,7 +5436,7 @@ func (this0 *FileImpl) StopMountableFinish(result0 AsyncResultLike) (bool, error
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5334,7 +5452,7 @@ func (this0 *FileImpl) SupportsThreadContexts() bool {
 	ret1 := C.g_file_supports_thread_contexts(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -5352,7 +5470,7 @@ func (this0 *FileImpl) Trash(cancellable0 CancellableLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5373,7 +5491,8 @@ func (this0 *FileImpl) TrashAsync(io_priority0 int32, cancellable0 CancellableLi
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_trash_async(this1, io_priority1, cancellable1, callback1)
 }
@@ -5391,7 +5510,7 @@ func (this0 *FileImpl) TrashFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5412,7 +5531,8 @@ func (this0 *FileImpl) UnmountMountable(flags0 MountUnmountFlags, cancellable0 C
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_unmount_mountable(this1, flags1, cancellable1, callback1)
 }
@@ -5430,7 +5550,7 @@ func (this0 *FileImpl) UnmountMountableFinish(result0 AsyncResultLike) (bool, er
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5455,7 +5575,8 @@ func (this0 *FileImpl) UnmountMountableWithOperation(flags0 MountUnmountFlags, m
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_unmount_mountable_with_operation(this1, flags1, mount_operation1, cancellable1, callback1)
 }
@@ -5473,7 +5594,7 @@ func (this0 *FileImpl) UnmountMountableWithOperationFinish(result0 AsyncResultLi
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5481,32 +5602,38 @@ func (this0 *FileImpl) UnmountMountableWithOperationFinish(result0 AsyncResultLi
 	}
 	return ret2, err2
 }
+
 type FileAttributeInfo struct {
 	name0 *C.char
-	Type FileAttributeType
+	Type  FileAttributeType
 	Flags FileAttributeInfoFlags
 }
+
 func (this0 *FileAttributeInfo) Name() string {
 	var name1 string
 	name1 = C.GoString(this0.name0)
 	return name1
 }
+
 type FileAttributeInfoFlags C.uint32_t
+
 const (
-	FileAttributeInfoFlagsNone FileAttributeInfoFlags = 0
-	FileAttributeInfoFlagsCopyWithFile FileAttributeInfoFlags = 1
+	FileAttributeInfoFlagsNone          FileAttributeInfoFlags = 0
+	FileAttributeInfoFlagsCopyWithFile  FileAttributeInfoFlags = 1
 	FileAttributeInfoFlagsCopyWhenMoved FileAttributeInfoFlags = 2
 )
+
 type FileAttributeInfoList struct {
-	Infos *FileAttributeInfo
+	Infos  *FileAttributeInfo
 	NInfos int32
-	_ [4]byte
+	_      [4]byte
 }
+
 func NewFileAttributeInfoList() *FileAttributeInfoList {
 	ret1 := C.g_file_attribute_info_list_new()
 	var ret2 *FileAttributeInfoList
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileAttributeInfoList)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -5528,7 +5655,7 @@ func (this0 *FileAttributeInfoList) Dup() *FileAttributeInfoList {
 	ret1 := C.g_file_attribute_info_list_dup(this1)
 	var ret2 *FileAttributeInfoList
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileAttributeInfoList)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -5541,11 +5668,13 @@ func (this0 *FileAttributeInfoList) Lookup(name0 string) *FileAttributeInfo {
 	ret1 := C.g_file_attribute_info_list_lookup(this1, name1)
 	var ret2 *FileAttributeInfo
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*FileAttributeInfo)(unsafe.Pointer(ret1))
 	return ret2
 }
-type FileAttributeMatcher struct {}
+
+type FileAttributeMatcher struct{}
+
 func NewFileAttributeMatcher(attributes0 string) *FileAttributeMatcher {
 	var attributes1 *C.char
 	attributes1 = _GoStringToGString(attributes0)
@@ -5553,7 +5682,7 @@ func NewFileAttributeMatcher(attributes0 string) *FileAttributeMatcher {
 	ret1 := C.g_file_attribute_matcher_new(attributes1)
 	var ret2 *FileAttributeMatcher
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileAttributeMatcher)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -5566,7 +5695,7 @@ func (this0 *FileAttributeMatcher) EnumerateNamespace(ns0 string) bool {
 	ret1 := C.g_file_attribute_matcher_enumerate_namespace(this1, ns1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -5576,7 +5705,7 @@ func (this0 *FileAttributeMatcher) EnumerateNext() string {
 	ret1 := C.g_file_attribute_matcher_enumerate_next(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -5589,7 +5718,7 @@ func (this0 *FileAttributeMatcher) Matches(attribute0 string) bool {
 	ret1 := C.g_file_attribute_matcher_matches(this1, attribute1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -5602,7 +5731,7 @@ func (this0 *FileAttributeMatcher) MatchesOnly(attribute0 string) bool {
 	ret1 := C.g_file_attribute_matcher_matches_only(this1, attribute1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -5614,7 +5743,7 @@ func (this0 *FileAttributeMatcher) Subtract(subtract0 *FileAttributeMatcher) *Fi
 	ret1 := C.g_file_attribute_matcher_subtract(this1, subtract1)
 	var ret2 *FileAttributeMatcher
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileAttributeMatcher)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -5624,46 +5753,55 @@ func (this0 *FileAttributeMatcher) ToString() string {
 	ret1 := C.g_file_attribute_matcher_to_string(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 type FileAttributeStatus C.uint32_t
+
 const (
-	FileAttributeStatusUnset FileAttributeStatus = 0
-	FileAttributeStatusSet FileAttributeStatus = 1
+	FileAttributeStatusUnset        FileAttributeStatus = 0
+	FileAttributeStatusSet          FileAttributeStatus = 1
 	FileAttributeStatusErrorSetting FileAttributeStatus = 2
 )
+
 type FileAttributeType C.uint32_t
+
 const (
-	FileAttributeTypeInvalid FileAttributeType = 0
-	FileAttributeTypeString FileAttributeType = 1
+	FileAttributeTypeInvalid    FileAttributeType = 0
+	FileAttributeTypeString     FileAttributeType = 1
 	FileAttributeTypeByteString FileAttributeType = 2
-	FileAttributeTypeBoolean FileAttributeType = 3
-	FileAttributeTypeUint32 FileAttributeType = 4
-	FileAttributeTypeInt32 FileAttributeType = 5
-	FileAttributeTypeUint64 FileAttributeType = 6
-	FileAttributeTypeInt64 FileAttributeType = 7
-	FileAttributeTypeObject FileAttributeType = 8
-	FileAttributeTypeStringv FileAttributeType = 9
+	FileAttributeTypeBoolean    FileAttributeType = 3
+	FileAttributeTypeUint32     FileAttributeType = 4
+	FileAttributeTypeInt32      FileAttributeType = 5
+	FileAttributeTypeUint64     FileAttributeType = 6
+	FileAttributeTypeInt64      FileAttributeType = 7
+	FileAttributeTypeObject     FileAttributeType = 8
+	FileAttributeTypeStringv    FileAttributeType = 9
 )
+
 type FileCopyFlags C.uint32_t
+
 const (
-	FileCopyFlagsNone FileCopyFlags = 0
-	FileCopyFlagsOverwrite FileCopyFlags = 1
-	FileCopyFlagsBackup FileCopyFlags = 2
-	FileCopyFlagsNofollowSymlinks FileCopyFlags = 4
-	FileCopyFlagsAllMetadata FileCopyFlags = 8
-	FileCopyFlagsNoFallbackForMove FileCopyFlags = 16
+	FileCopyFlagsNone               FileCopyFlags = 0
+	FileCopyFlagsOverwrite          FileCopyFlags = 1
+	FileCopyFlagsBackup             FileCopyFlags = 2
+	FileCopyFlagsNofollowSymlinks   FileCopyFlags = 4
+	FileCopyFlagsAllMetadata        FileCopyFlags = 8
+	FileCopyFlagsNoFallbackForMove  FileCopyFlags = 16
 	FileCopyFlagsTargetDefaultPerms FileCopyFlags = 32
 )
+
 type FileCreateFlags C.uint32_t
+
 const (
-	FileCreateFlagsNone FileCreateFlags = 0
-	FileCreateFlagsPrivate FileCreateFlags = 1
+	FileCreateFlagsNone               FileCreateFlags = 0
+	FileCreateFlagsPrivate            FileCreateFlags = 1
 	FileCreateFlagsReplaceDestination FileCreateFlags = 2
 )
+
 // blacklisted: FileDescriptorBased (interface)
 // blacklisted: FileDescriptorBasedIface (struct)
 type FileEnumeratorLike interface {
@@ -5673,7 +5811,6 @@ type FileEnumeratorLike interface {
 
 type FileEnumerator struct {
 	gobject.Object
-	
 }
 
 func ToFileEnumerator(objlike gobject.ObjectLike) *FileEnumerator {
@@ -5717,7 +5854,7 @@ func (this0 *FileEnumerator) Close(cancellable0 CancellableLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5738,7 +5875,8 @@ func (this0 *FileEnumerator) CloseAsync(io_priority0 int32, cancellable0 Cancell
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_enumerator_close_async(this1, io_priority1, cancellable1, callback1)
 }
@@ -5756,7 +5894,7 @@ func (this0 *FileEnumerator) CloseFinish(result0 AsyncResultLike) (bool, error) 
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5776,7 +5914,7 @@ func (this0 *FileEnumerator) GetChild(info0 FileInfoLike) *File {
 	ret1 := C.g_file_enumerator_get_child(this1, info1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -5788,7 +5926,7 @@ func (this0 *FileEnumerator) GetContainer() *File {
 	ret1 := C.g_file_enumerator_get_container(this1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
@@ -5800,7 +5938,7 @@ func (this0 *FileEnumerator) HasPending() bool {
 	ret1 := C.g_file_enumerator_has_pending(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -5812,7 +5950,7 @@ func (this0 *FileEnumerator) IsClosed() bool {
 	ret1 := C.g_file_enumerator_is_closed(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -5834,13 +5972,13 @@ func (this0 *FileEnumerator) Iterate(cancellable0 CancellableLike) (*FileInfo, *
 	var ret2 bool
 	var err2 error
 
-//DEBUG: out_info1(interface):flags = " conv_own_none"
+	//DEBUG: out_info1(interface):flags = " conv_own_none"
 	out_info2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(out_info1), true))
 
-//DEBUG: out_child1(interface):flags = " conv_own_none"
+	//DEBUG: out_child1(interface):flags = " conv_own_none"
 	out_child2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(out_child1), true))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5862,7 +6000,7 @@ func (this0 *FileEnumerator) NextFile(cancellable0 CancellableLike) (*FileInfo, 
 	var ret2 *FileInfo
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -5885,7 +6023,8 @@ func (this0 *FileEnumerator) NextFilesAsync(num_files0 int32, io_priority0 int32
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_enumerator_next_files_async(this1, num_files1, io_priority1, cancellable1, callback1)
 }
@@ -5903,7 +6042,7 @@ func (this0 *FileEnumerator) NextFilesFinish(result0 AsyncResultLike) ([]*FileIn
 	var ret2 []*FileInfo
 	var err2 error
 
-//DEBUG: ret1(glist):flags = " conv_own_everything"
+	//DEBUG: ret1(glist):flags = " conv_own_everything"
 	for iter := (*_GList)(unsafe.Pointer(ret1)); iter != nil; iter = iter.next {
 		var elt *FileInfo
 		elt = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer((*C.GFileInfo)(iter.data)), false))
@@ -5925,6 +6064,7 @@ func (this0 *FileEnumerator) SetPending(pending0 bool) {
 	pending1 = _GoBoolToCBool(pending0)
 	C.g_file_enumerator_set_pending(this1, pending1)
 }
+
 // blacklisted: FileEnumeratorClass (struct)
 // blacklisted: FileEnumeratorPrivate (struct)
 type FileIOStreamLike interface {
@@ -5972,7 +6112,7 @@ func (this0 *FileIOStream) GetEtag() string {
 	ret1 := C.g_file_io_stream_get_etag(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -5994,7 +6134,7 @@ func (this0 *FileIOStream) QueryInfo(attributes0 string, cancellable0 Cancellabl
 	var ret2 *FileInfo
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -6018,7 +6158,8 @@ func (this0 *FileIOStream) QueryInfoAsync(attributes0 string, io_priority0 int32
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_io_stream_query_info_async(this1, attributes1, io_priority1, cancellable1, callback1)
 }
@@ -6036,7 +6177,7 @@ func (this0 *FileIOStream) QueryInfoFinish(result0 AsyncResultLike) (*FileInfo, 
 	var ret2 *FileInfo
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -6044,6 +6185,7 @@ func (this0 *FileIOStream) QueryInfoFinish(result0 AsyncResultLike) (*FileInfo, 
 	}
 	return ret2, err2
 }
+
 // blacklisted: FileIOStreamClass (struct)
 // blacklisted: FileIOStreamPrivate (struct)
 // blacklisted: FileIcon (object)
@@ -6056,7 +6198,6 @@ type FileInfoLike interface {
 
 type FileInfo struct {
 	gobject.Object
-	
 }
 
 func ToFileInfo(objlike gobject.ObjectLike) *FileInfo {
@@ -6090,7 +6231,7 @@ func NewFileInfo() *FileInfo {
 	ret1 := C.g_file_info_new()
 	var ret2 *FileInfo
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -6120,7 +6261,7 @@ func (this0 *FileInfo) Dup() *FileInfo {
 	ret1 := C.g_file_info_dup(this1)
 	var ret2 *FileInfo
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -6132,7 +6273,7 @@ func (this0 *FileInfo) GetAccessDateTime() *glib.DateTime {
 	ret1 := C.g_file_info_get_access_date_time(this1)
 	var ret2 *glib.DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -6147,7 +6288,7 @@ func (this0 *FileInfo) GetAttributeAsString(attribute0 string) string {
 	ret1 := C.g_file_info_get_attribute_as_string(this1, attribute1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -6163,7 +6304,7 @@ func (this0 *FileInfo) GetAttributeBoolean(attribute0 string) bool {
 	ret1 := C.g_file_info_get_attribute_boolean(this1, attribute1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -6178,7 +6319,7 @@ func (this0 *FileInfo) GetAttributeByteString(attribute0 string) string {
 	ret1 := C.g_file_info_get_attribute_byte_string(this1, attribute1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -6199,16 +6340,16 @@ func (this0 *FileInfo) GetAttributeData(attribute0 string) (FileAttributeType, u
 	var status2 FileAttributeStatus
 	var ret2 bool
 
-//DEBUG: type1(interface):flags = " conv_own_everything"
+	//DEBUG: type1(interface):flags = " conv_own_everything"
 	type2 = FileAttributeType(type1)
 
-//DEBUG: value_pp1(void):flags = " conv_own_everything"
+	//DEBUG: value_pp1(void):flags = " conv_own_everything"
 	value_pp2 = value_pp1
 
-//DEBUG: status1(interface):flags = " conv_own_everything"
+	//DEBUG: status1(interface):flags = " conv_own_everything"
 	status2 = FileAttributeStatus(status1)
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return type2, value_pp2, status2, ret2
 }
@@ -6223,7 +6364,7 @@ func (this0 *FileInfo) GetAttributeInt32(attribute0 string) int32 {
 	ret1 := C.g_file_info_get_attribute_int32(this1, attribute1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
@@ -6238,7 +6379,7 @@ func (this0 *FileInfo) GetAttributeInt64(attribute0 string) int64 {
 	ret1 := C.g_file_info_get_attribute_int64(this1, attribute1)
 	var ret2 int64
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	return ret2
 }
@@ -6253,7 +6394,7 @@ func (this0 *FileInfo) GetAttributeObject(attribute0 string) *gobject.Object {
 	ret1 := C.g_file_info_get_attribute_object(this1, attribute1)
 	var ret2 *gobject.Object
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*gobject.Object)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
@@ -6268,7 +6409,7 @@ func (this0 *FileInfo) GetAttributeStatus(attribute0 string) FileAttributeStatus
 	ret1 := C.g_file_info_get_attribute_status(this1, attribute1)
 	var ret2 FileAttributeStatus
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = FileAttributeStatus(ret1)
 	return ret2
 }
@@ -6283,7 +6424,7 @@ func (this0 *FileInfo) GetAttributeString(attribute0 string) string {
 	ret1 := C.g_file_info_get_attribute_string(this1, attribute1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -6298,7 +6439,7 @@ func (this0 *FileInfo) GetAttributeStringv(attribute0 string) []string {
 	ret1 := C.g_file_info_get_attribute_stringv(this1, attribute1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -6316,7 +6457,7 @@ func (this0 *FileInfo) GetAttributeType(attribute0 string) FileAttributeType {
 	ret1 := C.g_file_info_get_attribute_type(this1, attribute1)
 	var ret2 FileAttributeType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = FileAttributeType(ret1)
 	return ret2
 }
@@ -6331,7 +6472,7 @@ func (this0 *FileInfo) GetAttributeUint32(attribute0 string) uint32 {
 	ret1 := C.g_file_info_get_attribute_uint32(this1, attribute1)
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
@@ -6346,7 +6487,7 @@ func (this0 *FileInfo) GetAttributeUint64(attribute0 string) uint64 {
 	ret1 := C.g_file_info_get_attribute_uint64(this1, attribute1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
@@ -6358,7 +6499,7 @@ func (this0 *FileInfo) GetContentType() string {
 	ret1 := C.g_file_info_get_content_type(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -6370,7 +6511,7 @@ func (this0 *FileInfo) GetCreationDateTime() *glib.DateTime {
 	ret1 := C.g_file_info_get_creation_date_time(this1)
 	var ret2 *glib.DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -6382,7 +6523,7 @@ func (this0 *FileInfo) GetDeletionDate() *glib.DateTime {
 	ret1 := C.g_file_info_get_deletion_date(this1)
 	var ret2 *glib.DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -6394,7 +6535,7 @@ func (this0 *FileInfo) GetDisplayName() string {
 	ret1 := C.g_file_info_get_display_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -6406,7 +6547,7 @@ func (this0 *FileInfo) GetEditName() string {
 	ret1 := C.g_file_info_get_edit_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -6418,7 +6559,7 @@ func (this0 *FileInfo) GetEtag() string {
 	ret1 := C.g_file_info_get_etag(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -6430,7 +6571,7 @@ func (this0 *FileInfo) GetFileType() FileType {
 	ret1 := C.g_file_info_get_file_type(this1)
 	var ret2 FileType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = FileType(ret1)
 	return ret2
 }
@@ -6442,7 +6583,7 @@ func (this0 *FileInfo) GetIcon() *Icon {
 	ret1 := C.g_file_info_get_icon(this1)
 	var ret2 *Icon
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Icon)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
@@ -6454,7 +6595,7 @@ func (this0 *FileInfo) GetIsBackup() bool {
 	ret1 := C.g_file_info_get_is_backup(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -6466,7 +6607,7 @@ func (this0 *FileInfo) GetIsHidden() bool {
 	ret1 := C.g_file_info_get_is_hidden(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -6478,7 +6619,7 @@ func (this0 *FileInfo) GetIsSymlink() bool {
 	ret1 := C.g_file_info_get_is_symlink(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -6490,7 +6631,7 @@ func (this0 *FileInfo) GetModificationDateTime() *glib.DateTime {
 	ret1 := C.g_file_info_get_modification_date_time(this1)
 	var ret2 *glib.DateTime
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.DateTime)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -6503,7 +6644,7 @@ func (this0 *FileInfo) GetModificationTime() glib.TimeVal {
 	C.g_file_info_get_modification_time(this1, &result1)
 	var result2 glib.TimeVal
 
-//DEBUG: result1(interface):flags = " conv_own_none"
+	//DEBUG: result1(interface):flags = " conv_own_none"
 	result2 = *(*glib.TimeVal)(unsafe.Pointer(&result1))
 	return result2
 }
@@ -6515,7 +6656,7 @@ func (this0 *FileInfo) GetName() string {
 	ret1 := C.g_file_info_get_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(filename):flags = " conv_own_none"
+	//DEBUG: ret1(filename):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -6527,7 +6668,7 @@ func (this0 *FileInfo) GetSize() int64 {
 	ret1 := C.g_file_info_get_size(this1)
 	var ret2 int64
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	return ret2
 }
@@ -6539,7 +6680,7 @@ func (this0 *FileInfo) GetSortOrder() int32 {
 	ret1 := C.g_file_info_get_sort_order(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
@@ -6551,7 +6692,7 @@ func (this0 *FileInfo) GetSymbolicIcon() *Icon {
 	ret1 := C.g_file_info_get_symbolic_icon(this1)
 	var ret2 *Icon
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*Icon)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
@@ -6563,7 +6704,7 @@ func (this0 *FileInfo) GetSymlinkTarget() string {
 	ret1 := C.g_file_info_get_symlink_target(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -6578,7 +6719,7 @@ func (this0 *FileInfo) HasAttribute(attribute0 string) bool {
 	ret1 := C.g_file_info_has_attribute(this1, attribute1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -6593,7 +6734,7 @@ func (this0 *FileInfo) HasNamespace(name_space0 string) bool {
 	ret1 := C.g_file_info_has_namespace(this1, name_space1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -6608,7 +6749,7 @@ func (this0 *FileInfo) ListAttributes(name_space0 string) []string {
 	ret1 := C.g_file_info_list_attributes(this1, name_space1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -6735,7 +6876,7 @@ func (this0 *FileInfo) SetAttributeStatus(attribute0 string, status0 FileAttribu
 	ret1 := C.g_file_info_set_attribute_status(this1, attribute1, status1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -6945,6 +7086,7 @@ func (this0 *FileInfo) UnsetAttributeMask() {
 	}
 	C.g_file_info_unset_attribute_mask(this1)
 }
+
 // blacklisted: FileInfoClass (struct)
 type FileInputStreamLike interface {
 	InputStreamLike
@@ -7000,7 +7142,7 @@ func (this0 *FileInputStream) QueryInfo(attributes0 string, cancellable0 Cancell
 	var ret2 *FileInfo
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -7024,7 +7166,8 @@ func (this0 *FileInputStream) QueryInfoAsync(attributes0 string, io_priority0 in
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_input_stream_query_info_async(this1, attributes1, io_priority1, cancellable1, callback1)
 }
@@ -7042,7 +7185,7 @@ func (this0 *FileInputStream) QueryInfoFinish(result0 AsyncResultLike) (*FileInf
 	var ret2 *FileInfo
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -7050,15 +7193,18 @@ func (this0 *FileInputStream) QueryInfoFinish(result0 AsyncResultLike) (*FileInf
 	}
 	return ret2, err2
 }
+
 // blacklisted: FileInputStreamClass (struct)
 // blacklisted: FileInputStreamPrivate (struct)
 type FileMeasureFlags C.uint32_t
+
 const (
-	FileMeasureFlagsNone FileMeasureFlags = 0
+	FileMeasureFlagsNone           FileMeasureFlags = 0
 	FileMeasureFlagsReportAnyError FileMeasureFlags = 2
-	FileMeasureFlagsApparentSize FileMeasureFlags = 4
-	FileMeasureFlagsNoXdev FileMeasureFlags = 8
+	FileMeasureFlagsApparentSize   FileMeasureFlags = 4
+	FileMeasureFlagsNoXdev         FileMeasureFlags = 8
 )
+
 // blacklisted: FileMeasureProgressCallback (callback)
 type FileMonitorLike interface {
 	gobject.ObjectLike
@@ -7067,7 +7213,6 @@ type FileMonitorLike interface {
 
 type FileMonitor struct {
 	gobject.Object
-	
 }
 
 func ToFileMonitor(objlike gobject.ObjectLike) *FileMonitor {
@@ -7105,7 +7250,7 @@ func (this0 *FileMonitor) Cancel() bool {
 	ret1 := C.g_file_monitor_cancel(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -7134,7 +7279,7 @@ func (this0 *FileMonitor) IsCancelled() bool {
 	ret1 := C.g_file_monitor_is_cancelled(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -7147,29 +7292,34 @@ func (this0 *FileMonitor) SetRateLimit(limit_msecs0 int32) {
 	limit_msecs1 = C.int32_t(limit_msecs0)
 	C.g_file_monitor_set_rate_limit(this1, limit_msecs1)
 }
+
 // blacklisted: FileMonitorClass (struct)
 type FileMonitorEvent C.uint32_t
+
 const (
-	FileMonitorEventChanged FileMonitorEvent = 0
-	FileMonitorEventChangesDoneHint FileMonitorEvent = 1
-	FileMonitorEventDeleted FileMonitorEvent = 2
-	FileMonitorEventCreated FileMonitorEvent = 3
+	FileMonitorEventChanged          FileMonitorEvent = 0
+	FileMonitorEventChangesDoneHint  FileMonitorEvent = 1
+	FileMonitorEventDeleted          FileMonitorEvent = 2
+	FileMonitorEventCreated          FileMonitorEvent = 3
 	FileMonitorEventAttributeChanged FileMonitorEvent = 4
-	FileMonitorEventPreUnmount FileMonitorEvent = 5
-	FileMonitorEventUnmounted FileMonitorEvent = 6
-	FileMonitorEventMoved FileMonitorEvent = 7
-	FileMonitorEventRenamed FileMonitorEvent = 8
-	FileMonitorEventMovedIn FileMonitorEvent = 9
-	FileMonitorEventMovedOut FileMonitorEvent = 10
+	FileMonitorEventPreUnmount       FileMonitorEvent = 5
+	FileMonitorEventUnmounted        FileMonitorEvent = 6
+	FileMonitorEventMoved            FileMonitorEvent = 7
+	FileMonitorEventRenamed          FileMonitorEvent = 8
+	FileMonitorEventMovedIn          FileMonitorEvent = 9
+	FileMonitorEventMovedOut         FileMonitorEvent = 10
 )
+
 type FileMonitorFlags C.uint32_t
+
 const (
-	FileMonitorFlagsNone FileMonitorFlags = 0
-	FileMonitorFlagsWatchMounts FileMonitorFlags = 1
-	FileMonitorFlagsSendMoved FileMonitorFlags = 2
+	FileMonitorFlagsNone           FileMonitorFlags = 0
+	FileMonitorFlagsWatchMounts    FileMonitorFlags = 1
+	FileMonitorFlagsSendMoved      FileMonitorFlags = 2
 	FileMonitorFlagsWatchHardLinks FileMonitorFlags = 4
-	FileMonitorFlagsWatchMoves FileMonitorFlags = 8
+	FileMonitorFlagsWatchMoves     FileMonitorFlags = 8
 )
+
 // blacklisted: FileMonitorPrivate (struct)
 type FileOutputStreamLike interface {
 	OutputStreamLike
@@ -7216,7 +7366,7 @@ func (this0 *FileOutputStream) GetEtag() string {
 	ret1 := C.g_file_output_stream_get_etag(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -7238,7 +7388,7 @@ func (this0 *FileOutputStream) QueryInfo(attributes0 string, cancellable0 Cancel
 	var ret2 *FileInfo
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -7262,7 +7412,8 @@ func (this0 *FileOutputStream) QueryInfoAsync(attributes0 string, io_priority0 i
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_file_output_stream_query_info_async(this1, attributes1, io_priority1, cancellable1, callback1)
 }
@@ -7280,7 +7431,7 @@ func (this0 *FileOutputStream) QueryInfoFinish(result0 AsyncResultLike) (*FileIn
 	var ret2 *FileInfo
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*FileInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -7288,9 +7439,11 @@ func (this0 *FileOutputStream) QueryInfoFinish(result0 AsyncResultLike) (*FileIn
 	}
 	return ret2, err2
 }
+
 // blacklisted: FileOutputStreamClass (struct)
 // blacklisted: FileOutputStreamPrivate (struct)
 type FileProgressCallback func(current_num_bytes int64, total_num_bytes int64)
+
 //export _GFileProgressCallback_c_wrapper
 func _GFileProgressCallback_c_wrapper(current_num_bytes0 int64, total_num_bytes0 int64, data0 unsafe.Pointer) {
 	var current_num_bytes1 int64
@@ -7301,101 +7454,113 @@ func _GFileProgressCallback_c_wrapper(current_num_bytes0 int64, total_num_bytes0
 	data1 = *(*FileProgressCallback)(data0)
 	data1(current_num_bytes1, total_num_bytes1)
 }
+
 //export _GFileProgressCallback_c_wrapper_once
 func _GFileProgressCallback_c_wrapper_once(current_num_bytes0 int64, total_num_bytes0 int64, data0 unsafe.Pointer) {
 	_GFileProgressCallback_c_wrapper(current_num_bytes0, total_num_bytes0, data0)
 	gobject.Holder.Release(data0)
 }
+
 type FileQueryInfoFlags C.uint32_t
+
 const (
-	FileQueryInfoFlagsNone FileQueryInfoFlags = 0
+	FileQueryInfoFlagsNone             FileQueryInfoFlags = 0
 	FileQueryInfoFlagsNofollowSymlinks FileQueryInfoFlags = 1
 )
+
 // blacklisted: FileReadMoreCallback (callback)
 type FileType C.uint32_t
+
 const (
-	FileTypeUnknown FileType = 0
-	FileTypeRegular FileType = 1
-	FileTypeDirectory FileType = 2
+	FileTypeUnknown      FileType = 0
+	FileTypeRegular      FileType = 1
+	FileTypeDirectory    FileType = 2
 	FileTypeSymbolicLink FileType = 3
-	FileTypeSpecial FileType = 4
-	FileTypeShortcut FileType = 5
-	FileTypeMountable FileType = 6
+	FileTypeSpecial      FileType = 4
+	FileTypeShortcut     FileType = 5
+	FileTypeMountable    FileType = 6
 )
+
 // blacklisted: FilenameCompleter (object)
 // blacklisted: FilenameCompleterClass (struct)
 type FilesystemPreviewType C.uint32_t
+
 const (
 	FilesystemPreviewTypeIfAlways FilesystemPreviewType = 0
-	FilesystemPreviewTypeIfLocal FilesystemPreviewType = 1
-	FilesystemPreviewTypeNever FilesystemPreviewType = 2
+	FilesystemPreviewTypeIfLocal  FilesystemPreviewType = 1
+	FilesystemPreviewTypeNever    FilesystemPreviewType = 2
 )
+
 // blacklisted: FilterInputStream (object)
 // blacklisted: FilterInputStreamClass (struct)
 // blacklisted: FilterOutputStream (object)
 // blacklisted: FilterOutputStreamClass (struct)
 type IOErrorEnum C.uint32_t
+
 const (
-	IOErrorEnumFailed IOErrorEnum = 0
-	IOErrorEnumNotFound IOErrorEnum = 1
-	IOErrorEnumExists IOErrorEnum = 2
-	IOErrorEnumIsDirectory IOErrorEnum = 3
-	IOErrorEnumNotDirectory IOErrorEnum = 4
-	IOErrorEnumNotEmpty IOErrorEnum = 5
-	IOErrorEnumNotRegularFile IOErrorEnum = 6
-	IOErrorEnumNotSymbolicLink IOErrorEnum = 7
-	IOErrorEnumNotMountableFile IOErrorEnum = 8
-	IOErrorEnumFilenameTooLong IOErrorEnum = 9
-	IOErrorEnumInvalidFilename IOErrorEnum = 10
-	IOErrorEnumTooManyLinks IOErrorEnum = 11
-	IOErrorEnumNoSpace IOErrorEnum = 12
-	IOErrorEnumInvalidArgument IOErrorEnum = 13
-	IOErrorEnumPermissionDenied IOErrorEnum = 14
-	IOErrorEnumNotSupported IOErrorEnum = 15
-	IOErrorEnumNotMounted IOErrorEnum = 16
-	IOErrorEnumAlreadyMounted IOErrorEnum = 17
-	IOErrorEnumClosed IOErrorEnum = 18
-	IOErrorEnumCancelled IOErrorEnum = 19
-	IOErrorEnumPending IOErrorEnum = 20
-	IOErrorEnumReadOnly IOErrorEnum = 21
-	IOErrorEnumCantCreateBackup IOErrorEnum = 22
-	IOErrorEnumWrongEtag IOErrorEnum = 23
-	IOErrorEnumTimedOut IOErrorEnum = 24
-	IOErrorEnumWouldRecurse IOErrorEnum = 25
-	IOErrorEnumBusy IOErrorEnum = 26
-	IOErrorEnumWouldBlock IOErrorEnum = 27
-	IOErrorEnumHostNotFound IOErrorEnum = 28
-	IOErrorEnumWouldMerge IOErrorEnum = 29
-	IOErrorEnumFailedHandled IOErrorEnum = 30
-	IOErrorEnumTooManyOpenFiles IOErrorEnum = 31
-	IOErrorEnumNotInitialized IOErrorEnum = 32
-	IOErrorEnumAddressInUse IOErrorEnum = 33
-	IOErrorEnumPartialInput IOErrorEnum = 34
-	IOErrorEnumInvalidData IOErrorEnum = 35
-	IOErrorEnumDbusError IOErrorEnum = 36
-	IOErrorEnumHostUnreachable IOErrorEnum = 37
+	IOErrorEnumFailed             IOErrorEnum = 0
+	IOErrorEnumNotFound           IOErrorEnum = 1
+	IOErrorEnumExists             IOErrorEnum = 2
+	IOErrorEnumIsDirectory        IOErrorEnum = 3
+	IOErrorEnumNotDirectory       IOErrorEnum = 4
+	IOErrorEnumNotEmpty           IOErrorEnum = 5
+	IOErrorEnumNotRegularFile     IOErrorEnum = 6
+	IOErrorEnumNotSymbolicLink    IOErrorEnum = 7
+	IOErrorEnumNotMountableFile   IOErrorEnum = 8
+	IOErrorEnumFilenameTooLong    IOErrorEnum = 9
+	IOErrorEnumInvalidFilename    IOErrorEnum = 10
+	IOErrorEnumTooManyLinks       IOErrorEnum = 11
+	IOErrorEnumNoSpace            IOErrorEnum = 12
+	IOErrorEnumInvalidArgument    IOErrorEnum = 13
+	IOErrorEnumPermissionDenied   IOErrorEnum = 14
+	IOErrorEnumNotSupported       IOErrorEnum = 15
+	IOErrorEnumNotMounted         IOErrorEnum = 16
+	IOErrorEnumAlreadyMounted     IOErrorEnum = 17
+	IOErrorEnumClosed             IOErrorEnum = 18
+	IOErrorEnumCancelled          IOErrorEnum = 19
+	IOErrorEnumPending            IOErrorEnum = 20
+	IOErrorEnumReadOnly           IOErrorEnum = 21
+	IOErrorEnumCantCreateBackup   IOErrorEnum = 22
+	IOErrorEnumWrongEtag          IOErrorEnum = 23
+	IOErrorEnumTimedOut           IOErrorEnum = 24
+	IOErrorEnumWouldRecurse       IOErrorEnum = 25
+	IOErrorEnumBusy               IOErrorEnum = 26
+	IOErrorEnumWouldBlock         IOErrorEnum = 27
+	IOErrorEnumHostNotFound       IOErrorEnum = 28
+	IOErrorEnumWouldMerge         IOErrorEnum = 29
+	IOErrorEnumFailedHandled      IOErrorEnum = 30
+	IOErrorEnumTooManyOpenFiles   IOErrorEnum = 31
+	IOErrorEnumNotInitialized     IOErrorEnum = 32
+	IOErrorEnumAddressInUse       IOErrorEnum = 33
+	IOErrorEnumPartialInput       IOErrorEnum = 34
+	IOErrorEnumInvalidData        IOErrorEnum = 35
+	IOErrorEnumDbusError          IOErrorEnum = 36
+	IOErrorEnumHostUnreachable    IOErrorEnum = 37
 	IOErrorEnumNetworkUnreachable IOErrorEnum = 38
-	IOErrorEnumConnectionRefused IOErrorEnum = 39
-	IOErrorEnumProxyFailed IOErrorEnum = 40
-	IOErrorEnumProxyAuthFailed IOErrorEnum = 41
-	IOErrorEnumProxyNeedAuth IOErrorEnum = 42
-	IOErrorEnumProxyNotAllowed IOErrorEnum = 43
-	IOErrorEnumBrokenPipe IOErrorEnum = 44
-	IOErrorEnumConnectionClosed IOErrorEnum = 44
-	IOErrorEnumNotConnected IOErrorEnum = 45
-	IOErrorEnumMessageTooLarge IOErrorEnum = 46
-	IOErrorEnumNoSuchDevice IOErrorEnum = 47
+	IOErrorEnumConnectionRefused  IOErrorEnum = 39
+	IOErrorEnumProxyFailed        IOErrorEnum = 40
+	IOErrorEnumProxyAuthFailed    IOErrorEnum = 41
+	IOErrorEnumProxyNeedAuth      IOErrorEnum = 42
+	IOErrorEnumProxyNotAllowed    IOErrorEnum = 43
+	IOErrorEnumBrokenPipe         IOErrorEnum = 44
+	IOErrorEnumConnectionClosed   IOErrorEnum = 44
+	IOErrorEnumNotConnected       IOErrorEnum = 45
+	IOErrorEnumMessageTooLarge    IOErrorEnum = 46
+	IOErrorEnumNoSuchDevice       IOErrorEnum = 47
 )
+
 // blacklisted: IOExtension (struct)
 // blacklisted: IOExtensionPoint (struct)
 // blacklisted: IOModule (object)
 // blacklisted: IOModuleClass (struct)
 // blacklisted: IOModuleScope (struct)
 type IOModuleScopeFlags C.uint32_t
+
 const (
-	IOModuleScopeFlagsNone IOModuleScopeFlags = 0
+	IOModuleScopeFlagsNone            IOModuleScopeFlags = 0
 	IOModuleScopeFlagsBlockDuplicates IOModuleScopeFlags = 1
 )
+
 // blacklisted: IOSchedulerJob (struct)
 // blacklisted: IOSchedulerJobFunc (callback)
 type IOStreamLike interface {
@@ -7405,7 +7570,6 @@ type IOStreamLike interface {
 
 type IOStream struct {
 	gobject.Object
-	
 }
 
 func ToIOStream(objlike gobject.ObjectLike) *IOStream {
@@ -7445,7 +7609,7 @@ func IOStreamSpliceFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -7474,7 +7638,7 @@ func (this0 *IOStream) Close(cancellable0 CancellableLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -7495,7 +7659,8 @@ func (this0 *IOStream) CloseAsync(io_priority0 int32, cancellable0 CancellableLi
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_io_stream_close_async(this1, io_priority1, cancellable1, callback1)
 }
@@ -7513,7 +7678,7 @@ func (this0 *IOStream) CloseFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -7529,7 +7694,7 @@ func (this0 *IOStream) GetInputStream() *InputStream {
 	ret1 := C.g_io_stream_get_input_stream(this1)
 	var ret2 *InputStream
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*InputStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
@@ -7541,7 +7706,7 @@ func (this0 *IOStream) GetOutputStream() *OutputStream {
 	ret1 := C.g_io_stream_get_output_stream(this1)
 	var ret2 *OutputStream
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*OutputStream)(gobject.ObjectWrap(unsafe.Pointer(ret1), true))
 	return ret2
 }
@@ -7553,7 +7718,7 @@ func (this0 *IOStream) HasPending() bool {
 	ret1 := C.g_io_stream_has_pending(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -7565,7 +7730,7 @@ func (this0 *IOStream) IsClosed() bool {
 	ret1 := C.g_io_stream_is_closed(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -7579,7 +7744,7 @@ func (this0 *IOStream) SetPending() (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -7606,20 +7771,24 @@ func (this0 *IOStream) SpliceAsync(stream20 IOStreamLike, flags0 IOStreamSpliceF
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_io_stream_splice_async(this1, stream21, flags1, io_priority1, cancellable1, callback1)
 }
+
 // blacklisted: IOStreamAdapter (struct)
 // blacklisted: IOStreamClass (struct)
 // blacklisted: IOStreamPrivate (struct)
 type IOStreamSpliceFlags C.uint32_t
+
 const (
-	IOStreamSpliceFlagsNone IOStreamSpliceFlags = 0
+	IOStreamSpliceFlagsNone         IOStreamSpliceFlags = 0
 	IOStreamSpliceFlagsCloseStream1 IOStreamSpliceFlags = 1
 	IOStreamSpliceFlagsCloseStream2 IOStreamSpliceFlags = 2
-	IOStreamSpliceFlagsWaitForBoth IOStreamSpliceFlags = 4
+	IOStreamSpliceFlagsWaitForBoth  IOStreamSpliceFlags = 4
 )
+
 type IconLike interface {
 	ImplementsGIcon() *C.GIcon
 }
@@ -7633,8 +7802,7 @@ func (*Icon) GetStaticType() gobject.Type {
 	return gobject.Type(C.g_icon_get_type())
 }
 
-
-type IconImpl struct {}
+type IconImpl struct{}
 
 func ToIcon(objlike gobject.ObjectLike) *Icon {
 	c := objlike.InheritedFromGObject()
@@ -7655,7 +7823,7 @@ func IconDeserialize(value0 *glib.Variant) *Icon {
 	ret1 := C.g_icon_deserialize(value1)
 	var ret2 *Icon
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Icon)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -7668,7 +7836,7 @@ func IconNewForString(str0 string) (*Icon, error) {
 	var ret2 *Icon
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Icon)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -7688,7 +7856,7 @@ func (this0 *IconImpl) Equal(icon20 IconLike) bool {
 	ret1 := C.g_icon_equal(this1, icon21)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -7700,7 +7868,7 @@ func (this0 *IconImpl) Hash() uint32 {
 	ret1 := C.g_icon_hash(this1)
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
@@ -7712,7 +7880,7 @@ func (this0 *IconImpl) Serialize() *glib.Variant {
 	ret1 := C.g_icon_serialize(this1)
 	var ret2 *glib.Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -7724,11 +7892,12 @@ func (this0 *IconImpl) ToString() string {
 	ret1 := C.g_icon_to_string(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
+
 // blacklisted: IconIface (struct)
 // blacklisted: InetAddress (object)
 // blacklisted: InetAddressClass (struct)
@@ -7749,7 +7918,6 @@ type InputStreamLike interface {
 
 type InputStream struct {
 	gobject.Object
-	
 }
 
 func ToInputStream(objlike gobject.ObjectLike) *InputStream {
@@ -7800,7 +7968,7 @@ func (this0 *InputStream) Close(cancellable0 CancellableLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -7821,7 +7989,8 @@ func (this0 *InputStream) CloseAsync(io_priority0 int32, cancellable0 Cancellabl
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_input_stream_close_async(this1, io_priority1, cancellable1, callback1)
 }
@@ -7839,7 +8008,7 @@ func (this0 *InputStream) CloseFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -7855,7 +8024,7 @@ func (this0 *InputStream) HasPending() bool {
 	ret1 := C.g_input_stream_has_pending(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -7867,7 +8036,7 @@ func (this0 *InputStream) IsClosed() bool {
 	ret1 := C.g_input_stream_is_closed(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -7889,12 +8058,12 @@ func (this0 *InputStream) Read(cancellable0 CancellableLike) ([]uint8, int64, er
 	var err2 error
 	buffer2 = make([]uint8, count1)
 
-//DEBUG: buffer1(array):flags = " conv_own_none"
+	//DEBUG: buffer1(array):flags = " conv_own_none"
 	for i0 := range buffer2 {
 		buffer2[i0] = uint8((*(*[999999]C.uint8_t)(unsafe.Pointer(buffer1)))[i0])
 	}
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -7922,15 +8091,15 @@ func (this0 *InputStream) ReadAll(cancellable0 CancellableLike) ([]uint8, uint64
 	var err2 error
 	buffer2 = make([]uint8, count1)
 
-//DEBUG: buffer1(array):flags = " conv_own_none"
+	//DEBUG: buffer1(array):flags = " conv_own_none"
 	for i0 := range buffer2 {
 		buffer2[i0] = uint8((*(*[999999]C.uint8_t)(unsafe.Pointer(buffer1)))[i0])
 	}
 
-//DEBUG: bytes_read1(guint64):flags = " conv_own_everything"
+	//DEBUG: bytes_read1(guint64):flags = " conv_own_everything"
 	bytes_read2 = uint64(bytes_read1)
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -7953,13 +8122,14 @@ func (this0 *InputStream) ReadAllAsync(io_priority0 int32, cancellable0 Cancella
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_input_stream_read_all_async(this1, &buffer1, count1, io_priority1, cancellable1, callback1)
 	var buffer2 []uint8
 	buffer2 = make([]uint8, count1)
 
-//DEBUG: buffer1(array):flags = " conv_own_none"
+	//DEBUG: buffer1(array):flags = " conv_own_none"
 	for i0 := range buffer2 {
 		buffer2[i0] = uint8((*(*[999999]C.uint8_t)(unsafe.Pointer(buffer1)))[i0])
 	}
@@ -7981,10 +8151,10 @@ func (this0 *InputStream) ReadAllFinish(result0 AsyncResultLike) (uint64, bool, 
 	var ret2 bool
 	var err2 error
 
-//DEBUG: bytes_read1(guint64):flags = " conv_own_everything"
+	//DEBUG: bytes_read1(guint64):flags = " conv_own_everything"
 	bytes_read2 = uint64(bytes_read1)
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -8007,13 +8177,14 @@ func (this0 *InputStream) ReadAsync(io_priority0 int32, cancellable0 Cancellable
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_input_stream_read_async(this1, &buffer1, count1, io_priority1, cancellable1, callback1)
 	var buffer2 []uint8
 	buffer2 = make([]uint8, count1)
 
-//DEBUG: buffer1(array):flags = " conv_own_none"
+	//DEBUG: buffer1(array):flags = " conv_own_none"
 	for i0 := range buffer2 {
 		buffer2[i0] = uint8((*(*[999999]C.uint8_t)(unsafe.Pointer(buffer1)))[i0])
 	}
@@ -8035,7 +8206,7 @@ func (this0 *InputStream) ReadBytes(count0 uint64, cancellable0 CancellableLike)
 	var ret2 *glib.Bytes
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Bytes)(unsafe.Pointer(ret1))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -8058,7 +8229,8 @@ func (this0 *InputStream) ReadBytesAsync(count0 uint64, io_priority0 int32, canc
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_input_stream_read_bytes_async(this1, count1, io_priority1, cancellable1, callback1)
 }
@@ -8076,7 +8248,7 @@ func (this0 *InputStream) ReadBytesFinish(result0 AsyncResultLike) (*glib.Bytes,
 	var ret2 *glib.Bytes
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Bytes)(unsafe.Pointer(ret1))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -8098,7 +8270,7 @@ func (this0 *InputStream) ReadFinish(result0 AsyncResultLike) (int64, error) {
 	var ret2 int64
 	var err2 error
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -8116,7 +8288,7 @@ func (this0 *InputStream) SetPending() (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -8140,7 +8312,7 @@ func (this0 *InputStream) Skip(count0 uint64, cancellable0 CancellableLike) (int
 	var ret2 int64
 	var err2 error
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -8163,7 +8335,8 @@ func (this0 *InputStream) SkipAsync(count0 uint64, io_priority0 int32, cancellab
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_input_stream_skip_async(this1, count1, io_priority1, cancellable1, callback1)
 }
@@ -8181,7 +8354,7 @@ func (this0 *InputStream) SkipFinish(result0 AsyncResultLike) (int64, error) {
 	var ret2 int64
 	var err2 error
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -8189,6 +8362,7 @@ func (this0 *InputStream) SkipFinish(result0 AsyncResultLike) (int64, error) {
 	}
 	return ret2, err2
 }
+
 // blacklisted: InputStreamClass (struct)
 // blacklisted: InputStreamPrivate (struct)
 // blacklisted: InputVector (struct)
@@ -8207,17 +8381,20 @@ const MenuAttributeTarget = "target"
 const MenuExporterMaxSectionSize = 1000
 const MenuLinkSection = "section"
 const MenuLinkSubmenu = "submenu"
+
 // blacklisted: MemoryInputStream (object)
 // blacklisted: MemoryInputStreamClass (struct)
 // blacklisted: MemoryInputStreamPrivate (struct)
 // blacklisted: MemoryMonitor (interface)
 // blacklisted: MemoryMonitorInterface (struct)
 type MemoryMonitorWarningLevel C.uint32_t
+
 const (
-	MemoryMonitorWarningLevelLow MemoryMonitorWarningLevel = 50
-	MemoryMonitorWarningLevelMedium MemoryMonitorWarningLevel = 100
+	MemoryMonitorWarningLevelLow      MemoryMonitorWarningLevel = 50
+	MemoryMonitorWarningLevelMedium   MemoryMonitorWarningLevel = 100
 	MemoryMonitorWarningLevelCritical MemoryMonitorWarningLevel = 255
 )
+
 // blacklisted: MemoryOutputStream (object)
 // blacklisted: MemoryOutputStreamClass (struct)
 // blacklisted: MemoryOutputStreamPrivate (struct)
@@ -8229,7 +8406,6 @@ type MenuAttributeIterLike interface {
 
 type MenuAttributeIter struct {
 	gobject.Object
-	
 }
 
 func ToMenuAttributeIter(objlike gobject.ObjectLike) *MenuAttributeIter {
@@ -8267,7 +8443,7 @@ func (this0 *MenuAttributeIter) GetName() string {
 	ret1 := C.g_menu_attribute_iter_get_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -8283,13 +8459,13 @@ func (this0 *MenuAttributeIter) GetNext() (string, *glib.Variant, bool) {
 	var value2 *glib.Variant
 	var ret2 bool
 
-//DEBUG: out_name1(utf8):flags = " conv_own_none"
+	//DEBUG: out_name1(utf8):flags = " conv_own_none"
 	out_name2 = C.GoString(out_name1)
 
-//DEBUG: value1(interface):flags = " conv_own_everything"
+	//DEBUG: value1(interface):flags = " conv_own_everything"
 	value2 = (*glib.Variant)(unsafe.Pointer(value1))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return out_name2, value2, ret2
 }
@@ -8301,7 +8477,7 @@ func (this0 *MenuAttributeIter) GetValue() *glib.Variant {
 	ret1 := C.g_menu_attribute_iter_get_value(this1)
 	var ret2 *glib.Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -8313,10 +8489,11 @@ func (this0 *MenuAttributeIter) Next() bool {
 	ret1 := C.g_menu_attribute_iter_next(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 // blacklisted: MenuAttributeIterClass (struct)
 // blacklisted: MenuAttributeIterPrivate (struct)
 // blacklisted: MenuItem (object)
@@ -8327,7 +8504,6 @@ type MenuLinkIterLike interface {
 
 type MenuLinkIter struct {
 	gobject.Object
-	
 }
 
 func ToMenuLinkIter(objlike gobject.ObjectLike) *MenuLinkIter {
@@ -8365,7 +8541,7 @@ func (this0 *MenuLinkIter) GetName() string {
 	ret1 := C.g_menu_link_iter_get_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -8381,13 +8557,13 @@ func (this0 *MenuLinkIter) GetNext() (string, *MenuModel, bool) {
 	var value2 *MenuModel
 	var ret2 bool
 
-//DEBUG: out_link1(utf8):flags = " conv_own_none"
+	//DEBUG: out_link1(utf8):flags = " conv_own_none"
 	out_link2 = C.GoString(out_link1)
 
-//DEBUG: value1(interface):flags = " conv_own_everything"
+	//DEBUG: value1(interface):flags = " conv_own_everything"
 	value2 = (*MenuModel)(gobject.ObjectWrap(unsafe.Pointer(value1), false))
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return out_link2, value2, ret2
 }
@@ -8399,7 +8575,7 @@ func (this0 *MenuLinkIter) GetValue() *MenuModel {
 	ret1 := C.g_menu_link_iter_get_value(this1)
 	var ret2 *MenuModel
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*MenuModel)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -8411,10 +8587,11 @@ func (this0 *MenuLinkIter) Next() bool {
 	ret1 := C.g_menu_link_iter_next(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 // blacklisted: MenuLinkIterClass (struct)
 // blacklisted: MenuLinkIterPrivate (struct)
 type MenuModelLike interface {
@@ -8424,7 +8601,6 @@ type MenuModelLike interface {
 
 type MenuModel struct {
 	gobject.Object
-	
 }
 
 func ToMenuModel(objlike gobject.ObjectLike) *MenuModel {
@@ -8469,7 +8645,7 @@ func (this0 *MenuModel) GetItemAttributeValue(item_index0 int32, attribute0 stri
 	ret1 := C.g_menu_model_get_item_attribute_value(this1, item_index1, attribute1, expected_type1)
 	var ret2 *glib.Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -8486,7 +8662,7 @@ func (this0 *MenuModel) GetItemLink(item_index0 int32, link0 string) *MenuModel 
 	ret1 := C.g_menu_model_get_item_link(this1, item_index1, link1)
 	var ret2 *MenuModel
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*MenuModel)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -8498,7 +8674,7 @@ func (this0 *MenuModel) GetNItems() int32 {
 	ret1 := C.g_menu_model_get_n_items(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
@@ -8510,7 +8686,7 @@ func (this0 *MenuModel) IsMutable() bool {
 	ret1 := C.g_menu_model_is_mutable(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -8537,7 +8713,7 @@ func (this0 *MenuModel) IterateItemAttributes(item_index0 int32) *MenuAttributeI
 	ret1 := C.g_menu_model_iterate_item_attributes(this1, item_index1)
 	var ret2 *MenuAttributeIter
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*MenuAttributeIter)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -8551,10 +8727,11 @@ func (this0 *MenuModel) IterateItemLinks(item_index0 int32) *MenuLinkIter {
 	ret1 := C.g_menu_model_iterate_item_links(this1, item_index1)
 	var ret2 *MenuLinkIter
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*MenuLinkIter)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 // blacklisted: MenuModelClass (struct)
 // blacklisted: MenuModelPrivate (struct)
 type MountLike interface {
@@ -8570,8 +8747,7 @@ func (*Mount) GetStaticType() gobject.Type {
 	return gobject.Type(C.g_mount_get_type())
 }
 
-
-type MountImpl struct {}
+type MountImpl struct{}
 
 func ToMount(objlike gobject.ObjectLike) *Mount {
 	c := objlike.InheritedFromGObject()
@@ -8594,7 +8770,7 @@ func (this0 *MountImpl) CanEject() bool {
 	ret1 := C.g_mount_can_eject(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -8606,7 +8782,7 @@ func (this0 *MountImpl) CanUnmount() bool {
 	ret1 := C.g_mount_can_unmount(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -8623,7 +8799,8 @@ func (this0 *MountImpl) Eject(flags0 MountUnmountFlags, cancellable0 Cancellable
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_mount_eject(this1, flags1, cancellable1, callback1)
 }
@@ -8641,7 +8818,7 @@ func (this0 *MountImpl) EjectFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -8666,7 +8843,8 @@ func (this0 *MountImpl) EjectWithOperation(flags0 MountUnmountFlags, mount_opera
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_mount_eject_with_operation(this1, flags1, mount_operation1, cancellable1, callback1)
 }
@@ -8684,7 +8862,7 @@ func (this0 *MountImpl) EjectWithOperationFinish(result0 AsyncResultLike) (bool,
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -8700,7 +8878,7 @@ func (this0 *MountImpl) GetDefaultLocation() *File {
 	ret1 := C.g_mount_get_default_location(this1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -8712,7 +8890,7 @@ func (this0 *MountImpl) GetDrive() *Drive {
 	ret1 := C.g_mount_get_drive(this1)
 	var ret2 *Drive
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Drive)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -8724,7 +8902,7 @@ func (this0 *MountImpl) GetIcon() *Icon {
 	ret1 := C.g_mount_get_icon(this1)
 	var ret2 *Icon
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Icon)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -8736,7 +8914,7 @@ func (this0 *MountImpl) GetName() string {
 	ret1 := C.g_mount_get_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -8749,7 +8927,7 @@ func (this0 *MountImpl) GetRoot() *File {
 	ret1 := C.g_mount_get_root(this1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -8761,7 +8939,7 @@ func (this0 *MountImpl) GetSortKey() string {
 	ret1 := C.g_mount_get_sort_key(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -8773,7 +8951,7 @@ func (this0 *MountImpl) GetSymbolicIcon() *Icon {
 	ret1 := C.g_mount_get_symbolic_icon(this1)
 	var ret2 *Icon
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Icon)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -8785,7 +8963,7 @@ func (this0 *MountImpl) GetUuid() string {
 	ret1 := C.g_mount_get_uuid(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -8798,7 +8976,7 @@ func (this0 *MountImpl) GetVolume() *Volume {
 	ret1 := C.g_mount_get_volume(this1)
 	var ret2 *Volume
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Volume)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -8815,7 +8993,8 @@ func (this0 *MountImpl) GuessContentType(force_rescan0 bool, cancellable0 Cancel
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_mount_guess_content_type(this1, force_rescan1, cancellable1, callback1)
 }
@@ -8833,7 +9012,7 @@ func (this0 *MountImpl) GuessContentTypeFinish(result0 AsyncResultLike) ([]strin
 	var ret2 []string
 	var err2 error
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -8862,7 +9041,7 @@ func (this0 *MountImpl) GuessContentTypeSync(force_rescan0 bool, cancellable0 Ca
 	var ret2 []string
 	var err2 error
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -8883,7 +9062,7 @@ func (this0 *MountImpl) IsShadowed() bool {
 	ret1 := C.g_mount_is_shadowed(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -8904,7 +9083,8 @@ func (this0 *MountImpl) Remount(flags0 MountMountFlags, mount_operation0 MountOp
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_mount_remount(this1, flags1, mount_operation1, cancellable1, callback1)
 }
@@ -8922,7 +9102,7 @@ func (this0 *MountImpl) RemountFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -8950,7 +9130,8 @@ func (this0 *MountImpl) Unmount(flags0 MountUnmountFlags, cancellable0 Cancellab
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_mount_unmount(this1, flags1, cancellable1, callback1)
 }
@@ -8968,7 +9149,7 @@ func (this0 *MountImpl) UnmountFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -8993,7 +9174,8 @@ func (this0 *MountImpl) UnmountWithOperation(flags0 MountUnmountFlags, mount_ope
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_mount_unmount_with_operation(this1, flags1, mount_operation1, cancellable1, callback1)
 }
@@ -9011,7 +9193,7 @@ func (this0 *MountImpl) UnmountWithOperationFinish(result0 AsyncResultLike) (boo
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9026,10 +9208,13 @@ func (this0 *MountImpl) Unshadow() {
 	}
 	C.g_mount_unshadow(this1)
 }
+
 type MountMountFlags C.uint32_t
+
 const (
 	MountMountFlagsNone MountMountFlags = 0
 )
+
 type MountOperationLike interface {
 	gobject.ObjectLike
 	InheritedFromGMountOperation() *C.GMountOperation
@@ -9037,7 +9222,6 @@ type MountOperationLike interface {
 
 type MountOperation struct {
 	gobject.Object
-	
 }
 
 func ToMountOperation(objlike gobject.ObjectLike) *MountOperation {
@@ -9071,7 +9255,7 @@ func NewMountOperation() *MountOperation {
 	ret1 := C.g_mount_operation_new()
 	var ret2 *MountOperation
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*MountOperation)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -9083,7 +9267,7 @@ func (this0 *MountOperation) GetAnonymous() bool {
 	ret1 := C.g_mount_operation_get_anonymous(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -9095,7 +9279,7 @@ func (this0 *MountOperation) GetChoice() int32 {
 	ret1 := C.g_mount_operation_get_choice(this1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
@@ -9107,7 +9291,7 @@ func (this0 *MountOperation) GetDomain() string {
 	ret1 := C.g_mount_operation_get_domain(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -9119,7 +9303,7 @@ func (this0 *MountOperation) GetIsTcryptHiddenVolume() bool {
 	ret1 := C.g_mount_operation_get_is_tcrypt_hidden_volume(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -9131,7 +9315,7 @@ func (this0 *MountOperation) GetIsTcryptSystemVolume() bool {
 	ret1 := C.g_mount_operation_get_is_tcrypt_system_volume(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -9143,7 +9327,7 @@ func (this0 *MountOperation) GetPassword() string {
 	ret1 := C.g_mount_operation_get_password(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -9155,7 +9339,7 @@ func (this0 *MountOperation) GetPasswordSave() PasswordSave {
 	ret1 := C.g_mount_operation_get_password_save(this1)
 	var ret2 PasswordSave
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = PasswordSave(ret1)
 	return ret2
 }
@@ -9167,7 +9351,7 @@ func (this0 *MountOperation) GetPim() uint32 {
 	ret1 := C.g_mount_operation_get_pim(this1)
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
@@ -9179,7 +9363,7 @@ func (this0 *MountOperation) GetUsername() string {
 	ret1 := C.g_mount_operation_get_username(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -9276,21 +9460,26 @@ func (this0 *MountOperation) SetUsername(username0 string) {
 	defer C.free(unsafe.Pointer(username1))
 	C.g_mount_operation_set_username(this1, username1)
 }
+
 // blacklisted: MountOperationClass (struct)
 // blacklisted: MountOperationPrivate (struct)
 type MountOperationResult C.uint32_t
+
 const (
-	MountOperationResultHandled MountOperationResult = 0
-	MountOperationResultAborted MountOperationResult = 1
+	MountOperationResultHandled   MountOperationResult = 0
+	MountOperationResultAborted   MountOperationResult = 1
 	MountOperationResultUnhandled MountOperationResult = 2
 )
+
 type MountUnmountFlags C.uint32_t
+
 const (
-	MountUnmountFlagsNone MountUnmountFlags = 0
+	MountUnmountFlagsNone  MountUnmountFlags = 0
 	MountUnmountFlagsForce MountUnmountFlags = 1
 )
 const NativeVolumeMonitorExtensionPointName = "gio-native-volume-monitor"
 const NetworkMonitorExtensionPointName = "gio-network-monitor"
+
 // blacklisted: NativeSocketAddress (object)
 // blacklisted: NativeSocketAddressClass (struct)
 // blacklisted: NativeSocketAddressPrivate (struct)
@@ -9300,12 +9489,14 @@ const NetworkMonitorExtensionPointName = "gio-network-monitor"
 // blacklisted: NetworkAddressClass (struct)
 // blacklisted: NetworkAddressPrivate (struct)
 type NetworkConnectivity C.uint32_t
+
 const (
-	NetworkConnectivityLocal NetworkConnectivity = 1
+	NetworkConnectivityLocal   NetworkConnectivity = 1
 	NetworkConnectivityLimited NetworkConnectivity = 2
-	NetworkConnectivityPortal NetworkConnectivity = 3
-	NetworkConnectivityFull NetworkConnectivity = 4
+	NetworkConnectivityPortal  NetworkConnectivity = 3
+	NetworkConnectivityFull    NetworkConnectivity = 4
 )
+
 // blacklisted: NetworkMonitor (interface)
 // blacklisted: NetworkMonitorInterface (struct)
 // blacklisted: NetworkService (object)
@@ -9313,12 +9504,14 @@ const (
 // blacklisted: NetworkServicePrivate (struct)
 // blacklisted: Notification (object)
 type NotificationPriority C.uint32_t
+
 const (
 	NotificationPriorityNormal NotificationPriority = 0
-	NotificationPriorityLow NotificationPriority = 1
-	NotificationPriorityHigh NotificationPriority = 2
+	NotificationPriorityLow    NotificationPriority = 1
+	NotificationPriorityHigh   NotificationPriority = 2
 	NotificationPriorityUrgent NotificationPriority = 3
 )
+
 // blacklisted: OutputMessage (struct)
 type OutputStreamLike interface {
 	gobject.ObjectLike
@@ -9327,7 +9520,6 @@ type OutputStreamLike interface {
 
 type OutputStream struct {
 	gobject.Object
-	
 }
 
 func ToOutputStream(objlike gobject.ObjectLike) *OutputStream {
@@ -9378,7 +9570,7 @@ func (this0 *OutputStream) Close(cancellable0 CancellableLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9399,7 +9591,8 @@ func (this0 *OutputStream) CloseAsync(io_priority0 int32, cancellable0 Cancellab
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_output_stream_close_async(this1, io_priority1, cancellable1, callback1)
 }
@@ -9417,7 +9610,7 @@ func (this0 *OutputStream) CloseFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9439,7 +9632,7 @@ func (this0 *OutputStream) Flush(cancellable0 CancellableLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9460,7 +9653,8 @@ func (this0 *OutputStream) FlushAsync(io_priority0 int32, cancellable0 Cancellab
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_output_stream_flush_async(this1, io_priority1, cancellable1, callback1)
 }
@@ -9478,7 +9672,7 @@ func (this0 *OutputStream) FlushFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9494,7 +9688,7 @@ func (this0 *OutputStream) HasPending() bool {
 	ret1 := C.g_output_stream_has_pending(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -9506,7 +9700,7 @@ func (this0 *OutputStream) IsClosed() bool {
 	ret1 := C.g_output_stream_is_closed(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -9518,7 +9712,7 @@ func (this0 *OutputStream) IsClosing() bool {
 	ret1 := C.g_output_stream_is_closing(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -9532,7 +9726,7 @@ func (this0 *OutputStream) SetPending() (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9560,7 +9754,7 @@ func (this0 *OutputStream) Splice(source0 InputStreamLike, flags0 OutputStreamSp
 	var ret2 int64
 	var err2 error
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9587,7 +9781,8 @@ func (this0 *OutputStream) SpliceAsync(source0 InputStreamLike, flags0 OutputStr
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_output_stream_splice_async(this1, source1, flags1, io_priority1, cancellable1, callback1)
 }
@@ -9605,7 +9800,7 @@ func (this0 *OutputStream) SpliceFinish(result0 AsyncResultLike) (int64, error) 
 	var ret2 int64
 	var err2 error
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9635,7 +9830,7 @@ func (this0 *OutputStream) Write(buffer0 []uint8, cancellable0 CancellableLike) 
 	var ret2 int64
 	var err2 error
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9667,10 +9862,10 @@ func (this0 *OutputStream) WriteAll(buffer0 []uint8, cancellable0 CancellableLik
 	var ret2 bool
 	var err2 error
 
-//DEBUG: bytes_written1(guint64):flags = " conv_own_everything"
+	//DEBUG: bytes_written1(guint64):flags = " conv_own_everything"
 	bytes_written2 = uint64(bytes_written1)
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9699,7 +9894,8 @@ func (this0 *OutputStream) WriteAllAsync(buffer0 []uint8, io_priority0 int32, ca
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_output_stream_write_all_async(this1, buffer1, count1, io_priority1, cancellable1, callback1)
 }
@@ -9719,10 +9915,10 @@ func (this0 *OutputStream) WriteAllFinish(result0 AsyncResultLike) (uint64, bool
 	var ret2 bool
 	var err2 error
 
-//DEBUG: bytes_written1(guint64):flags = " conv_own_everything"
+	//DEBUG: bytes_written1(guint64):flags = " conv_own_everything"
 	bytes_written2 = uint64(bytes_written1)
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9751,7 +9947,8 @@ func (this0 *OutputStream) WriteAsync(buffer0 []uint8, io_priority0 int32, cance
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_output_stream_write_async(this1, buffer1, count1, io_priority1, cancellable1, callback1)
 }
@@ -9771,7 +9968,7 @@ func (this0 *OutputStream) WriteBytes(bytes0 *glib.Bytes, cancellable0 Cancellab
 	var ret2 int64
 	var err2 error
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9794,7 +9991,8 @@ func (this0 *OutputStream) WriteBytesAsync(bytes0 *glib.Bytes, io_priority0 int3
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_output_stream_write_bytes_async(this1, bytes1, io_priority1, cancellable1, callback1)
 }
@@ -9812,7 +10010,7 @@ func (this0 *OutputStream) WriteBytesFinish(result0 AsyncResultLike) (int64, err
 	var ret2 int64
 	var err2 error
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9834,7 +10032,7 @@ func (this0 *OutputStream) WriteFinish(result0 AsyncResultLike) (int64, error) {
 	var ret2 int64
 	var err2 error
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9866,10 +10064,10 @@ func (this0 *OutputStream) Writev(vectors0 []OutputVector, cancellable0 Cancella
 	var ret2 bool
 	var err2 error
 
-//DEBUG: bytes_written1(guint64):flags = " conv_own_everything"
+	//DEBUG: bytes_written1(guint64):flags = " conv_own_everything"
 	bytes_written2 = uint64(bytes_written1)
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9901,10 +10099,10 @@ func (this0 *OutputStream) WritevAll(vectors0 []OutputVector, cancellable0 Cance
 	var ret2 bool
 	var err2 error
 
-//DEBUG: bytes_written1(guint64):flags = " conv_own_everything"
+	//DEBUG: bytes_written1(guint64):flags = " conv_own_everything"
 	bytes_written2 = uint64(bytes_written1)
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9933,7 +10131,8 @@ func (this0 *OutputStream) WritevAllAsync(vectors0 []OutputVector, io_priority0 
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_output_stream_writev_all_async(this1, vectors1, n_vectors1, io_priority1, cancellable1, callback1)
 }
@@ -9953,10 +10152,10 @@ func (this0 *OutputStream) WritevAllFinish(result0 AsyncResultLike) (uint64, boo
 	var ret2 bool
 	var err2 error
 
-//DEBUG: bytes_written1(guint64):flags = " conv_own_everything"
+	//DEBUG: bytes_written1(guint64):flags = " conv_own_everything"
 	bytes_written2 = uint64(bytes_written1)
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -9985,7 +10184,8 @@ func (this0 *OutputStream) WritevAsync(vectors0 []OutputVector, io_priority0 int
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_output_stream_writev_async(this1, vectors1, n_vectors1, io_priority1, cancellable1, callback1)
 }
@@ -10005,10 +10205,10 @@ func (this0 *OutputStream) WritevFinish(result0 AsyncResultLike) (uint64, bool, 
 	var ret2 bool
 	var err2 error
 
-//DEBUG: bytes_written1(guint64):flags = " conv_own_everything"
+	//DEBUG: bytes_written1(guint64):flags = " conv_own_everything"
 	bytes_written2 = uint64(bytes_written1)
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -10016,27 +10216,34 @@ func (this0 *OutputStream) WritevFinish(result0 AsyncResultLike) (uint64, bool, 
 	}
 	return bytes_written2, ret2, err2
 }
+
 // blacklisted: OutputStreamClass (struct)
 // blacklisted: OutputStreamPrivate (struct)
 type OutputStreamSpliceFlags C.uint32_t
+
 const (
-	OutputStreamSpliceFlagsNone OutputStreamSpliceFlags = 0
+	OutputStreamSpliceFlagsNone        OutputStreamSpliceFlags = 0
 	OutputStreamSpliceFlagsCloseSource OutputStreamSpliceFlags = 1
 	OutputStreamSpliceFlagsCloseTarget OutputStreamSpliceFlags = 2
 )
+
 type OutputVector struct {
 	Buffer unsafe.Pointer
-	Size uint64
+	Size   uint64
 }
+
 const PowerProfileMonitorExtensionPointName = "gio-power-profile-monitor"
 const ProxyExtensionPointName = "gio-proxy"
 const ProxyResolverExtensionPointName = "gio-proxy-resolver"
+
 type PasswordSave C.uint32_t
+
 const (
-	PasswordSaveNever PasswordSave = 0
-	PasswordSaveForSession PasswordSave = 1
+	PasswordSaveNever       PasswordSave = 0
+	PasswordSaveForSession  PasswordSave = 1
 	PasswordSavePermanently PasswordSave = 2
 )
+
 type PermissionLike interface {
 	gobject.ObjectLike
 	InheritedFromGPermission() *C.GPermission
@@ -10044,7 +10251,6 @@ type PermissionLike interface {
 
 type Permission struct {
 	gobject.Object
-	
 }
 
 func ToPermission(objlike gobject.ObjectLike) *Permission {
@@ -10088,7 +10294,7 @@ func (this0 *Permission) Acquire(cancellable0 CancellableLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -10107,7 +10313,8 @@ func (this0 *Permission) AcquireAsync(cancellable0 CancellableLike, callback0 As
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_permission_acquire_async(this1, cancellable1, callback1)
 }
@@ -10125,7 +10332,7 @@ func (this0 *Permission) AcquireFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -10141,7 +10348,7 @@ func (this0 *Permission) GetAllowed() bool {
 	ret1 := C.g_permission_get_allowed(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -10153,7 +10360,7 @@ func (this0 *Permission) GetCanAcquire() bool {
 	ret1 := C.g_permission_get_can_acquire(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -10165,7 +10372,7 @@ func (this0 *Permission) GetCanRelease() bool {
 	ret1 := C.g_permission_get_can_release(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -10196,7 +10403,7 @@ func (this0 *Permission) Release(cancellable0 CancellableLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -10215,7 +10422,8 @@ func (this0 *Permission) ReleaseAsync(cancellable0 CancellableLike, callback0 As
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_permission_release_async(this1, cancellable1, callback1)
 }
@@ -10233,7 +10441,7 @@ func (this0 *Permission) ReleaseFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -10241,6 +10449,7 @@ func (this0 *Permission) ReleaseFinish(result0 AsyncResultLike) (bool, error) {
 	}
 	return ret2, err2
 }
+
 // blacklisted: PermissionClass (struct)
 // blacklisted: PermissionPrivate (struct)
 // blacklisted: PollableInputStream (interface)
@@ -10248,11 +10457,13 @@ func (this0 *Permission) ReleaseFinish(result0 AsyncResultLike) (bool, error) {
 // blacklisted: PollableOutputStream (interface)
 // blacklisted: PollableOutputStreamInterface (struct)
 type PollableReturn C.int32_t
+
 const (
-	PollableReturnFailed PollableReturn = 0
-	PollableReturnOk PollableReturn = 1
+	PollableReturnFailed     PollableReturn = 0
+	PollableReturnOk         PollableReturn = 1
 	PollableReturnWouldBlock PollableReturn = -27
 )
+
 // blacklisted: PollableSourceFunc (callback)
 // blacklisted: PowerProfileMonitor (interface)
 // blacklisted: PowerProfileMonitorInterface (struct)
@@ -10273,42 +10484,54 @@ const (
 // blacklisted: Resolver (object)
 // blacklisted: ResolverClass (struct)
 type ResolverError C.uint32_t
+
 const (
-	ResolverErrorNotFound ResolverError = 0
+	ResolverErrorNotFound         ResolverError = 0
 	ResolverErrorTemporaryFailure ResolverError = 1
-	ResolverErrorInternal ResolverError = 2
+	ResolverErrorInternal         ResolverError = 2
 )
+
 type ResolverNameLookupFlags C.uint32_t
+
 const (
-	ResolverNameLookupFlagsDefault ResolverNameLookupFlags = 0
+	ResolverNameLookupFlagsDefault  ResolverNameLookupFlags = 0
 	ResolverNameLookupFlagsIpv4Only ResolverNameLookupFlags = 1
 	ResolverNameLookupFlagsIpv6Only ResolverNameLookupFlags = 2
 )
+
 // blacklisted: ResolverPrivate (struct)
 type ResolverRecordType C.uint32_t
+
 const (
 	ResolverRecordTypeSrv ResolverRecordType = 1
-	ResolverRecordTypeMx ResolverRecordType = 2
+	ResolverRecordTypeMx  ResolverRecordType = 2
 	ResolverRecordTypeTxt ResolverRecordType = 3
 	ResolverRecordTypeSoa ResolverRecordType = 4
-	ResolverRecordTypeNs ResolverRecordType = 5
+	ResolverRecordTypeNs  ResolverRecordType = 5
 )
+
 // blacklisted: Resource (struct)
 type ResourceError C.uint32_t
+
 const (
 	ResourceErrorNotFound ResourceError = 0
 	ResourceErrorInternal ResourceError = 1
 )
+
 type ResourceFlags C.uint32_t
+
 const (
-	ResourceFlagsNone ResourceFlags = 0
+	ResourceFlagsNone       ResourceFlags = 0
 	ResourceFlagsCompressed ResourceFlags = 1
 )
+
 type ResourceLookupFlags C.uint32_t
+
 const (
 	ResourceLookupFlagsNone ResourceLookupFlags = 0
 )
 const SettingsBackendExtensionPointName = "gsettings-backend"
+
 type SeekableLike interface {
 	ImplementsGSeekable() *C.GSeekable
 }
@@ -10322,8 +10545,7 @@ func (*Seekable) GetStaticType() gobject.Type {
 	return gobject.Type(C.g_seekable_get_type())
 }
 
-
-type SeekableImpl struct {}
+type SeekableImpl struct{}
 
 func ToSeekable(objlike gobject.ObjectLike) *Seekable {
 	c := objlike.InheritedFromGObject()
@@ -10346,7 +10568,7 @@ func (this0 *SeekableImpl) CanSeek() bool {
 	ret1 := C.g_seekable_can_seek(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -10358,7 +10580,7 @@ func (this0 *SeekableImpl) CanTruncate() bool {
 	ret1 := C.g_seekable_can_truncate(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -10380,7 +10602,7 @@ func (this0 *SeekableImpl) Seek(offset0 int64, type0 glib.SeekType, cancellable0
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -10396,7 +10618,7 @@ func (this0 *SeekableImpl) Tell() int64 {
 	ret1 := C.g_seekable_tell(this1)
 	var ret2 int64
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	return ret2
 }
@@ -10416,7 +10638,7 @@ func (this0 *SeekableImpl) Truncate(offset0 int64, cancellable0 CancellableLike)
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -10424,6 +10646,7 @@ func (this0 *SeekableImpl) Truncate(offset0 int64, cancellable0 CancellableLike)
 	}
 	return ret2, err2
 }
+
 // blacklisted: SeekableIface (struct)
 type SettingsLike interface {
 	gobject.ObjectLike
@@ -10432,7 +10655,6 @@ type SettingsLike interface {
 
 type Settings struct {
 	gobject.Object
-	
 }
 
 func ToSettings(objlike gobject.ObjectLike) *Settings {
@@ -10469,10 +10691,11 @@ func NewSettings(schema_id0 string) *Settings {
 	ret1 := C.g_settings_new(schema_id1)
 	var ret2 *Settings
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Settings)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 // blacklisted: Settings.new_full (method)
 // blacklisted: Settings.new_with_backend (method)
 // blacklisted: Settings.new_with_backend_and_path (method)
@@ -10486,7 +10709,7 @@ func NewSettingsWithPath(schema_id0 string, path0 string) *Settings {
 	ret1 := C.g_settings_new_with_path(schema_id1, path1)
 	var ret2 *Settings
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Settings)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -10494,7 +10717,7 @@ func SettingsListRelocatableSchemas() []string {
 	ret1 := C.g_settings_list_relocatable_schemas()
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -10505,7 +10728,7 @@ func SettingsListSchemas() []string {
 	ret1 := C.g_settings_list_schemas()
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_none"
+	//DEBUG: ret1(array):flags = " conv_own_none"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -10581,7 +10804,7 @@ func (this0 *Settings) CreateAction(key0 string) *Action {
 	ret1 := C.g_settings_create_action(this1, key1)
 	var ret2 *Action
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Action)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -10603,7 +10826,7 @@ func (this0 *Settings) GetBoolean(key0 string) bool {
 	ret1 := C.g_settings_get_boolean(this1, key1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -10618,7 +10841,7 @@ func (this0 *Settings) GetChild(name0 string) *Settings {
 	ret1 := C.g_settings_get_child(this1, name1)
 	var ret2 *Settings
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Settings)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -10633,7 +10856,7 @@ func (this0 *Settings) GetDefaultValue(key0 string) *glib.Variant {
 	ret1 := C.g_settings_get_default_value(this1, key1)
 	var ret2 *glib.Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -10648,7 +10871,7 @@ func (this0 *Settings) GetDouble(key0 string) float64 {
 	ret1 := C.g_settings_get_double(this1, key1)
 	var ret2 float64
 
-//DEBUG: ret1(gdouble):flags = " conv_own_none"
+	//DEBUG: ret1(gdouble):flags = " conv_own_none"
 	ret2 = float64(ret1)
 	return ret2
 }
@@ -10663,7 +10886,7 @@ func (this0 *Settings) GetEnum(key0 string) int32 {
 	ret1 := C.g_settings_get_enum(this1, key1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
@@ -10678,7 +10901,7 @@ func (this0 *Settings) GetFlags(key0 string) uint32 {
 	ret1 := C.g_settings_get_flags(this1, key1)
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
@@ -10690,7 +10913,7 @@ func (this0 *Settings) GetHasUnapplied() bool {
 	ret1 := C.g_settings_get_has_unapplied(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -10705,7 +10928,7 @@ func (this0 *Settings) GetInt(key0 string) int32 {
 	ret1 := C.g_settings_get_int(this1, key1)
 	var ret2 int32
 
-//DEBUG: ret1(gint32):flags = " conv_own_none"
+	//DEBUG: ret1(gint32):flags = " conv_own_none"
 	ret2 = int32(ret1)
 	return ret2
 }
@@ -10720,10 +10943,11 @@ func (this0 *Settings) GetInt64(key0 string) int64 {
 	ret1 := C.g_settings_get_int64(this1, key1)
 	var ret2 int64
 
-//DEBUG: ret1(gint64):flags = " conv_own_none"
+	//DEBUG: ret1(gint64):flags = " conv_own_none"
 	ret2 = int64(ret1)
 	return ret2
 }
+
 // blacklisted: Settings.get_mapped (method)
 func (this0 *Settings) GetRange(key0 string) *glib.Variant {
 	var this1 *C.GSettings
@@ -10736,7 +10960,7 @@ func (this0 *Settings) GetRange(key0 string) *glib.Variant {
 	ret1 := C.g_settings_get_range(this1, key1)
 	var ret2 *glib.Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -10751,7 +10975,7 @@ func (this0 *Settings) GetString(key0 string) string {
 	ret1 := C.g_settings_get_string(this1, key1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -10767,7 +10991,7 @@ func (this0 *Settings) GetStrv(key0 string) []string {
 	ret1 := C.g_settings_get_strv(this1, key1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -10787,7 +11011,7 @@ func (this0 *Settings) GetUint(key0 string) uint32 {
 	ret1 := C.g_settings_get_uint(this1, key1)
 	var ret2 uint32
 
-//DEBUG: ret1(guint32):flags = " conv_own_none"
+	//DEBUG: ret1(guint32):flags = " conv_own_none"
 	ret2 = uint32(ret1)
 	return ret2
 }
@@ -10802,7 +11026,7 @@ func (this0 *Settings) GetUint64(key0 string) uint64 {
 	ret1 := C.g_settings_get_uint64(this1, key1)
 	var ret2 uint64
 
-//DEBUG: ret1(guint64):flags = " conv_own_none"
+	//DEBUG: ret1(guint64):flags = " conv_own_none"
 	ret2 = uint64(ret1)
 	return ret2
 }
@@ -10817,7 +11041,7 @@ func (this0 *Settings) GetUserValue(key0 string) *glib.Variant {
 	ret1 := C.g_settings_get_user_value(this1, key1)
 	var ret2 *glib.Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -10832,7 +11056,7 @@ func (this0 *Settings) GetValue(key0 string) *glib.Variant {
 	ret1 := C.g_settings_get_value(this1, key1)
 	var ret2 *glib.Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -10847,7 +11071,7 @@ func (this0 *Settings) IsWritable(name0 string) bool {
 	ret1 := C.g_settings_is_writable(this1, name1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -10859,7 +11083,7 @@ func (this0 *Settings) ListChildren() []string {
 	ret1 := C.g_settings_list_children(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -10876,7 +11100,7 @@ func (this0 *Settings) ListKeys() []string {
 	ret1 := C.g_settings_list_keys(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -10898,7 +11122,7 @@ func (this0 *Settings) RangeCheck(key0 string, value0 *glib.Variant) bool {
 	ret1 := C.g_settings_range_check(this1, key1, value1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -10932,7 +11156,7 @@ func (this0 *Settings) SetBoolean(key0 string, value0 bool) bool {
 	ret1 := C.g_settings_set_boolean(this1, key1, value1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -10949,7 +11173,7 @@ func (this0 *Settings) SetDouble(key0 string, value0 float64) bool {
 	ret1 := C.g_settings_set_double(this1, key1, value1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -10966,7 +11190,7 @@ func (this0 *Settings) SetEnum(key0 string, value0 int32) bool {
 	ret1 := C.g_settings_set_enum(this1, key1, value1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -10983,7 +11207,7 @@ func (this0 *Settings) SetFlags(key0 string, value0 uint32) bool {
 	ret1 := C.g_settings_set_flags(this1, key1, value1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -11000,7 +11224,7 @@ func (this0 *Settings) SetInt(key0 string, value0 int32) bool {
 	ret1 := C.g_settings_set_int(this1, key1, value1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -11017,7 +11241,7 @@ func (this0 *Settings) SetInt64(key0 string, value0 int64) bool {
 	ret1 := C.g_settings_set_int64(this1, key1, value1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -11035,7 +11259,7 @@ func (this0 *Settings) SetString(key0 string, value0 string) bool {
 	ret1 := C.g_settings_set_string(this1, key1, value1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -11058,7 +11282,7 @@ func (this0 *Settings) SetStrv(key0 string, value0 []string) bool {
 	ret1 := C.g_settings_set_strv(this1, key1, value1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -11075,7 +11299,7 @@ func (this0 *Settings) SetUint(key0 string, value0 uint32) bool {
 	ret1 := C.g_settings_set_uint(this1, key1, value1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -11092,7 +11316,7 @@ func (this0 *Settings) SetUint64(key0 string, value0 uint64) bool {
 	ret1 := C.g_settings_set_uint64(this1, key1, value1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -11109,35 +11333,39 @@ func (this0 *Settings) SetValue(key0 string, value0 *glib.Variant) bool {
 	ret1 := C.g_settings_set_value(this1, key1, value1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 // blacklisted: SettingsBackend (object)
 // blacklisted: SettingsBackendClass (struct)
 // blacklisted: SettingsBackendPrivate (struct)
 type SettingsBindFlags C.uint32_t
+
 const (
-	SettingsBindFlagsDefault SettingsBindFlags = 0
-	SettingsBindFlagsGet SettingsBindFlags = 1
-	SettingsBindFlagsSet SettingsBindFlags = 2
+	SettingsBindFlagsDefault       SettingsBindFlags = 0
+	SettingsBindFlagsGet           SettingsBindFlags = 1
+	SettingsBindFlagsSet           SettingsBindFlags = 2
 	SettingsBindFlagsNoSensitivity SettingsBindFlags = 4
-	SettingsBindFlagsGetNoChanges SettingsBindFlags = 8
+	SettingsBindFlagsGetNoChanges  SettingsBindFlags = 8
 	SettingsBindFlagsInvertBoolean SettingsBindFlags = 16
 )
+
 // blacklisted: SettingsBindGetMapping (callback)
 // blacklisted: SettingsBindSetMapping (callback)
 // blacklisted: SettingsClass (struct)
 // blacklisted: SettingsGetMapping (callback)
 // blacklisted: SettingsPrivate (struct)
-type SettingsSchema struct {}
+type SettingsSchema struct{}
+
 func (this0 *SettingsSchema) GetId() string {
 	var this1 *C.GSettingsSchema
 	this1 = (*C.GSettingsSchema)(unsafe.Pointer(this0))
 	ret1 := C.g_settings_schema_get_id(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -11150,7 +11378,7 @@ func (this0 *SettingsSchema) GetKey(name0 string) *SettingsSchemaKey {
 	ret1 := C.g_settings_schema_get_key(this1, name1)
 	var ret2 *SettingsSchemaKey
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*SettingsSchemaKey)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -11160,7 +11388,7 @@ func (this0 *SettingsSchema) GetPath() string {
 	ret1 := C.g_settings_schema_get_path(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -11173,7 +11401,7 @@ func (this0 *SettingsSchema) HasKey(name0 string) bool {
 	ret1 := C.g_settings_schema_has_key(this1, name1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -11183,7 +11411,7 @@ func (this0 *SettingsSchema) ListChildren() []string {
 	ret1 := C.g_settings_schema_list_children(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -11198,7 +11426,7 @@ func (this0 *SettingsSchema) ListKeys() []string {
 	ret1 := C.g_settings_schema_list_keys(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -11207,14 +11435,16 @@ func (this0 *SettingsSchema) ListKeys() []string {
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
 }
-type SettingsSchemaKey struct {}
+
+type SettingsSchemaKey struct{}
+
 func (this0 *SettingsSchemaKey) GetDefaultValue() *glib.Variant {
 	var this1 *C.GSettingsSchemaKey
 	this1 = (*C.GSettingsSchemaKey)(unsafe.Pointer(this0))
 	ret1 := C.g_settings_schema_key_get_default_value(this1)
 	var ret2 *glib.Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -11224,7 +11454,7 @@ func (this0 *SettingsSchemaKey) GetDescription() string {
 	ret1 := C.g_settings_schema_key_get_description(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -11234,7 +11464,7 @@ func (this0 *SettingsSchemaKey) GetName() string {
 	ret1 := C.g_settings_schema_key_get_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -11244,7 +11474,7 @@ func (this0 *SettingsSchemaKey) GetRange() *glib.Variant {
 	ret1 := C.g_settings_schema_key_get_range(this1)
 	var ret2 *glib.Variant
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*glib.Variant)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -11254,7 +11484,7 @@ func (this0 *SettingsSchemaKey) GetSummary() string {
 	ret1 := C.g_settings_schema_key_get_summary(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -11264,7 +11494,7 @@ func (this0 *SettingsSchemaKey) GetValueType() *glib.VariantType {
 	ret1 := C.g_settings_schema_key_get_value_type(this1)
 	var ret2 *glib.VariantType
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*glib.VariantType)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -11276,11 +11506,13 @@ func (this0 *SettingsSchemaKey) RangeCheck(value0 *glib.Variant) bool {
 	ret1 := C.g_settings_schema_key_range_check(this1, value1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
-type SettingsSchemaSource struct {}
+
+type SettingsSchemaSource struct{}
+
 func NewSettingsSchemaSourceFromDirectory(directory0 string, parent0 *SettingsSchemaSource, trusted0 bool) (*SettingsSchemaSource, error) {
 	var directory1 *C.char
 	var parent1 *C.GSettingsSchemaSource
@@ -11294,7 +11526,7 @@ func NewSettingsSchemaSourceFromDirectory(directory0 string, parent0 *SettingsSc
 	var ret2 *SettingsSchemaSource
 	var err2 error
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*SettingsSchemaSource)(unsafe.Pointer(ret1))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -11313,7 +11545,7 @@ func (this0 *SettingsSchemaSource) ListSchemas(recursive0 bool) ([]string, []str
 	var non_relocatable2 []string
 	var relocatable2 []string
 
-//DEBUG: non_relocatable1(array):flags = " conv_own_everything"
+	//DEBUG: non_relocatable1(array):flags = " conv_own_everything"
 	non_relocatable2 = make([]string, C._array_length(unsafe.Pointer(non_relocatable1)))
 	for i0 := range non_relocatable2 {
 		non_relocatable2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(non_relocatable1)))[i0])
@@ -11321,7 +11553,7 @@ func (this0 *SettingsSchemaSource) ListSchemas(recursive0 bool) ([]string, []str
 	}
 	C.g_free(unsafe.Pointer(non_relocatable1))
 
-//DEBUG: relocatable1(array):flags = " conv_own_everything"
+	//DEBUG: relocatable1(array):flags = " conv_own_everything"
 	relocatable2 = make([]string, C._array_length(unsafe.Pointer(relocatable1)))
 	for i0 := range relocatable2 {
 		relocatable2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(relocatable1)))[i0])
@@ -11341,7 +11573,7 @@ func (this0 *SettingsSchemaSource) Lookup(schema_id0 string, recursive0 bool) *S
 	ret1 := C.g_settings_schema_source_lookup(this1, schema_id1, recursive1)
 	var ret2 *SettingsSchema
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*SettingsSchema)(unsafe.Pointer(ret1))
 	return ret2
 }
@@ -11349,10 +11581,11 @@ func SettingsSchemaSourceGetDefault() *SettingsSchemaSource {
 	ret1 := C.g_settings_schema_source_get_default()
 	var ret2 *SettingsSchemaSource
 
-//DEBUG: ret1(interface):flags = " conv_own_none"
+	//DEBUG: ret1(interface):flags = " conv_own_none"
 	ret2 = (*SettingsSchemaSource)(unsafe.Pointer(ret1))
 	return ret2
 }
+
 // blacklisted: SimpleAction (object)
 // blacklisted: SimpleActionGroup (object)
 // blacklisted: SimpleActionGroupClass (struct)
@@ -11374,17 +11607,19 @@ func SettingsSchemaSourceGetDefault() *SettingsSchemaSource {
 // blacklisted: SocketClient (object)
 // blacklisted: SocketClientClass (struct)
 type SocketClientEvent C.uint32_t
+
 const (
-	SocketClientEventResolving SocketClientEvent = 0
-	SocketClientEventResolved SocketClientEvent = 1
-	SocketClientEventConnecting SocketClientEvent = 2
-	SocketClientEventConnected SocketClientEvent = 3
+	SocketClientEventResolving        SocketClientEvent = 0
+	SocketClientEventResolved         SocketClientEvent = 1
+	SocketClientEventConnecting       SocketClientEvent = 2
+	SocketClientEventConnected        SocketClientEvent = 3
 	SocketClientEventProxyNegotiating SocketClientEvent = 4
-	SocketClientEventProxyNegotiated SocketClientEvent = 5
-	SocketClientEventTlsHandshaking SocketClientEvent = 6
-	SocketClientEventTlsHandshaked SocketClientEvent = 7
-	SocketClientEventComplete SocketClientEvent = 8
+	SocketClientEventProxyNegotiated  SocketClientEvent = 5
+	SocketClientEventTlsHandshaking   SocketClientEvent = 6
+	SocketClientEventTlsHandshaked    SocketClientEvent = 7
+	SocketClientEventComplete         SocketClientEvent = 8
 )
+
 // blacklisted: SocketClientPrivate (struct)
 // blacklisted: SocketConnectable (interface)
 // blacklisted: SocketConnectableIface (struct)
@@ -11395,69 +11630,82 @@ const (
 // blacklisted: SocketControlMessageClass (struct)
 // blacklisted: SocketControlMessagePrivate (struct)
 type SocketFamily C.uint32_t
+
 const (
 	SocketFamilyInvalid SocketFamily = 0
-	SocketFamilyUnix SocketFamily = 1
-	SocketFamilyIpv4 SocketFamily = 2
-	SocketFamilyIpv6 SocketFamily = 10
+	SocketFamilyUnix    SocketFamily = 1
+	SocketFamilyIpv4    SocketFamily = 2
+	SocketFamilyIpv6    SocketFamily = 10
 )
+
 // blacklisted: SocketListener (object)
 // blacklisted: SocketListenerClass (struct)
 type SocketListenerEvent C.uint32_t
+
 const (
-	SocketListenerEventBinding SocketListenerEvent = 0
-	SocketListenerEventBound SocketListenerEvent = 1
+	SocketListenerEventBinding   SocketListenerEvent = 0
+	SocketListenerEventBound     SocketListenerEvent = 1
 	SocketListenerEventListening SocketListenerEvent = 2
-	SocketListenerEventListened SocketListenerEvent = 3
+	SocketListenerEventListened  SocketListenerEvent = 3
 )
+
 // blacklisted: SocketListenerPrivate (struct)
 type SocketMsgFlags C.uint32_t
+
 const (
-	SocketMsgFlagsNone SocketMsgFlags = 0
-	SocketMsgFlagsOob SocketMsgFlags = 1
-	SocketMsgFlagsPeek SocketMsgFlags = 2
+	SocketMsgFlagsNone      SocketMsgFlags = 0
+	SocketMsgFlagsOob       SocketMsgFlags = 1
+	SocketMsgFlagsPeek      SocketMsgFlags = 2
 	SocketMsgFlagsDontroute SocketMsgFlags = 4
 )
+
 // blacklisted: SocketPrivate (struct)
 type SocketProtocol C.int32_t
+
 const (
 	SocketProtocolUnknown SocketProtocol = -1
 	SocketProtocolDefault SocketProtocol = 0
-	SocketProtocolTcp SocketProtocol = 6
-	SocketProtocolUdp SocketProtocol = 17
-	SocketProtocolSctp SocketProtocol = 132
+	SocketProtocolTcp     SocketProtocol = 6
+	SocketProtocolUdp     SocketProtocol = 17
+	SocketProtocolSctp    SocketProtocol = 132
 )
+
 // blacklisted: SocketService (object)
 // blacklisted: SocketServiceClass (struct)
 // blacklisted: SocketServicePrivate (struct)
 // blacklisted: SocketSourceFunc (callback)
 type SocketType C.uint32_t
+
 const (
-	SocketTypeInvalid SocketType = 0
-	SocketTypeStream SocketType = 1
-	SocketTypeDatagram SocketType = 2
+	SocketTypeInvalid   SocketType = 0
+	SocketTypeStream    SocketType = 1
+	SocketTypeDatagram  SocketType = 2
 	SocketTypeSeqpacket SocketType = 3
 )
+
 // blacklisted: SrvTarget (struct)
 // blacklisted: StaticResource (struct)
 // blacklisted: Subprocess (object)
 type SubprocessFlags C.uint32_t
+
 const (
-	SubprocessFlagsNone SubprocessFlags = 0
-	SubprocessFlagsStdinPipe SubprocessFlags = 1
-	SubprocessFlagsStdinInherit SubprocessFlags = 2
-	SubprocessFlagsStdoutPipe SubprocessFlags = 4
-	SubprocessFlagsStdoutSilence SubprocessFlags = 8
-	SubprocessFlagsStderrPipe SubprocessFlags = 16
-	SubprocessFlagsStderrSilence SubprocessFlags = 32
-	SubprocessFlagsStderrMerge SubprocessFlags = 64
-	SubprocessFlagsInheritFds SubprocessFlags = 128
+	SubprocessFlagsNone               SubprocessFlags = 0
+	SubprocessFlagsStdinPipe          SubprocessFlags = 1
+	SubprocessFlagsStdinInherit       SubprocessFlags = 2
+	SubprocessFlagsStdoutPipe         SubprocessFlags = 4
+	SubprocessFlagsStdoutSilence      SubprocessFlags = 8
+	SubprocessFlagsStderrPipe         SubprocessFlags = 16
+	SubprocessFlagsStderrSilence      SubprocessFlags = 32
+	SubprocessFlagsStderrMerge        SubprocessFlags = 64
+	SubprocessFlagsInheritFds         SubprocessFlags = 128
 	SubprocessFlagsSearchPathFromEnvp SubprocessFlags = 256
 )
+
 // blacklisted: SubprocessLauncher (object)
 const TlsBackendExtensionPointName = "gio-tls-backend"
 const TlsDatabasePurposeAuthenticateClient = "1.3.6.1.5.5.7.3.2"
 const TlsDatabasePurposeAuthenticateServer = "1.3.6.1.5.5.7.3.1"
+
 // blacklisted: Task (object)
 // blacklisted: TaskClass (struct)
 // blacklisted: TaskThreadFunc (callback)
@@ -11469,55 +11717,67 @@ const TlsDatabasePurposeAuthenticateServer = "1.3.6.1.5.5.7.3.1"
 // blacklisted: TcpWrapperConnectionPrivate (struct)
 // blacklisted: TestDBus (object)
 type TestDBusFlags C.uint32_t
+
 const (
 	TestDBusFlagsNone TestDBusFlags = 0
 )
+
 // blacklisted: ThemedIcon (object)
 // blacklisted: ThemedIconClass (struct)
 // blacklisted: ThreadedSocketService (object)
 // blacklisted: ThreadedSocketServiceClass (struct)
 // blacklisted: ThreadedSocketServicePrivate (struct)
 type TlsAuthenticationMode C.uint32_t
+
 const (
-	TlsAuthenticationModeNone TlsAuthenticationMode = 0
+	TlsAuthenticationModeNone      TlsAuthenticationMode = 0
 	TlsAuthenticationModeRequested TlsAuthenticationMode = 1
-	TlsAuthenticationModeRequired TlsAuthenticationMode = 2
+	TlsAuthenticationModeRequired  TlsAuthenticationMode = 2
 )
+
 // blacklisted: TlsBackend (interface)
 // blacklisted: TlsBackendInterface (struct)
 // blacklisted: TlsCertificate (object)
 // blacklisted: TlsCertificateClass (struct)
 type TlsCertificateFlags C.uint32_t
+
 const (
-	TlsCertificateFlagsNoFlags TlsCertificateFlags = 0
-	TlsCertificateFlagsUnknownCa TlsCertificateFlags = 1
-	TlsCertificateFlagsBadIdentity TlsCertificateFlags = 2
+	TlsCertificateFlagsNoFlags      TlsCertificateFlags = 0
+	TlsCertificateFlagsUnknownCa    TlsCertificateFlags = 1
+	TlsCertificateFlagsBadIdentity  TlsCertificateFlags = 2
 	TlsCertificateFlagsNotActivated TlsCertificateFlags = 4
-	TlsCertificateFlagsExpired TlsCertificateFlags = 8
-	TlsCertificateFlagsRevoked TlsCertificateFlags = 16
-	TlsCertificateFlagsInsecure TlsCertificateFlags = 32
+	TlsCertificateFlagsExpired      TlsCertificateFlags = 8
+	TlsCertificateFlagsRevoked      TlsCertificateFlags = 16
+	TlsCertificateFlagsInsecure     TlsCertificateFlags = 32
 	TlsCertificateFlagsGenericError TlsCertificateFlags = 64
-	TlsCertificateFlagsValidateAll TlsCertificateFlags = 127
+	TlsCertificateFlagsValidateAll  TlsCertificateFlags = 127
 )
+
 // blacklisted: TlsCertificatePrivate (struct)
 type TlsCertificateRequestFlags C.uint32_t
+
 const (
 	TlsCertificateRequestFlagsNone TlsCertificateRequestFlags = 0
 )
+
 type TlsChannelBindingError C.uint32_t
+
 const (
 	TlsChannelBindingErrorNotImplemented TlsChannelBindingError = 0
-	TlsChannelBindingErrorInvalidState TlsChannelBindingError = 1
-	TlsChannelBindingErrorNotAvailable TlsChannelBindingError = 2
-	TlsChannelBindingErrorNotSupported TlsChannelBindingError = 3
-	TlsChannelBindingErrorGeneralError TlsChannelBindingError = 4
+	TlsChannelBindingErrorInvalidState   TlsChannelBindingError = 1
+	TlsChannelBindingErrorNotAvailable   TlsChannelBindingError = 2
+	TlsChannelBindingErrorNotSupported   TlsChannelBindingError = 3
+	TlsChannelBindingErrorGeneralError   TlsChannelBindingError = 4
 )
+
 type TlsChannelBindingType C.uint32_t
+
 const (
-	TlsChannelBindingTypeUnique TlsChannelBindingType = 0
+	TlsChannelBindingTypeUnique         TlsChannelBindingType = 0
 	TlsChannelBindingTypeServerEndPoint TlsChannelBindingType = 1
-	TlsChannelBindingTypeExporter TlsChannelBindingType = 2
+	TlsChannelBindingTypeExporter       TlsChannelBindingType = 2
 )
+
 // blacklisted: TlsClientConnection (interface)
 // blacklisted: TlsClientConnectionInterface (struct)
 // blacklisted: TlsConnection (object)
@@ -11526,68 +11786,82 @@ const (
 // blacklisted: TlsDatabase (object)
 // blacklisted: TlsDatabaseClass (struct)
 type TlsDatabaseLookupFlags C.uint32_t
+
 const (
-	TlsDatabaseLookupFlagsNone TlsDatabaseLookupFlags = 0
+	TlsDatabaseLookupFlagsNone    TlsDatabaseLookupFlags = 0
 	TlsDatabaseLookupFlagsKeypair TlsDatabaseLookupFlags = 1
 )
+
 // blacklisted: TlsDatabasePrivate (struct)
 type TlsDatabaseVerifyFlags C.uint32_t
+
 const (
 	TlsDatabaseVerifyFlagsNone TlsDatabaseVerifyFlags = 0
 )
+
 type TlsError C.uint32_t
+
 const (
-	TlsErrorUnavailable TlsError = 0
-	TlsErrorMisc TlsError = 1
-	TlsErrorBadCertificate TlsError = 2
-	TlsErrorNotTls TlsError = 3
-	TlsErrorHandshake TlsError = 4
-	TlsErrorCertificateRequired TlsError = 5
-	TlsErrorEof TlsError = 6
-	TlsErrorInappropriateFallback TlsError = 7
+	TlsErrorUnavailable            TlsError = 0
+	TlsErrorMisc                   TlsError = 1
+	TlsErrorBadCertificate         TlsError = 2
+	TlsErrorNotTls                 TlsError = 3
+	TlsErrorHandshake              TlsError = 4
+	TlsErrorCertificateRequired    TlsError = 5
+	TlsErrorEof                    TlsError = 6
+	TlsErrorInappropriateFallback  TlsError = 7
 	TlsErrorBadCertificatePassword TlsError = 8
 )
+
 // blacklisted: TlsFileDatabase (interface)
 // blacklisted: TlsFileDatabaseInterface (struct)
 // blacklisted: TlsInteraction (object)
 // blacklisted: TlsInteractionClass (struct)
 // blacklisted: TlsInteractionPrivate (struct)
 type TlsInteractionResult C.uint32_t
+
 const (
 	TlsInteractionResultUnhandled TlsInteractionResult = 0
-	TlsInteractionResultHandled TlsInteractionResult = 1
-	TlsInteractionResultFailed TlsInteractionResult = 2
+	TlsInteractionResultHandled   TlsInteractionResult = 1
+	TlsInteractionResultFailed    TlsInteractionResult = 2
 )
+
 // blacklisted: TlsPassword (object)
 // blacklisted: TlsPasswordClass (struct)
 type TlsPasswordFlags C.uint32_t
+
 const (
-	TlsPasswordFlagsNone TlsPasswordFlags = 0
-	TlsPasswordFlagsRetry TlsPasswordFlags = 2
-	TlsPasswordFlagsManyTries TlsPasswordFlags = 4
-	TlsPasswordFlagsFinalTry TlsPasswordFlags = 8
-	TlsPasswordFlagsPkcs11User TlsPasswordFlags = 16
+	TlsPasswordFlagsNone                  TlsPasswordFlags = 0
+	TlsPasswordFlagsRetry                 TlsPasswordFlags = 2
+	TlsPasswordFlagsManyTries             TlsPasswordFlags = 4
+	TlsPasswordFlagsFinalTry              TlsPasswordFlags = 8
+	TlsPasswordFlagsPkcs11User            TlsPasswordFlags = 16
 	TlsPasswordFlagsPkcs11SecurityOfficer TlsPasswordFlags = 32
 	TlsPasswordFlagsPkcs11ContextSpecific TlsPasswordFlags = 64
 )
+
 // blacklisted: TlsPasswordPrivate (struct)
 type TlsProtocolVersion C.uint32_t
+
 const (
 	TlsProtocolVersionUnknown TlsProtocolVersion = 0
-	TlsProtocolVersionSsl30 TlsProtocolVersion = 1
-	TlsProtocolVersionTls10 TlsProtocolVersion = 2
-	TlsProtocolVersionTls11 TlsProtocolVersion = 3
-	TlsProtocolVersionTls12 TlsProtocolVersion = 4
-	TlsProtocolVersionTls13 TlsProtocolVersion = 5
-	TlsProtocolVersionDtls10 TlsProtocolVersion = 201
-	TlsProtocolVersionDtls12 TlsProtocolVersion = 202
+	TlsProtocolVersionSsl30   TlsProtocolVersion = 1
+	TlsProtocolVersionTls10   TlsProtocolVersion = 2
+	TlsProtocolVersionTls11   TlsProtocolVersion = 3
+	TlsProtocolVersionTls12   TlsProtocolVersion = 4
+	TlsProtocolVersionTls13   TlsProtocolVersion = 5
+	TlsProtocolVersionDtls10  TlsProtocolVersion = 201
+	TlsProtocolVersionDtls12  TlsProtocolVersion = 202
 )
+
 type TlsRehandshakeMode C.uint32_t
+
 const (
-	TlsRehandshakeModeNever TlsRehandshakeMode = 0
-	TlsRehandshakeModeSafely TlsRehandshakeMode = 1
+	TlsRehandshakeModeNever    TlsRehandshakeMode = 0
+	TlsRehandshakeModeSafely   TlsRehandshakeMode = 1
 	TlsRehandshakeModeUnsafely TlsRehandshakeMode = 2
 )
+
 // blacklisted: TlsServerConnection (interface)
 // blacklisted: TlsServerConnectionInterface (struct)
 // blacklisted: UnixConnection (object)
@@ -11616,11 +11890,12 @@ const (
 // blacklisted: UnixSocketAddressClass (struct)
 // blacklisted: UnixSocketAddressPrivate (struct)
 type UnixSocketAddressType C.uint32_t
+
 const (
-	UnixSocketAddressTypeInvalid UnixSocketAddressType = 0
-	UnixSocketAddressTypeAnonymous UnixSocketAddressType = 1
-	UnixSocketAddressTypePath UnixSocketAddressType = 2
-	UnixSocketAddressTypeAbstract UnixSocketAddressType = 3
+	UnixSocketAddressTypeInvalid        UnixSocketAddressType = 0
+	UnixSocketAddressTypeAnonymous      UnixSocketAddressType = 1
+	UnixSocketAddressTypePath           UnixSocketAddressType = 2
+	UnixSocketAddressTypeAbstract       UnixSocketAddressType = 3
 	UnixSocketAddressTypeAbstractPadded UnixSocketAddressType = 4
 )
 const VfsExtensionPointName = "gio-vfs"
@@ -11631,6 +11906,7 @@ const VolumeIdentifierKindNfsMount = "nfs-mount"
 const VolumeIdentifierKindUnixDevice = "unix-device"
 const VolumeIdentifierKindUuid = "uuid"
 const VolumeMonitorExtensionPointName = "gio-volume-monitor"
+
 // blacklisted: Vfs (object)
 // blacklisted: VfsClass (struct)
 // blacklisted: VfsFileLookupFunc (callback)
@@ -11647,8 +11923,7 @@ func (*Volume) GetStaticType() gobject.Type {
 	return gobject.Type(C.g_volume_get_type())
 }
 
-
-type VolumeImpl struct {}
+type VolumeImpl struct{}
 
 func ToVolume(objlike gobject.ObjectLike) *Volume {
 	c := objlike.InheritedFromGObject()
@@ -11671,7 +11946,7 @@ func (this0 *VolumeImpl) CanEject() bool {
 	ret1 := C.g_volume_can_eject(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -11683,7 +11958,7 @@ func (this0 *VolumeImpl) CanMount() bool {
 	ret1 := C.g_volume_can_mount(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
@@ -11700,7 +11975,8 @@ func (this0 *VolumeImpl) Eject(flags0 MountUnmountFlags, cancellable0 Cancellabl
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_volume_eject(this1, flags1, cancellable1, callback1)
 }
@@ -11718,7 +11994,7 @@ func (this0 *VolumeImpl) EjectFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -11743,7 +12019,8 @@ func (this0 *VolumeImpl) EjectWithOperation(flags0 MountUnmountFlags, mount_oper
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_volume_eject_with_operation(this1, flags1, mount_operation1, cancellable1, callback1)
 }
@@ -11761,7 +12038,7 @@ func (this0 *VolumeImpl) EjectWithOperationFinish(result0 AsyncResultLike) (bool
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -11777,7 +12054,7 @@ func (this0 *VolumeImpl) EnumerateIdentifiers() []string {
 	ret1 := C.g_volume_enumerate_identifiers(this1)
 	var ret2 []string
 
-//DEBUG: ret1(array):flags = " conv_own_everything"
+	//DEBUG: ret1(array):flags = " conv_own_everything"
 	ret2 = make([]string, C._array_length(unsafe.Pointer(ret1)))
 	for i0 := range ret2 {
 		ret2[i0] = C.GoString((*(*[999999]*C.char)(unsafe.Pointer(ret1)))[i0])
@@ -11794,7 +12071,7 @@ func (this0 *VolumeImpl) GetActivationRoot() *File {
 	ret1 := C.g_volume_get_activation_root(this1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -11806,7 +12083,7 @@ func (this0 *VolumeImpl) GetDrive() *Drive {
 	ret1 := C.g_volume_get_drive(this1)
 	var ret2 *Drive
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Drive)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -11818,7 +12095,7 @@ func (this0 *VolumeImpl) GetIcon() *Icon {
 	ret1 := C.g_volume_get_icon(this1)
 	var ret2 *Icon
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Icon)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -11833,7 +12110,7 @@ func (this0 *VolumeImpl) GetIdentifier(kind0 string) string {
 	ret1 := C.g_volume_get_identifier(this1, kind1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -11846,7 +12123,7 @@ func (this0 *VolumeImpl) GetMount() *Mount {
 	ret1 := C.g_volume_get_mount(this1)
 	var ret2 *Mount
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Mount)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -11858,7 +12135,7 @@ func (this0 *VolumeImpl) GetName() string {
 	ret1 := C.g_volume_get_name(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -11871,7 +12148,7 @@ func (this0 *VolumeImpl) GetSortKey() string {
 	ret1 := C.g_volume_get_sort_key(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_none"
+	//DEBUG: ret1(utf8):flags = " conv_own_none"
 	ret2 = C.GoString(ret1)
 	return ret2
 }
@@ -11883,7 +12160,7 @@ func (this0 *VolumeImpl) GetSymbolicIcon() *Icon {
 	ret1 := C.g_volume_get_symbolic_icon(this1)
 	var ret2 *Icon
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Icon)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -11895,7 +12172,7 @@ func (this0 *VolumeImpl) GetUuid() string {
 	ret1 := C.g_volume_get_uuid(this1)
 	var ret2 string
 
-//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
 	ret2 = C.GoString(ret1)
 	C.g_free(unsafe.Pointer(ret1))
 	return ret2
@@ -11917,7 +12194,8 @@ func (this0 *VolumeImpl) Mount(flags0 MountMountFlags, mount_operation0 MountOpe
 		cancellable1 = (*C.GCancellable)(cancellable0.InheritedFromGCancellable())
 	}
 	if callback0 != nil {
-		callback1 = unsafe.Pointer(&callback0)}
+		callback1 = unsafe.Pointer(&callback0)
+	}
 	gobject.Holder.Grab(callback1)
 	C._g_volume_mount(this1, flags1, mount_operation1, cancellable1, callback1)
 }
@@ -11935,7 +12213,7 @@ func (this0 *VolumeImpl) MountFinish(result0 AsyncResultLike) (bool, error) {
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -11951,10 +12229,11 @@ func (this0 *VolumeImpl) ShouldAutomount() bool {
 	ret1 := C.g_volume_should_automount(this1)
 	var ret2 bool
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	return ret2
 }
+
 // blacklisted: VolumeIface (struct)
 type VolumeMonitorLike interface {
 	gobject.ObjectLike
@@ -11963,7 +12242,6 @@ type VolumeMonitorLike interface {
 
 type VolumeMonitor struct {
 	gobject.Object
-	
 }
 
 func ToVolumeMonitor(objlike gobject.ObjectLike) *VolumeMonitor {
@@ -12001,7 +12279,7 @@ func VolumeMonitorAdoptOrphanMount(mount0 MountLike) *Volume {
 	ret1 := C.g_volume_monitor_adopt_orphan_mount(mount1)
 	var ret2 *Volume
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Volume)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -12009,7 +12287,7 @@ func VolumeMonitorGet() *VolumeMonitor {
 	ret1 := C.g_volume_monitor_get()
 	var ret2 *VolumeMonitor
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*VolumeMonitor)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -12021,7 +12299,7 @@ func (this0 *VolumeMonitor) GetConnectedDrives() []*Drive {
 	ret1 := C.g_volume_monitor_get_connected_drives(this1)
 	var ret2 []*Drive
 
-//DEBUG: ret1(glist):flags = " conv_own_everything"
+	//DEBUG: ret1(glist):flags = " conv_own_everything"
 	for iter := (*_GList)(unsafe.Pointer(ret1)); iter != nil; iter = iter.next {
 		var elt *Drive
 		elt = (*Drive)(gobject.ObjectWrap(unsafe.Pointer((*C.GDrive)(iter.data)), false))
@@ -12041,7 +12319,7 @@ func (this0 *VolumeMonitor) GetMountForUuid(uuid0 string) *Mount {
 	ret1 := C.g_volume_monitor_get_mount_for_uuid(this1, uuid1)
 	var ret2 *Mount
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Mount)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -12053,7 +12331,7 @@ func (this0 *VolumeMonitor) GetMounts() []*Mount {
 	ret1 := C.g_volume_monitor_get_mounts(this1)
 	var ret2 []*Mount
 
-//DEBUG: ret1(glist):flags = " conv_own_everything"
+	//DEBUG: ret1(glist):flags = " conv_own_everything"
 	for iter := (*_GList)(unsafe.Pointer(ret1)); iter != nil; iter = iter.next {
 		var elt *Mount
 		elt = (*Mount)(gobject.ObjectWrap(unsafe.Pointer((*C.GMount)(iter.data)), false))
@@ -12073,7 +12351,7 @@ func (this0 *VolumeMonitor) GetVolumeForUuid(uuid0 string) *Volume {
 	ret1 := C.g_volume_monitor_get_volume_for_uuid(this1, uuid1)
 	var ret2 *Volume
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*Volume)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -12085,7 +12363,7 @@ func (this0 *VolumeMonitor) GetVolumes() []*Volume {
 	ret1 := C.g_volume_monitor_get_volumes(this1)
 	var ret2 []*Volume
 
-//DEBUG: ret1(glist):flags = " conv_own_everything"
+	//DEBUG: ret1(glist):flags = " conv_own_everything"
 	for iter := (*_GList)(unsafe.Pointer(ret1)); iter != nil; iter = iter.next {
 		var elt *Volume
 		elt = (*Volume)(gobject.ObjectWrap(unsafe.Pointer((*C.GVolume)(iter.data)), false))
@@ -12094,15 +12372,18 @@ func (this0 *VolumeMonitor) GetVolumes() []*Volume {
 	C.g_list_free(ret1)
 	return ret2
 }
+
 // blacklisted: VolumeMonitorClass (struct)
 // blacklisted: ZlibCompressor (object)
 // blacklisted: ZlibCompressorClass (struct)
 type ZlibCompressorFormat C.uint32_t
+
 const (
 	ZlibCompressorFormatZlib ZlibCompressorFormat = 0
 	ZlibCompressorFormatGzip ZlibCompressorFormat = 1
-	ZlibCompressorFormatRaw ZlibCompressorFormat = 2
+	ZlibCompressorFormatRaw  ZlibCompressorFormat = 2
 )
+
 // blacklisted: ZlibDecompressor (object)
 // blacklisted: ZlibDecompressorClass (struct)
 // blacklisted: action_name_is_valid (function)
@@ -12113,7 +12394,7 @@ func AppInfoGetAll() []*AppInfo {
 	ret1 := C.g_app_info_get_all()
 	var ret2 []*AppInfo
 
-//DEBUG: ret1(glist):flags = " conv_own_everything"
+	//DEBUG: ret1(glist):flags = " conv_own_everything"
 	for iter := (*_GList)(unsafe.Pointer(ret1)); iter != nil; iter = iter.next {
 		var elt *AppInfo
 		elt = (*AppInfo)(gobject.ObjectWrap(unsafe.Pointer((*C.GAppInfo)(iter.data)), false))
@@ -12129,7 +12410,7 @@ func AppInfoGetAllForType(content_type0 string) []*AppInfo {
 	ret1 := C.g_app_info_get_all_for_type(content_type1)
 	var ret2 []*AppInfo
 
-//DEBUG: ret1(glist):flags = " conv_own_everything"
+	//DEBUG: ret1(glist):flags = " conv_own_everything"
 	for iter := (*_GList)(unsafe.Pointer(ret1)); iter != nil; iter = iter.next {
 		var elt *AppInfo
 		elt = (*AppInfo)(gobject.ObjectWrap(unsafe.Pointer((*C.GAppInfo)(iter.data)), false))
@@ -12147,10 +12428,11 @@ func AppInfoGetDefaultForType(content_type0 string, must_support_uris0 bool) *Ap
 	ret1 := C.g_app_info_get_default_for_type(content_type1, must_support_uris1)
 	var ret2 *AppInfo
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*AppInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 // blacklisted: app_info_get_default_for_type_async (function)
 // blacklisted: app_info_get_default_for_type_finish (function)
 func AppInfoGetDefaultForUriScheme(uri_scheme0 string) *AppInfo {
@@ -12160,10 +12442,11 @@ func AppInfoGetDefaultForUriScheme(uri_scheme0 string) *AppInfo {
 	ret1 := C.g_app_info_get_default_for_uri_scheme(uri_scheme1)
 	var ret2 *AppInfo
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*AppInfo)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 // blacklisted: app_info_get_default_for_uri_scheme_async (function)
 // blacklisted: app_info_get_default_for_uri_scheme_finish (function)
 func AppInfoGetFallbackForType(content_type0 string) []*AppInfo {
@@ -12173,7 +12456,7 @@ func AppInfoGetFallbackForType(content_type0 string) []*AppInfo {
 	ret1 := C.g_app_info_get_fallback_for_type(content_type1)
 	var ret2 []*AppInfo
 
-//DEBUG: ret1(glist):flags = " conv_own_everything"
+	//DEBUG: ret1(glist):flags = " conv_own_everything"
 	for iter := (*_GList)(unsafe.Pointer(ret1)); iter != nil; iter = iter.next {
 		var elt *AppInfo
 		elt = (*AppInfo)(gobject.ObjectWrap(unsafe.Pointer((*C.GAppInfo)(iter.data)), false))
@@ -12189,7 +12472,7 @@ func AppInfoGetRecommendedForType(content_type0 string) []*AppInfo {
 	ret1 := C.g_app_info_get_recommended_for_type(content_type1)
 	var ret2 []*AppInfo
 
-//DEBUG: ret1(glist):flags = " conv_own_everything"
+	//DEBUG: ret1(glist):flags = " conv_own_everything"
 	for iter := (*_GList)(unsafe.Pointer(ret1)); iter != nil; iter = iter.next {
 		var elt *AppInfo
 		elt = (*AppInfo)(gobject.ObjectWrap(unsafe.Pointer((*C.GAppInfo)(iter.data)), false))
@@ -12211,7 +12494,7 @@ func AppInfoLaunchDefaultForUri(uri0 string, context0 AppLaunchContextLike) (boo
 	var ret2 bool
 	var err2 error
 
-//DEBUG: ret1(gboolean):flags = " conv_own_none"
+	//DEBUG: ret1(gboolean):flags = " conv_own_none"
 	ret2 = ret1 != 0
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -12219,6 +12502,7 @@ func AppInfoLaunchDefaultForUri(uri0 string, context0 AppLaunchContextLike) (boo
 	}
 	return ret2, err2
 }
+
 // blacklisted: app_info_launch_default_for_uri_async (function)
 // blacklisted: app_info_launch_default_for_uri_finish (function)
 func AppInfoResetTypeAssociations(content_type0 string) {
@@ -12227,6 +12511,7 @@ func AppInfoResetTypeAssociations(content_type0 string) {
 	defer C.free(unsafe.Pointer(content_type1))
 	C.g_app_info_reset_type_associations(content_type1)
 }
+
 // blacklisted: async_initable_newv_async (function)
 // blacklisted: bus_get (function)
 // blacklisted: bus_get_finish (function)
@@ -12246,7 +12531,32 @@ func AppInfoResetTypeAssociations(content_type0 string) {
 // blacklisted: content_type_get_mime_dirs (function)
 // blacklisted: content_type_get_mime_type (function)
 // blacklisted: content_type_get_symbolic_icon (function)
-// blacklisted: content_type_guess (function)
+func ContentTypeGuess(filename0 string, data0 []uint8) (bool, string) {
+	var filename1 *C.char
+	var data1 *C.uint8_t
+	var data_size1 C.uint64_t
+	var result_uncertain1 C.int
+	filename1 = _GoStringToGString(filename0)
+	defer C.free(unsafe.Pointer(filename1))
+	data1 = (*C.uint8_t)(C.malloc(C.size_t(int(unsafe.Sizeof(*data1)) * len(data0))))
+	defer C.free(unsafe.Pointer(data1))
+	for i, e := range data0 {
+		(*(*[999999]C.uint8_t)(unsafe.Pointer(data1)))[i] = C.uint8_t(e)
+	}
+	data_size1 = C.uint64_t(len(data0))
+	ret1 := C.g_content_type_guess(filename1, data1, data_size1, &result_uncertain1)
+	var result_uncertain2 bool
+	var ret2 string
+
+	//DEBUG: result_uncertain1(gboolean):flags = " conv_own_everything"
+	result_uncertain2 = result_uncertain1 != 0
+
+	//DEBUG: ret1(utf8):flags = " conv_own_everything"
+	ret2 = C.GoString(ret1)
+	C.g_free(unsafe.Pointer(ret1))
+	return result_uncertain2, ret2
+}
+
 // blacklisted: content_type_guess_for_tree (function)
 // blacklisted: content_type_is_a (function)
 // blacklisted: content_type_is_mime_type (function)
@@ -12291,7 +12601,7 @@ func FileNewForCommandlineArg(arg0 string) *File {
 	ret1 := C.g_file_new_for_commandline_arg(arg1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -12305,7 +12615,7 @@ func FileNewForCommandlineArgAndCwd(arg0 string, cwd0 string) *File {
 	ret1 := C.g_file_new_for_commandline_arg_and_cwd(arg1, cwd1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -12316,7 +12626,7 @@ func FileNewForPath(path0 string) *File {
 	ret1 := C.g_file_new_for_path(path1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -12327,7 +12637,7 @@ func FileNewForUri(uri0 string) *File {
 	ret1 := C.g_file_new_for_uri(uri1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
@@ -12342,10 +12652,10 @@ func FileNewTmp(tmpl0 string) (*FileIOStream, *File, error) {
 	var ret2 *File
 	var err2 error
 
-//DEBUG: iostream1(interface):flags = " conv_own_everything"
+	//DEBUG: iostream1(interface):flags = " conv_own_everything"
 	iostream2 = (*FileIOStream)(gobject.ObjectWrap(unsafe.Pointer(iostream1), false))
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	if err1 != nil {
 		err2 = ((*_GError)(unsafe.Pointer(err1))).ToGError()
@@ -12353,6 +12663,7 @@ func FileNewTmp(tmpl0 string) (*FileIOStream, *File, error) {
 	}
 	return iostream2, ret2, err2
 }
+
 // blacklisted: file_new_tmp_async (function)
 // blacklisted: file_new_tmp_dir_async (function)
 // blacklisted: file_new_tmp_dir_finish (function)
@@ -12364,10 +12675,11 @@ func FileParseName(parse_name0 string) *File {
 	ret1 := C.g_file_parse_name(parse_name1)
 	var ret2 *File
 
-//DEBUG: ret1(interface):flags = " conv_own_everything"
+	//DEBUG: ret1(interface):flags = " conv_own_everything"
 	ret2 = (*File)(gobject.ObjectWrap(unsafe.Pointer(ret1), false))
 	return ret2
 }
+
 // blacklisted: icon_deserialize (function)
 // blacklisted: icon_new_for_string (function)
 // blacklisted: initable_newv (function)
@@ -12439,7 +12751,6 @@ func FileParseName(parse_name0 string) *File {
 // blacklisted: unix_mount_points_get (function)
 // blacklisted: unix_mounts_changed_since (function)
 // blacklisted: unix_mounts_get (function)
-
 
 func (gs *Settings) GetSchema() *SettingsSchema {
 	var gsSchema *SettingsSchema

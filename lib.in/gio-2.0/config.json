@@ -21,7 +21,8 @@
 			"file_new_for_path",
 			"file_new_for_uri",
 			"file_new_tmp",
-			"file_parse_name"
+			"file_parse_name",
+			"content_type_guess"
 		],
 		"objects": [
 			"Cancellable",
